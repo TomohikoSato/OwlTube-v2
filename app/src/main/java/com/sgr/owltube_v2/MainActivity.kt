@@ -7,6 +7,17 @@ import com.sgr.owltube_v2.dummy.DummyContent
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() , TopFragment.OnListFragmentInteractionListener{
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        switchFragment()
+    }
+
+    override fun onListFragmentInteraction(item: DummyContent.DummyItem) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
@@ -27,15 +38,5 @@ class MainActivity : AppCompatActivity() , TopFragment.OnListFragmentInteraction
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, TopFragment.newInstance())
                 .commit()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-    }
-
-    override fun onListFragmentInteraction(item: DummyContent.DummyItem) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
