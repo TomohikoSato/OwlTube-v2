@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface YoutubeDataAPI {
 
     @GET("videos?part=snippet,statistics&chart=mostPopular&regionCode=JP&maxResults=" + MAX_RESULTS + "&key=" + BuildConfig.YOUTUBE_DATA_API_KEY)
-    fun videoListPopular(@Query("pageToken") pageToken: String?): Single<Popular>
+    fun popular(@Query("pageToken") pageToken: String?): Single<Popular>
 
 /*
     @GET("search?part=snippet&regionCode=JP&type=video&maxResults=" + MAX_RESULTS + "&key=" + BuildConfig.YOUTUBE_DATA_API_KEY)
@@ -28,7 +28,5 @@ interface YoutubeDataAPI {
 
     companion object {
         const val MAX_RESULTS = 50
-        const val PATH = "hoge"
     }
-
 }
