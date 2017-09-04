@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() , TopFragment.OnListFragmentInteraction
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         switchFragment()
     }
 
@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() , TopFragment.OnListFragmentInteraction
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
                 switchFragment()
