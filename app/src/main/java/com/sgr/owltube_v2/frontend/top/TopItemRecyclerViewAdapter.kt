@@ -1,12 +1,13 @@
-package com.sgr.owltube_v2
+package com.sgr.owltube_v2.frontend.top
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.sgr.owltube_v2.R
 
-import com.sgr.owltube_v2.TopFragment.OnListFragmentInteractionListener
+import com.sgr.owltube_v2.frontend.top.TopFragment.OnListFragmentInteractionListener
 import com.sgr.owltube_v2.dummy.DummyContent.DummyItem
 
 class TopItemRecyclerViewAdapter(private val values: List<DummyItem>, private val listener: OnListFragmentInteractionListener)

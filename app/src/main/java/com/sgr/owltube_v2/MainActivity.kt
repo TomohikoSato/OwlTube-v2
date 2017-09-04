@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import com.sgr.owltube_v2.dummy.DummyContent
+import com.sgr.owltube_v2.frontend.top.TopFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() , TopFragment.OnListFragmentInteractionListener{

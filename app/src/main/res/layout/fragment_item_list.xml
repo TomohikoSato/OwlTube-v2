@@ -6,5 +6,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.sgr.owltube_v2.TopFragment"
+    tools:context=".frontend.top.TopFragment"
     tools:listitem="@layout/fragment_item" />

@@ -1,7 +1,5 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -17,6 +15,13 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        def properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        // local.propertiesのapi_keyに定義されている値を読み込む
+        def API_KEY = properties.getProperty("youtube_data_api_key")
+        // ついでにbuildConfigFieldに定義
+        buildConfigField("String", "YOUTUBE_DATA_API_KEY", "\"${API_KEY}\"")
     }
     buildTypes {
         release {
@@ -32,11 +37,16 @@ dependencies {
     def supportVersion = "26.0.1"
     implementation "com.android.support:appcompat-v7:$supportVersion"
     implementation "com.android.support:design:$supportVersion"
+    implementation "com.android.support:support-v4:$supportVersion"
+    implementation "com.android.support:recyclerview-v7:$supportVersion"
+
     implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta1'
 
+    def retrofitVersion = '2.3.0'
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
 
-    implementation 'com.android.support:support-v4:26.0.1'
-    implementation 'com.android.support:recyclerview-v7:26.0.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
