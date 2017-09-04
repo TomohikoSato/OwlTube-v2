@@ -18,6 +18,9 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.logging.HttpLoggingInterceptor.Level.*
 
 
 class TopFragment : Fragment() {
@@ -31,16 +34,25 @@ class TopFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
+        val httpClient = OkHttpClient.Builder()
+                .addInterceptor(HttpLoggingInterceptor().apply {
+                    level = BODY
+                }).build()
+
         val youtubeDataApi = Retrofit.Builder()
                 .baseUrl("https://www.googleapis.com/youtube/v3/")
                 .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build().create(YoutubeDataAPI::class.java)
+                .client(httpClient)
+                .build()
+                .create(YoutubeDataAPI::class.java)
+
 
         youtubeDataApi.popular(null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe{popular -> Log.d("hoge", popular.toString())}
+                .subscribe { popular -> Log.d("hoge", popular.toString()) }
 
         return (inflater.inflate(R.layout.fragment_item_list, container, false) as RecyclerView).apply {
             adapter = TopItemRecyclerViewAdapter(DummyContent.ITEMS, listener)
