@@ -12,6 +12,7 @@ import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.dummy.DummyContent
 import com.sgr.owltube_v2.dummy.DummyContent.DummyItem
 import com.sgr.owltube_v2.infra.webapi.YoutubeDataAPI
+import dagger.android.support.AndroidSupportInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
@@ -57,6 +58,7 @@ class TopFragment : Fragment() {
     }
 
     override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this);
         super.onAttach(context)
         if (context is OnListFragmentInteractionListener) {
             listener = context

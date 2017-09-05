@@ -8,12 +8,14 @@ import dagger.android.support.AndroidSupportInjectionModule
 @Component(modules = arrayOf(AppModule::class, MainActivityModule::class))
 interface OwlTubeV2AppComponent {
 
+/*
     @Component.Builder
     interface Builder {
         @BindsInstance
         fun application(application: OwlTubeV2App): Builder
         fun build(): OwlTubeV2AppComponent
     }
+*/
 
 
     fun inject(app: OwlTubeV2App)
