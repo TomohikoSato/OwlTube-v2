@@ -14,10 +14,8 @@ class OwlTubeV2App : Application(), HasActivityInjector {
     @Override
     override fun onCreate() {
         super.onCreate()
-/*
-        DaggerOwlTubeV2AppComponent.create()
-                .inject(this);
-*/
+/*        DaggerOwlTubeV2AppComponent.create()
+                .inject(this);*/
     }
 
     override fun activityInjector(): AndroidInjector<Activity> {
