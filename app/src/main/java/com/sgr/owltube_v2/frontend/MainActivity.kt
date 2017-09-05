@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.dummy.DummyContent
 import com.sgr.owltube_v2.frontend.top.TopFragment
@@ -12,10 +13,13 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Retrofit
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), TopFragment.OnListFragmentInteractionListener, HasSupportFragmentInjector {
     @Inject lateinit var androidInjector: DispatchingAndroidInjector<Fragment>
+
+    @Inject lateinit var retrofit : Retrofit
 
     override fun supportFragmentInjector() = androidInjector
 
@@ -25,6 +29,7 @@ class MainActivity : AppCompatActivity(), TopFragment.OnListFragmentInteractionL
         setContentView(R.layout.activity_main)
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         switchFragment()
+        Log.d("hoge", retrofit.toString())
     }
 
     override fun onListFragmentInteraction(item: DummyContent.DummyItem) {

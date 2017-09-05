@@ -1,13 +1,15 @@
 package com.sgr.owltube_v2.di
 
 import com.sgr.owltube_v2.OwlTubeV2App
-import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjectionModule
 import dagger.android.support.AndroidSupportInjectionModule
+import javax.inject.Singleton
 
-@Component(modules = arrayOf(AppModule::class, MainActivityModule::class, AndroidSupportInjectionModule::class
-))
+@Singleton
+@Component(modules = arrayOf(
+        AndroidSupportInjectionModule::class,
+        AppModule::class,
+        ActivitiesModule::class))
 interface OwlTubeV2AppComponent {
 
 /*
