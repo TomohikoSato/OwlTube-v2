@@ -3,9 +3,11 @@ package com.sgr.owltube_v2.di
 import com.sgr.owltube_v2.OwlTubeV2App
 import dagger.BindsInstance
 import dagger.Component
+import dagger.android.AndroidInjectionModule
 import dagger.android.support.AndroidSupportInjectionModule
 
-@Component(modules = arrayOf(AppModule::class, MainActivityModule::class))
+@Component(modules = arrayOf(AppModule::class, MainActivityModule::class, AndroidSupportInjectionModule::class
+))
 interface OwlTubeV2AppComponent {
 
 /*
