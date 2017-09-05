@@ -9,18 +9,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sgr.owltube_v2.R
-
 import com.sgr.owltube_v2.dummy.DummyContent
 import com.sgr.owltube_v2.dummy.DummyContent.DummyItem
 import com.sgr.owltube_v2.infra.webapi.YoutubeDataAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import okhttp3.logging.HttpLoggingInterceptor.Level.*
 
 
 class TopFragment : Fragment() {
@@ -43,14 +42,12 @@ class TopFragment : Fragment() {
         val youtubeDataApi = Retrofit.Builder()
                 .baseUrl("https://www.googleapis.com/youtube/v3/")
                 .addConverterFactory(MoshiConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .client(httpClient)
                 .build()
                 .create(YoutubeDataAPI::class.java)
 
-
         youtubeDataApi.popular(null)
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { popular -> Log.d("hoge", popular.toString()) }
 
