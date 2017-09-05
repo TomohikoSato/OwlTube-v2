@@ -34,7 +34,7 @@ class TopItemRecyclerViewAdapter(private val values: List<DummyItem>, private va
         return values.size
     }
 
-    inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val idView: TextView
         val contentView: TextView
         var item: DummyItem? = null
