@@ -9,7 +9,6 @@ import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.dummy.DummyContent
 import com.sgr.owltube_v2.frontend.top.TopFragment
 import dagger.android.AndroidInjection
-import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.activity_main.*
