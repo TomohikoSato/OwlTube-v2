@@ -2,12 +2,12 @@ package com.sgr.owltube_v2
 
 import android.app.Activity
 import android.app.Application
-import com.sgr.owltube_v2.di.DaggerOwlTubeV2AppComponent
+import com.sgr.owltube_v2.di.DaggerAppComponent
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import javax.inject.Inject
 
-class OwlTubeV2App : Application(), HasActivityInjector {
+class App : Application(), HasActivityInjector {
     @Inject
     lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Activity>
 
@@ -15,7 +15,7 @@ class OwlTubeV2App : Application(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
-        DaggerOwlTubeV2AppComponent.create()
+        DaggerAppComponent.create()
                 .inject(this)
     }
 }
