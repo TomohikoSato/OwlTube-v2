@@ -3,16 +3,13 @@ package com.sgr.owltube_v2.frontend.top
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sgr.owltube_v2.R
-import com.sgr.owltube_v2.dummy.DummyContent
-import com.sgr.owltube_v2.dummy.DummyContent.DummyItem
+import com.sgr.owltube_v2.frontend.top.dummy.DummyContent
+import com.sgr.owltube_v2.frontend.top.dummy.DummyContent.DummyItem
 import dagger.android.support.DaggerFragment
-import retrofit2.Retrofit
-import javax.inject.Inject
 
 class TopFragment : DaggerFragment() {
     private lateinit var listenerListItem: OnTopFragmentListItemInteractionListener

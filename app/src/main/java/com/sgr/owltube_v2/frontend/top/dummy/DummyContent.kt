@@ -1,7 +1,6 @@
-package com.sgr.owltube_v2.dummy
+package com.sgr.owltube_v2.frontend.top.dummy
 
-import java.util.ArrayList
-import java.util.HashMap
+import java.util.*
 
 /**
  * Helper class for providing sample content for user interfaces created by

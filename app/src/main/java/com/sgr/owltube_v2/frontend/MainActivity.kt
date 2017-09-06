@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.util.Log
 import com.sgr.owltube_v2.R
-import com.sgr.owltube_v2.dummy.DummyContent
+import com.sgr.owltube_v2.frontend.top.dummy.DummyContent
 import com.sgr.owltube_v2.frontend.top.TopFragment
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
