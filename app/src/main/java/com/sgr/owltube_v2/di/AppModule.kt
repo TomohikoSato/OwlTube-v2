@@ -1,5 +1,6 @@
 package com.sgr.owltube_v2.di
 
+import com.sgr.owltube_v2.infra.webapi.YoutubeDataAPI
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -28,7 +29,7 @@ class AppModule {
             .build()
 
 
-    // TODO: YoutubeかGitHubか向先替えれるように設定したい
+    // TODO: YoutubeかGoogleか向先替えれるように設定したい
     @Singleton
     @Provides
     fun provideRetrofit(oktHttpClient: OkHttpClient, moshi: Moshi): Retrofit
@@ -38,4 +39,11 @@ class AppModule {
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
             .build()
+
+    @Singleton
+    @Provides
+    fun provideYoutubeDataApi(retrofit: Retrofit): YoutubeDataAPI {
+        return retrofit.create(YoutubeDataAPI::class.java)
+    }
+
 }
