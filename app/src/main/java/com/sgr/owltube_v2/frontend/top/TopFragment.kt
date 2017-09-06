@@ -2,7 +2,6 @@ package com.sgr.owltube_v2.frontend.top
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,11 +10,11 @@ import android.view.ViewGroup
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.dummy.DummyContent
 import com.sgr.owltube_v2.dummy.DummyContent.DummyItem
-import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.DaggerFragment
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class TopFragment : Fragment() {
+class TopFragment : DaggerFragment() {
     private lateinit var listener: OnListFragmentInteractionListener
 
     @Inject lateinit var retrofit : Retrofit
@@ -35,7 +34,6 @@ class TopFragment : Fragment() {
     }
 
     override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
         super.onAttach(context)
         if (context is OnListFragmentInteractionListener) {
             listener = context
