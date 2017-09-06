@@ -23,7 +23,7 @@ interface YoutubeDataAPI {
 /*
 
     @GET("search?part=snippet&maxResults=10&type=video&key=" + BuildConfig.YOUTUBE_DATA_API_KEY)
-    fun relatedToVideoId(@Query("relatedToVideoId") videoId: String): Single<Search>
+    fun relatedToVideoId(@Query("relatedToVideoId") id: String): Single<Search>
 */
 
     companion object {

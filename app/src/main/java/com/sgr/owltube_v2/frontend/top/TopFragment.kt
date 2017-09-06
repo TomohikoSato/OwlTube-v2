@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sgr.owltube_v2.R
-import com.sgr.owltube_v2.frontend.top.dummy.DummyContent
-import com.sgr.owltube_v2.frontend.top.dummy.DummyContent.DummyItem
+import com.sgr.owltube_v2.domain.Video
 import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
 class TopFragment : DaggerFragment() {
-    private lateinit var listenerListItem: OnTopFragmentListItemInteractionListener
+    @Inject lateinit var topItemViewModel: TopItemViewModel
+
+    private lateinit var listener: OnTopFragmentListItemInteractionListener
 
     companion object {
         fun newInstance(): TopFragment {
@@ -20,23 +22,28 @@ class TopFragment : DaggerFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return (inflater.inflate(R.layout.fragment_item_list, container, false) as RecyclerView).apply {
-            adapter = TopItemRecyclerViewAdapter(DummyContent.ITEMS, listenerListItem)
-        }
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnTopFragmentListItemInteractionListener) {
-            listenerListItem = context
+            listener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnTopFragmentListItemInteractionListener")
         }
     }
 
+    override fun onCreate (savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        topItemViewModel.requestItems()
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return (inflater.inflate(R.layout.fragment_item_list, container, false) as RecyclerView).apply {
+            adapter = TopItemRecyclerViewAdapter(topItemViewModel.videos, listener)
+        }
+    }
+
     interface OnTopFragmentListItemInteractionListener {
-        fun onTopFragmentListItemInteraction(item: DummyItem)
+        fun onTopFragmentListItemInteraction(video: Video)
     }
 }

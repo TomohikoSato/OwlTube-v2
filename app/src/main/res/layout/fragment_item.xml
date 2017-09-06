@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="item"
-            type="com.sgr.owltube_v2.frontend.top.dummy.DummyContent.DummyItem" />
+            name="video"
+            type="com.sgr.owltube_v2.domain.Video" />
     </data>
 
     <LinearLayout
@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
-            android:text="@{item.id}"
+            android:text="@{video.id}"
             android:textAppearance="?attr/textAppearanceListItem"
             tools:text="title" />
 
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
-            android:text="@{item.content}"
+            android:text="@{video.title}"
             android:textAppearance="?attr/textAppearanceListItem"
             tools:text="content" />
     </LinearLayout>

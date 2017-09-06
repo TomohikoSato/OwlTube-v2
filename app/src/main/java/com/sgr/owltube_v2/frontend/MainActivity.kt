@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.util.Log
 import com.sgr.owltube_v2.R
-import com.sgr.owltube_v2.frontend.top.dummy.DummyContent
+import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.top.TopFragment
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,7 +22,7 @@ class MainActivity : DaggerAppCompatActivity(), TopFragment.OnTopFragmentListIte
         Log.d("hoge", retrofit.toString())
     }
 
-    override fun onTopFragmentListItemInteraction(item: DummyContent.DummyItem) {
+    override fun onTopFragmentListItemInteraction(video: Video) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
