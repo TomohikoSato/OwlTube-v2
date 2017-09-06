@@ -15,9 +15,7 @@ import retrofit2.Retrofit
 import javax.inject.Inject
 
 class TopFragment : DaggerFragment() {
-    private lateinit var listener: OnListFragmentInteractionListener
-
-    @Inject lateinit var retrofit : Retrofit
+    private lateinit var listenerListItem: OnTopFragmentListItemInteractionListener
 
     companion object {
         fun newInstance(): TopFragment {
@@ -27,22 +25,21 @@ class TopFragment : DaggerFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        Log.d("fugafuga", retrofit.toString())
         return (inflater.inflate(R.layout.fragment_item_list, container, false) as RecyclerView).apply {
-            adapter = TopItemRecyclerViewAdapter(DummyContent.ITEMS, listener)
+            adapter = TopItemRecyclerViewAdapter(DummyContent.ITEMS, listenerListItem)
         }
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnListFragmentInteractionListener) {
-            listener = context
+        if (context is OnTopFragmentListItemInteractionListener) {
+            listenerListItem = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
+            throw RuntimeException(context.toString() + " must implement OnTopFragmentListItemInteractionListener")
         }
     }
 
-    interface OnListFragmentInteractionListener {
-        fun onListFragmentInteraction(item: DummyItem)
+    interface OnTopFragmentListItemInteractionListener {
+        fun onTopFragmentListItemInteraction(item: DummyItem)
     }
 }

@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.sgr.owltube_v2.R
 
-import com.sgr.owltube_v2.frontend.top.TopFragment.OnListFragmentInteractionListener
+import com.sgr.owltube_v2.frontend.top.TopFragment.OnTopFragmentListItemInteractionListener
 import com.sgr.owltube_v2.dummy.DummyContent.DummyItem
 
-class TopItemRecyclerViewAdapter(private val values: List<DummyItem>, private val listener: OnListFragmentInteractionListener)
+internal class TopItemRecyclerViewAdapter(private val values: List<DummyItem>, private val listenerListItem: OnTopFragmentListItemInteractionListener)
     : RecyclerView.Adapter<TopItemRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,7 +25,7 @@ class TopItemRecyclerViewAdapter(private val values: List<DummyItem>, private va
             idView.text = values[position].id
             contentView.text = values[position].content
             view.setOnClickListener {
-                listener.onListFragmentInteraction(holder.item ?: return@setOnClickListener)
+                listenerListItem.onTopFragmentListItemInteraction(holder.item ?: return@setOnClickListener)
             }
         }
     }
@@ -34,7 +34,7 @@ class TopItemRecyclerViewAdapter(private val values: List<DummyItem>, private va
         return values.size
     }
 
-    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    internal class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val idView: TextView
         val contentView: TextView
         var item: DummyItem? = null

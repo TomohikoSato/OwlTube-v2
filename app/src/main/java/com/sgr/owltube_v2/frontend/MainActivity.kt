@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class MainActivity : DaggerAppCompatActivity(), TopFragment.OnListFragmentInteractionListener{
+class MainActivity : DaggerAppCompatActivity(), TopFragment.OnTopFragmentListItemInteractionListener {
     @Inject lateinit var retrofit : Retrofit
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +22,7 @@ class MainActivity : DaggerAppCompatActivity(), TopFragment.OnListFragmentIntera
         Log.d("hoge", retrofit.toString())
     }
 
-    override fun onListFragmentInteraction(item: DummyContent.DummyItem) {
+    override fun onTopFragmentListItemInteraction(item: DummyContent.DummyItem) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
