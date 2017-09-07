@@ -17,12 +17,12 @@
 
         <ImageView
             android:id="@+id/thumbnail"
-            app:imageUrl="@{video.thumbnailUrl}"
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:background="@android:color/holo_orange_light"
             android:contentDescription="thumbnail"
             android:scaleType="centerCrop"
+            app:imageUrl="@{video.thumbnailUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
