@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface YoutubeDataAPI {
 
-    @GET("videos?part=snippet,statistics&chart=mostPopular&regionCode=JP&maxResults=" + MAX_RESULTS + "&key=" + BuildConfig.YOUTUBE_DATA_API_KEY)
+    @GET("videos?part=snippet,statistics,contentDetails&chart=mostPopular&regionCode=JP&maxResults=" + MAX_RESULTS + "&key=" + BuildConfig.YOUTUBE_DATA_API_KEY)
     fun popular(@Query("pageToken") pageToken: String?): Single<Popular>
 
 /*
