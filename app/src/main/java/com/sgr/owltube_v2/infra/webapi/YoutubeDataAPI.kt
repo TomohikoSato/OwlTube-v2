@@ -1,6 +1,7 @@
 package com.sgr.owltube_v2.infra.webapi
 
 import com.sgr.owltube_v2.BuildConfig
+import com.sgr.owltube_v2.infra.webapi.response.channels.Channels
 import com.sgr.owltube_v2.infra.webapi.response.popular.Popular
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -10,6 +11,9 @@ interface YoutubeDataAPI {
 
     @GET("videos?part=snippet,statistics,contentDetails&chart=mostPopular&regionCode=JP&maxResults=" + MAX_RESULTS + "&key=" + BuildConfig.YOUTUBE_DATA_API_KEY)
     fun popular(@Query("pageToken") pageToken: String?): Single<Popular>
+
+    @GET("channels?part=snippet&key=" + BuildConfig.YOUTUBE_DATA_API_KEY)
+    fun channels(@Query("id") id: List<String>): Single<Channels>
 
 /*
     @GET("search?part=snippet&regionCode=JP&type=video&maxResults=" + MAX_RESULTS + "&key=" + BuildConfig.YOUTUBE_DATA_API_KEY)
