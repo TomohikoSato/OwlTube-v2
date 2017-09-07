@@ -4,9 +4,4 @@ data class Video(val id: String,
                  val title: String,
                  val channelTitle: String,
                  val viewCount: String,
-                 val thumbnailUrl: String) {
-    fun fromResponse() {
-
-    }
-}
-
+                 val thumbnailUrl: String)

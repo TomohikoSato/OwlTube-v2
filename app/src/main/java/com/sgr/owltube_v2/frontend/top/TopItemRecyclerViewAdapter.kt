@@ -41,7 +41,10 @@ internal class TopItemRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: TopItemRecyclerViewAdapter.ViewHolder, position: Int) {
-        holder.binding.video = videos[position]
+        holder.binding.apply {
+            video = videos[position]
+            executePendingBindings()
+        }
     }
 
     override fun getItemCount(): Int {
