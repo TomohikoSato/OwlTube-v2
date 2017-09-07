@@ -6,35 +6,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.sgr.owltube_v2.databinding.FragmentItemBinding
 import com.sgr.owltube_v2.domain.Video
+import com.sgr.owltube_v2.frontend.common.ObservableRecyclerAdapter
 import com.sgr.owltube_v2.frontend.top.TopFragment.OnTopFragmentListItemInteractionListener
 
 internal class TopItemRecyclerViewAdapter(
         private val videos: ObservableList<Video>, private val listener: OnTopFragmentListItemInteractionListener)
-    : RecyclerView.Adapter<TopItemRecyclerViewAdapter.ViewHolder>() {
-
-    init {
-        videos.addOnListChangedCallback(object : ObservableList.OnListChangedCallback<ObservableList<Video>>() {
-            override fun onItemRangeRemoved(videos: ObservableList<Video>?, p1: Int, p2: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onItemRangeChanged(videos: ObservableList<Video>?, p1: Int, p2: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onItemRangeInserted(videos: ObservableList<Video>?, p1: Int, p2: Int) {
-                notifyDataSetChanged()
-            }
-
-            override fun onItemRangeMoved(videos: ObservableList<Video>?, p1: Int, p2: Int, p3: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onChanged(videos: ObservableList<Video>?) {
-                notifyDataSetChanged()
-            }
-        })
-    }
+    : ObservableRecyclerAdapter<Video, TopItemRecyclerViewAdapter.ViewHolder>(videos) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(FragmentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
