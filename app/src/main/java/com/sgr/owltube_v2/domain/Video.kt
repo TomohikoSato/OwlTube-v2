@@ -4,4 +4,5 @@ data class Video(val id: String,
                  val title: String,
                  val channelTitle: String,
                  val viewCount: String,
-                 val thumbnailUrl: String)
+                 val thumbnailUrl: String,
+                 val publishedAt: String)
