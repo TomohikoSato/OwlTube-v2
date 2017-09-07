@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,29 +10,76 @@
             type="com.sgr.owltube_v2.domain.Video" />
     </data>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:padding="16dp">
 
         <TextView
-            android:id="@+id/id"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:text="@{video.id}"
-            android:textAppearance="?attr/textAppearanceListItem"
-            tools:text="title" />
-
-        <TextView
-            android:id="@+id/content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:text="@{video.title}"
-            android:textAppearance="?attr/textAppearanceListItem"
-            tools:text="content" />
-    </LinearLayout>
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/userThumbnail"
+            app:layout_constraintTop_toBottomOf="@+id/thumbnail"
+            tools:text="タイトル" />
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:contentDescription="thumbnail"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_launcher_foreground" />
+
+        <ImageView
+            android:id="@+id/userThumbnail"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/thumbnail"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/channelTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text="@{video.channelTitle}"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/userThumbnail"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            tools:text="チャンネルタイトル" />
+
+        <TextView
+            android:id="@+id/viewCountKey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="視聴回数"
+            android:textSize="14sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/channelTitle"
+            app:layout_constraintStart_toEndOf="@+id/channelTitle" />
+
+        <TextView
+            android:id="@+id/viewCountValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{video.viewCount}"
+            android:textSize="14sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/viewCountKey"
+            app:layout_constraintStart_toEndOf="@+id/viewCountKey"
+            tools:text="40万回" />
+    </android.support.constraint.ConstraintLayout>
 </layout>
