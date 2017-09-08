@@ -46,7 +46,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="8dp"
             android:contentDescription="channelThumbnail"
-            app:imageUrl="@{video.channelThumbnailUrl}"
+            app:circleCropImageUrl="@{video.channelThumbnailUrl}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/thumbnail"
             app:srcCompat="@mipmap/ic_launcher_round" />
