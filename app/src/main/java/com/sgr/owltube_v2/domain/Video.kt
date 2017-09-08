@@ -6,10 +6,10 @@ import org.threeten.bp.*
 data class Video(val id: String,
                  val title: String,
                  val channel: Channel,
-                 val viewCount: String,
+                 private val _viewCount: String,
                  val thumbnailUrl: String,
-                 val _publishedAt: String,
-                 val _duration: String) {
+                 private val _publishedAt: String,
+                 private val _duration: String) {
 
     val publishedAt: String
         get() {
@@ -25,6 +25,12 @@ data class Video(val id: String,
             if (duration.toMinutes() > 0) return String.format("%d分前", duration.toMinutes())
 
             return String.format("%d秒前", duration.seconds)
+        }
+
+    val viewCount: String
+        get() {
+            val l = _viewCount.toLong()
+            return if (l > 9999) String.format("%d万回", l / 10000) else String.format("%d回", l % 100 * 100)
         }
 
     val duration: String
