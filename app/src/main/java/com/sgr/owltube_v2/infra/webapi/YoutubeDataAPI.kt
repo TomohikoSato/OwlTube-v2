@@ -13,7 +13,7 @@ interface YoutubeDataAPI {
     fun popular(@Query("pageToken") pageToken: String?): Single<Popular>
 
     @GET("channels?part=snippet&key=" + BuildConfig.YOUTUBE_DATA_API_KEY)
-    fun channels(@Query("id") id: List<String>): Single<Channels>
+    fun channels(@Query("id") id: String): Single<Channels>
 
 /*
     @GET("search?part=snippet&regionCode=JP&type=video&maxResults=" + MAX_RESULTS + "&key=" + BuildConfig.YOUTUBE_DATA_API_KEY)

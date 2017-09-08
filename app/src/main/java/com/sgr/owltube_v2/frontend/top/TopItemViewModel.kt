@@ -14,7 +14,9 @@ class TopItemViewModel @Inject constructor(private val videoRepository: VideoRep
     fun requestItems() {
         videoRepository.fetchPopular()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ videos -> this.videos.addAll(videos) },
-                        { t -> Log.e("TopItemViewMoedel", t.toString()) })
+                .subscribe({ videos ->
+                    this.videos.clear()
+                    this.videos.addAll(videos)
+                }, { t -> Log.e("TopItemViewMoedel", t.toString()) })
     }
 }

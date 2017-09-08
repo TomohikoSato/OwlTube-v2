@@ -47,8 +47,9 @@ class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDat
         //       Single.zip(channels, )
 
         val popular = youtubeDataAPI.popular(null)
-        val channels = popular.map { p -> p.items.map { items -> items.snippet.channelId } }
-                .flatMap { ids -> youtubeDataAPI.channels(ids) }
+        val channels = popular.map { p ->
+            p.items.map{item -> item.snippet.channelId}.joinTo(StringBuilder())
+        }.flatMap { ids -> youtubeDataAPI.channels(ids.toString()) }
 
         return popular.zipWith(channels, BiFunction { p: Popular, c: Channels -> createVideo(p, c) })
 /*        return youtubeDataAPI.popular(null)
