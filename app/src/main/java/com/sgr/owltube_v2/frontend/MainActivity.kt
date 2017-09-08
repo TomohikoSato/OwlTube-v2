@@ -1,9 +1,11 @@
 package com.sgr.owltube_v2.frontend
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.domain.Video
+import com.sgr.owltube_v2.frontend.player.PlayerActivity
 import com.sgr.owltube_v2.frontend.top.TopFragment
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,7 +20,7 @@ class MainActivity : DaggerAppCompatActivity(), TopFragment.OnTopFragmentListIte
     }
 
     override fun onClickItem(video: Video) {
-
+        startActivity(Intent(this, PlayerActivity::class.java))
     }
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
