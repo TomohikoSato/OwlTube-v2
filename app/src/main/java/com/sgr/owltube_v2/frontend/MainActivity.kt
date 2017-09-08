@@ -17,8 +17,8 @@ class MainActivity : DaggerAppCompatActivity(), TopFragment.OnTopFragmentListIte
         switchFragment()
     }
 
-    override fun onTopFragmentListItemInteraction(video: Video) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onClickItem(video: Video) {
+
     }
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->

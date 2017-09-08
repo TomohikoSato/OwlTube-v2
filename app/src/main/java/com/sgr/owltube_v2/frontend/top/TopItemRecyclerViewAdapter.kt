@@ -20,6 +20,7 @@ internal class TopItemRecyclerViewAdapter(
     override fun onBindViewHolder(holder: TopItemRecyclerViewAdapter.ViewHolder, position: Int) {
         holder.binding.apply {
             video = videos[position]
+            root.setOnClickListener { listener.onClickItem(video) }
             executePendingBindings()
         }
     }

@@ -44,6 +44,6 @@ class TopFragment : DaggerFragment() {
     }
 
     interface OnTopFragmentListItemInteractionListener {
-        fun onTopFragmentListItemInteraction(video: Video)
+        fun onClickItem(video: Video)
     }
 }
