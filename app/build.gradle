@@ -65,6 +65,8 @@ dependencies {
 
     kapt 'com.android.databinding:compiler:2.3.3'
 
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
+
     def glideVersion = '4.1.1'
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     implementation("com.github.bumptech.glide:recyclerview-integration:$glideVersion") {
