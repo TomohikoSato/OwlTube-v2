@@ -4,5 +4,6 @@
     <string name="bottom_navi_title_top">Top</string>
     <string name="bottom_navi_title_search">Search</string>
     <string name="bottom_navi_title_mypage">MyPage</string>
+    <string name="bottom_navi_title_setting">Setting</string>
 
 </resources>

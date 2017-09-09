@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.domain.Video
+import com.sgr.owltube_v2.frontend.common.disableShiftingMode
 import com.sgr.owltube_v2.frontend.player.PlayerActivity
 import com.sgr.owltube_v2.frontend.top.TopFragment
 import dagger.android.support.DaggerAppCompatActivity
@@ -15,6 +16,7 @@ class MainActivity : DaggerAppCompatActivity(), TopFragment.OnTopFragmentListIte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        navigation.disableShiftingMode()
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         switchFragment()
     }
@@ -25,14 +27,17 @@ class MainActivity : DaggerAppCompatActivity(), TopFragment.OnTopFragmentListIte
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navigation_home -> {
+            R.id.navigation_top -> {
                 switchFragment()
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_dashboard -> {
+            R.id.navigation_search -> {
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_notifications -> {
+            R.id.navigation_mypage -> {
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_settings -> {
                 return@OnNavigationItemSelectedListener true
             }
         }
