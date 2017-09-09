@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">OwlTube-v2</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+
+    <string name="bottom_navi_title_top">Top</string>
+    <string name="bottom_navi_title_search">Search</string>
+    <string name="bottom_navi_title_mypage">MyPage</string>
+
 </resources>

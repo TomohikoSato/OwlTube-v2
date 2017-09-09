@@ -18,6 +18,6 @@ class App : Application(), HasActivityInjector {
         super.onCreate()
         DaggerAppComponent.create()
                 .inject(this)
-        AndroidThreeTen.init(this);
+        AndroidThreeTen.init(this)
     }
 }
