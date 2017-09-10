@@ -15,10 +15,4 @@
         android:id="@+id/navigation_mypage"
         android:icon="@drawable/ic_person_outline_black_24dp"
         android:title="@string/bottom_navi_title_mypage" />
-
-    <item
-        android:id="@+id/navigation_settings"
-        android:icon="@drawable/ic_settings_black_24dp"
-        android:title="@string/bottom_navi_title_setting" />
-
 </menu>
