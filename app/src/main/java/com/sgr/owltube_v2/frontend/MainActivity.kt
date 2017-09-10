@@ -19,9 +19,11 @@ class MainActivity : DaggerAppCompatActivity(), TopFragment.OnTopFragmentListIte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        navigation.disableShiftingMode()
-        navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-        switchFragment()
+        navigation.apply {
+            disableShiftingMode()
+            setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+            selectedItemId = R.id.navigation_top
+        }
     }
 
     override fun onClickItem(video: Video) {
@@ -56,11 +58,5 @@ class MainActivity : DaggerAppCompatActivity(), TopFragment.OnTopFragmentListIte
             }
         }
         false
-    }
-
-    private fun switchFragment() {
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.container, TopFragment.newInstance())
-                .commit()
     }
 }
