@@ -6,6 +6,7 @@ import android.util.Log
 import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.infra.repository.VideoRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class TopItemViewModel @Inject constructor(private val videoRepository: VideoRepository) {
@@ -13,6 +14,7 @@ class TopItemViewModel @Inject constructor(private val videoRepository: VideoRep
 
     fun requestItems() {
         videoRepository.fetchPopular()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ videos ->
                     this.videos.clear()
