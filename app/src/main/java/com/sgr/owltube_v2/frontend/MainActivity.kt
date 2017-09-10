@@ -21,8 +21,6 @@ class MainActivity : DaggerAppCompatActivity(), TopFragment.OnTopFragmentListIte
         setContentView(R.layout.activity_main)
         navigation.disableShiftingMode()
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-        setSupportActionBar(toolbar)
-
         switchFragment()
     }
 
