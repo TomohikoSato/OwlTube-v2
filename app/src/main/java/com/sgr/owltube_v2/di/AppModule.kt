@@ -6,6 +6,7 @@ import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
+import dagger.Reusable
 import io.reactivex.schedulers.Schedulers
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -14,7 +15,6 @@ import okhttp3.logging.HttpLoggingInterceptor.Level.HEADERS
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Singleton
 
 @Module
 class AppModule(private val context: Context) {
@@ -22,13 +22,13 @@ class AppModule(private val context: Context) {
     @Provides
     fun provideContext(): Context = context
 
-    @Singleton
+    @Reusable
     @Provides
     fun provideMoshi(): Moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
 
-    @Singleton
+    @Reusable
     @Provides
     fun providesOkHttp(context: Context): OkHttpClient =
             OkHttpClient.Builder()
@@ -37,13 +37,13 @@ class AppModule(private val context: Context) {
                     .addNetworkInterceptor { chain ->
                         val response = chain.proceed(chain.request())
                         response.newBuilder()
-                                .header("Cache-Control", "max-age=180")
+                                .header("Cache-Control", "max-age=180") //3分キャッシュするようにする
                                 .build()
                     }
                     .build()
 
     // TODO: YoutubeかGoogleか向先替えれるように設定したい
-    @Singleton
+    @Reusable
     @Provides
     fun provideRetrofit(oktHttpClient: OkHttpClient, moshi: Moshi): Retrofit
             = Retrofit.Builder()
@@ -53,7 +53,7 @@ class AppModule(private val context: Context) {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
             .build()
 
-    @Singleton
+    @Reusable
     @Provides
     fun provideYoutubeDataApi(retrofit: Retrofit): YoutubeDataAPI {
         return retrofit.create(YoutubeDataAPI::class.java)
