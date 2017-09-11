@@ -31,15 +31,15 @@ class TopFragment : DaggerFragment() {
         }
     }
 
-    override fun onCreate (savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         topItemViewModel.requestItems()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return (inflater.inflate(R.layout.fragment_item_list, container, false) as RecyclerView).apply {
-            adapter = TopItemRecyclerViewAdapter(topItemViewModel.videos, listener)
+        return inflater.inflate(R.layout.fragment_item_list, container, false).apply {
+            findViewById<RecyclerView>(R.id.recycler_view).adapter = TopItemRecyclerViewAdapter(topItemViewModel.videos, listener)
         }
     }
 
