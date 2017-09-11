@@ -38,7 +38,7 @@ class TopFragment : DaggerFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_item_list, container, false).apply {
+        return inflater.inflate(R.layout.fragment_top, container, false).apply {
             findViewById<RecyclerView>(R.id.recycler_view).adapter = TopItemRecyclerViewAdapter(topItemViewModel.videos, listener)
         }
     }
