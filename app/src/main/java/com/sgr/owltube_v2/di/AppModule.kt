@@ -1,21 +1,27 @@
 package com.sgr.owltube_v2.di
 
+import android.content.Context
 import com.sgr.owltube_v2.infra.webapi.YoutubeDataAPI
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import okhttp3.logging.HttpLoggingInterceptor.Level.NONE
+import okhttp3.logging.HttpLoggingInterceptor.Level.HEADERS
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
-class AppModule {
+class AppModule(private val context: Context) {
+
+    @Provides
+    fun provideContext(): Context = context
+
     @Singleton
     @Provides
     fun provideMoshi(): Moshi = Moshi.Builder()
@@ -24,9 +30,11 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun providesOkHttp(): OkHttpClient = OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().apply { level = NONE })
-            .build()
+    fun providesOkHttp(context: Context): OkHttpClient =
+            OkHttpClient.Builder()
+                    .cache(Cache(context.cacheDir, 10 * 1024 * 1024))
+                    .addInterceptor(HttpLoggingInterceptor().apply { level = HEADERS })
+                    .build()
 
 
     // TODO: YoutubeかGoogleか向先替えれるように設定したい
