@@ -33,9 +33,14 @@ class AppModule(private val context: Context) {
     fun providesOkHttp(context: Context): OkHttpClient =
             OkHttpClient.Builder()
                     .cache(Cache(context.cacheDir, 10 * 1024 * 1024))
-                    .addInterceptor(HttpLoggingInterceptor().apply { level = HEADERS })
+                    .addNetworkInterceptor(HttpLoggingInterceptor().apply { level = HEADERS })
+                    .addNetworkInterceptor { chain ->
+                        val response = chain.proceed(chain.request())
+                        response.newBuilder()
+                                .header("Cache-Control", "max-age=180")
+                                .build()
+                    }
                     .build()
-
 
     // TODO: YoutubeかGoogleか向先替えれるように設定したい
     @Singleton
