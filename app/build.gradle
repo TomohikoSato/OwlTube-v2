@@ -19,9 +19,7 @@ android {
 
         def properties = new Properties()
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
-        // local.propertiesのapi_keyに定義されている値を読み込む
         def API_KEY = properties.getProperty("youtube_data_api_key")
-        // ついでにbuildConfigFieldに定義
         buildConfigField("String", "YOUTUBE_DATA_API_KEY", "\"${API_KEY}\"")
     }
     buildTypes {
@@ -34,6 +32,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
 
     def supportVersion = "26.0.2"
     implementation "com.android.support:appcompat-v7:$supportVersion"
@@ -81,5 +81,4 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
 }
