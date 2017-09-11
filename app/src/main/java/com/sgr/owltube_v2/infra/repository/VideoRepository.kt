@@ -18,6 +18,7 @@ class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDat
                     .joinTo(StringBuilder())
         }.flatMap { ids: StringBuilder -> youtubeDataAPI.channels(ids.toString()) }
 
+        //TODO: popularVideos API が二回呼ばれるのをなんとかする
         return popularVideos.zipWith(channels, BiFunction { p: PopularVideo, c: Channels -> createVideo(p, c) })
     }
 
