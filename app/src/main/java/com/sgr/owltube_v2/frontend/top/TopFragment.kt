@@ -2,6 +2,7 @@ package com.sgr.owltube_v2.frontend.top
 
 import android.content.Context
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -33,13 +34,24 @@ class TopFragment : DaggerFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        topItemViewModel.requestItems()
+        topItemViewModel.requestPopularVideos()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_top, container, false).apply {
             findViewById<RecyclerView>(R.id.recycler_view).adapter = TopItemRecyclerViewAdapter(topItemViewModel.videos, listener)
+            findViewById<SwipeRefreshLayout>(R.id.swipe_refresh).apply {
+                setColorSchemeResources(android.R.color.holo_red_dark,
+                        android.R.color.holo_blue_dark, android.R.color.holo_green_dark,
+                        android.R.color.holo_orange_dark)
+                setOnRefreshListener {
+                    isRefreshing = true
+                    topItemViewModel.refreshPopularVideo().subscribe {
+                        isRefreshing = false
+                    }
+                }
+            }
         }
     }
 

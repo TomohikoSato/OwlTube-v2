@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDataAPI) {
 
-    fun fetchPopular(): Single<List<Video>> {
+    fun fetchPopularVideos(): Single<List<Video>> {
         val popularVideos = youtubeDataAPI.popularVideos(null)
         val channels = popularVideos.map { videos ->
             videos.items.map { item -> item.snippet.channelId }
