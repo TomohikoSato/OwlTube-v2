@@ -35,7 +35,7 @@
 
                 <TextView
                     android:id="@+id/title"
-                    android:text="Top"
+                    android:text="@string/top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
