@@ -55,7 +55,7 @@
         app:layoutManager="LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".frontend.top.TopFragment"
-        tools:listitem="@layout/fragment_item" />
+        tools:listitem="@layout/fragment_top_item" />
 
 </android.support.design.widget.CoordinatorLayout>
 

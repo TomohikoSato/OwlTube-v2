@@ -4,7 +4,7 @@ import android.databinding.ObservableList
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.sgr.owltube_v2.databinding.FragmentItemBinding
+import com.sgr.owltube_v2.databinding.FragmentTopItemBinding
 import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.common.ObservableRecyclerAdapter
 import com.sgr.owltube_v2.frontend.top.TopFragment.OnTopFragmentListItemInteractionListener
@@ -14,7 +14,7 @@ internal class TopItemRecyclerViewAdapter(
     : ObservableRecyclerAdapter<Video, TopItemRecyclerViewAdapter.ViewHolder>(videos) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(FragmentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(FragmentTopItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: TopItemRecyclerViewAdapter.ViewHolder, position: Int) {
@@ -29,5 +29,5 @@ internal class TopItemRecyclerViewAdapter(
         return videos.size
     }
 
-    internal class ViewHolder(val binding: FragmentItemBinding) : RecyclerView.ViewHolder(binding.root)
+    internal class ViewHolder(val binding: FragmentTopItemBinding) : RecyclerView.ViewHolder(binding.root)
 }
