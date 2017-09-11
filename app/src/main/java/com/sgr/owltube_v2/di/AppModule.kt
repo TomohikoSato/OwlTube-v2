@@ -8,7 +8,7 @@ import dagger.Provides
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import okhttp3.logging.HttpLoggingInterceptor.Level.*
+import okhttp3.logging.HttpLoggingInterceptor.Level.NONE
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -25,7 +25,7 @@ class AppModule {
     @Singleton
     @Provides
     fun providesOkHttp(): OkHttpClient = OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().apply { level = BODY })
+            .addInterceptor(HttpLoggingInterceptor().apply { level = NONE })
             .build()
 
 
