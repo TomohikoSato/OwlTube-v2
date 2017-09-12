@@ -80,6 +80,7 @@ class PlayerActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             enterPictureInPictureMode(PictureInPictureParams.Builder()
                     .setAspectRatio(Rational(youtubePlayerView.width, youtubePlayerView.height))
+// DEBUG: sample                   .setActions(listOf(RemoteAction(Icon.createWithResource(this, R.drawable.ic_pause_36dp), "title", "contentdescription", PendingIntent.getBroadcast(this, 333, Intent(), PendingIntent.FLAG_ONE_SHOT))))
                     .build())
         }
     }
