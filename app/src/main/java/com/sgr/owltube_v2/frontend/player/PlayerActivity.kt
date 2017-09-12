@@ -1,13 +1,16 @@
 package com.sgr.owltube_v2.frontend.player
 
 import android.app.Activity
+import android.app.PictureInPictureParams
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.ColorStateList
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Rational
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -68,8 +71,18 @@ class PlayerActivity : AppCompatActivity() {
                     setImageResource(R.drawable.ic_to_external_black_24dp)
                     setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white)))
                     setBackgroundResource(R.drawable.app_background_item_selected)
+
+                    setOnClickListener { launchExternalView() }
                 }
         )
+    }
+
+    private fun launchExternalView() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            enterPictureInPictureMode(PictureInPictureParams.Builder()
+                    .setAspectRatio(Rational(4, 3))
+                    .build())
+        }
     }
 
     private fun convertDpToPixels(dp: Float, context: Context): Int {

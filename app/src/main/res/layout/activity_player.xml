@@ -16,18 +16,6 @@
 
     </com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView>
 
-    <ImageButton
-        android:id="@+id/external_button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|end"
-        android:contentDescription="externalButton"
-        android:clickable="true"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:padding="8dp"
-        android:tint="@color/red"
-        app:srcCompat="@drawable/ic_to_external_black_24dp" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/related_videos"
         android:layout_width="match_parent"
