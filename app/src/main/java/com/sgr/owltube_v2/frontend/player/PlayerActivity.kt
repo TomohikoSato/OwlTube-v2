@@ -79,7 +79,7 @@ class PlayerActivity : AppCompatActivity() {
     private fun launchExternalView() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             enterPictureInPictureMode(PictureInPictureParams.Builder()
-                    .setAspectRatio(Rational(16, 9)) // TODO: 本当はViewから計算する
+                    .setAspectRatio(Rational(youtubePlayerView.width, youtubePlayerView.height))
                     .build())
         }
     }
