@@ -37,8 +37,8 @@ class PlayerActivity : AppCompatActivity() {
             }
         }, false)
 
+        val fullScreenManager = FullScreenManager(this@PlayerActivity)
         youtubePlayerView.addFullScreenListener(object : YouTubePlayerFullScreenListener {
-            private val fullScreenManager = FullScreenManager(this@PlayerActivity)
             override fun onYouTubePlayerEnterFullScreen() {
                 requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
                 fullScreenManager.enterFullScreen()
@@ -51,7 +51,7 @@ class PlayerActivity : AppCompatActivity() {
         })
     }
 
-    class FullScreenManager(val activity: Activity) {
+    class FullScreenManager(private val activity: Activity) {
         fun enterFullScreen() {
             hideSystemUI(activity.window.decorView)
         }
@@ -60,14 +60,16 @@ class PlayerActivity : AppCompatActivity() {
             showSystemUI(activity.window.decorView)
         }
 
+        //TODO: ホーム画面から戻ってきた時の挙動を修正する
         // hides the system bars.
         private fun hideSystemUI(decorView: View) {
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
                     View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
                     View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
                     View.SYSTEM_UI_FLAG_FULLSCREEN or
-                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+
         }
 
         // This snippet shows the system bars.
