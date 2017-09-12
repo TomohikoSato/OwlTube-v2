@@ -74,6 +74,8 @@ class PlayerActivity : AppCompatActivity() {
                     setOnClickListener { launchExternalView() }
                 }
         )
+
+
     }
 
     private fun launchExternalView() {
@@ -108,10 +110,10 @@ class PlayerActivity : AppCompatActivity() {
         if (isInPictureInPictureMode) {
             // Hide the controls in picture-in-picture mode.
             //TODO: Group
-            findViewById<View>(R.id.related_videos).visibility = View.GONE
+            findViewById<View>(R.id.recycler_view).visibility = View.GONE
         } else {
             // Restore the playback UI based on the playback status.
-            findViewById<View>(R.id.related_videos).visibility = View.VISIBLE
+            findViewById<View>(R.id.recycler_view).visibility = View.VISIBLE
         }
     }
 }

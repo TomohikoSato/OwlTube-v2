@@ -1,4 +1,4 @@
-package com.sgr.owltube_v2.frontend.common
+package com.sgr.owltube_v2.frontend.common.recycleradapter
 
 import android.databinding.ObservableList
 import android.support.v7.widget.RecyclerView
