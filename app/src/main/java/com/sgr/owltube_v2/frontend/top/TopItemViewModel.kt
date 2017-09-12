@@ -14,9 +14,13 @@ class TopItemViewModel @Inject constructor(private val videoRepository: VideoRep
     val videos: ObservableList<Video> = ObservableArrayList<Video>()
     val isRefreshing: ObservableBoolean = ObservableBoolean(false)
 
-    fun requestPopularVideos() {
+    fun requestPopularVideos() = requestPopularVideos(false)
+
+    fun refreshPopularVideo() = requestPopularVideos(true)
+
+    private fun requestPopularVideos(forceUpdate: Boolean) {
         isRefreshing.set(true)
-        videoRepository.fetchPopularVideos()
+        videoRepository.fetchPopularVideos(forceUpdate)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ videos ->
@@ -24,7 +28,6 @@ class TopItemViewModel @Inject constructor(private val videoRepository: VideoRep
                     this.videos.clear()
                     this.videos.addAll(videos)
                 }, { t -> Log.e("TopItemViewMoedel", t.toString()) })
-    }
 
-    fun refreshPopularVideo() = requestPopularVideos()
+    }
 }

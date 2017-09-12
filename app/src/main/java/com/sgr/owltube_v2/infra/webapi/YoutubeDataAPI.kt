@@ -5,15 +5,16 @@ import com.sgr.owltube_v2.infra.webapi.response.channels.Channels
 import com.sgr.owltube_v2.infra.webapi.response.popular.PopularVideo
 import io.reactivex.Single
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Query
 
 interface YoutubeDataAPI {
 
     @GET("videos?part=snippet,statistics,contentDetails&chart=mostPopular&regionCode=JP&maxResults=" + MAX_RESULTS + "&key=" + BuildConfig.YOUTUBE_DATA_API_KEY)
-    fun popularVideos(@Query("pageToken") pageToken: String?): Single<PopularVideo>
+    fun popularVideos(@Header("Cache-Control") cacheControl: String?, @Query("pageToken") pageToken: String?): Single<PopularVideo>
 
     @GET("channels?part=snippet&key=" + BuildConfig.YOUTUBE_DATA_API_KEY)
-    fun channels(@Query("id") id: String): Single<Channels>
+    fun channels(@Header("Cache-Control") cacheControl: String?, @Query("id") id: String): Single<Channels>
 
 /*
     @GET("search?part=snippet&regionCode=JP&type=video&maxResults=" + MAX_RESULTS + "&key=" + BuildConfig.YOUTUBE_DATA_API_KEY)

@@ -11,16 +11,18 @@ import javax.inject.Inject
 
 class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDataAPI) {
 
-    fun fetchPopularVideos(): Single<List<Video>> {
-        val popularVideos = youtubeDataAPI.popularVideos(null)
+    fun fetchPopularVideos(forceUpdate: Boolean): Single<List<Video>> {
+        val popularVideos = youtubeDataAPI.popularVideos(getCacheControl(forceUpdate), null)
         val channels = popularVideos.map { videos ->
             videos.items.map { item -> item.snippet.channelId }
                     .joinTo(StringBuilder())
-        }.flatMap { ids: StringBuilder -> youtubeDataAPI.channels(ids.toString()) }
+        }.flatMap { ids: StringBuilder -> youtubeDataAPI.channels(getCacheControl(forceUpdate), ids.toString()) }
 
         //TODO: popularVideos API が二回呼ばれるのをなんとかする
         return popularVideos.zipWith(channels, BiFunction { p: PopularVideo, c: Channels -> createVideo(p, c) })
     }
+
+    private fun getCacheControl(forceUpdate: Boolean): String? = if (forceUpdate) "no-cache" else null
 
     private fun createVideo(popularVideo: PopularVideo, channels: Channels): List<Video> {
         return popularVideo.items.zip(channels.items)
