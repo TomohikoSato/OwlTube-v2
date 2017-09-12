@@ -25,38 +25,51 @@ class PlayerActivity : AppCompatActivity() {
         }
     }
 
+    lateinit var youtubePlayerView: YouTubePlayerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
         val video = intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as Video
 
-        val youtubePlayerView = findViewById<YouTubePlayerView>(R.id.youtube_player)
+        youtubePlayerView = findViewById<YouTubePlayerView>(R.id.youtube_player)
         youtubePlayerView.initialize(object : AbstractYouTubeListener() {
             override fun onReady() {
                 youtubePlayerView.loadVideo(video.id, 0F)
             }
         }, false)
 
-        val fullScreenManager = FullScreenManager(this@PlayerActivity)
         youtubePlayerView.addFullScreenListener(object : YouTubePlayerFullScreenListener {
+            val fullScreenManager = FullScreenManager(this@PlayerActivity)
             override fun onYouTubePlayerEnterFullScreen() {
-                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
                 fullScreenManager.enterFullScreen()
             }
 
             override fun onYouTubePlayerExitFullScreen() {
-                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
                 fullScreenManager.exitFullScreen()
             }
         })
+
     }
+
+    override fun onBackPressed() {
+        if (youtubePlayerView.isFullScreen) {
+            youtubePlayerView.exitFullScreen()
+            return
+        }
+
+        super.onBackPressed()
+    }
+
 
     class FullScreenManager(private val activity: Activity) {
         fun enterFullScreen() {
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             hideSystemUI(activity.window.decorView)
         }
 
         fun exitFullScreen() {
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
             showSystemUI(activity.window.decorView)
         }
 
@@ -69,7 +82,6 @@ class PlayerActivity : AppCompatActivity() {
                     View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
                     View.SYSTEM_UI_FLAG_FULLSCREEN or
                     View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-
         }
 
         // This snippet shows the system bars.
