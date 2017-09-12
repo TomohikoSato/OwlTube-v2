@@ -1,6 +1,7 @@
 package com.sgr.owltube_v2.domain
 
 import org.threeten.bp.*
+import java.io.Serializable
 
 
 data class Video(val id: String,
@@ -9,7 +10,7 @@ data class Video(val id: String,
                  private val _viewCount: String,
                  val thumbnailUrl: String,
                  private val _publishedAt: String,
-                 private val _duration: String) {
+                 private val _duration: String) : Serializable {
 
     val publishedAt: String
         get() {
