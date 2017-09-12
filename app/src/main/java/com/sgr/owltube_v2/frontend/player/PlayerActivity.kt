@@ -15,7 +15,7 @@ import com.sgr.owltube_v2.domain.Video
 
 class PlayerActivity : AppCompatActivity() {
     companion object {
-        private val KEY_INTENT_EXTRA_VIDEO: String = "key_intent_extra_video"
+        private const val KEY_INTENT_EXTRA_VIDEO: String = "key_intent_extra_video"
 
         fun startActivity(context: Context, video: Video) {
             val intent = Intent(context, PlayerActivity::class.java).apply {
@@ -49,7 +49,6 @@ class PlayerActivity : AppCompatActivity() {
                 fullScreenManager.exitFullScreen()
             }
         })
-
     }
 
     override fun onBackPressed() {
@@ -61,6 +60,10 @@ class PlayerActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
+    override fun onStop() {
+        super.onStop()
+        youtubePlayerView.exitFullScreen()
+    }
 
     class FullScreenManager(private val activity: Activity) {
         fun enterFullScreen() {
@@ -74,7 +77,6 @@ class PlayerActivity : AppCompatActivity() {
         }
 
         //TODO: ホーム画面から戻ってきた時の挙動を修正する
-        // hides the system bars.
         private fun hideSystemUI(decorView: View) {
             decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
                     View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
@@ -90,4 +92,3 @@ class PlayerActivity : AppCompatActivity() {
         }
     }
 }
-
