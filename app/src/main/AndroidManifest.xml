@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.sgr.owltube_v2">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -24,7 +25,10 @@
         </activity>
         <activity
             android:name=".frontend.player.PlayerActivity"
-            android:configChanges="orientation" />
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:resizeableActivity="true"
+            android:supportsPictureInPicture="true"
+            tools:targetApi="n" />
     </application>
 
 </manifest>

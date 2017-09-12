@@ -4,14 +4,22 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.content.res.ColorStateList
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.TypedValue
 import android.view.View
+import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.widget.ImageButton
+import android.widget.RelativeLayout
 import com.pierfrancescosoffritti.youtubeplayer.AbstractYouTubeListener
 import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerFullScreenListener
 import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.domain.Video
+
 
 class PlayerActivity : AppCompatActivity() {
     companion object {
@@ -49,6 +57,23 @@ class PlayerActivity : AppCompatActivity() {
                 fullScreenManager.exitFullScreen()
             }
         })
+
+        youtubePlayerView.findViewById<ViewGroup>(R.id.controls_root).addView(
+                ImageButton(this).apply {
+                    layoutParams = RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
+                        addRule(RelativeLayout.ALIGN_PARENT_END)
+                    }
+                    val paddingPx = convertDpToPixels(8F, this@PlayerActivity)
+                    setPadding(paddingPx, paddingPx, paddingPx, paddingPx)
+                    setImageResource(R.drawable.ic_to_external_black_24dp)
+                    setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white)))
+                    setBackgroundResource(R.drawable.app_background_item_selected)
+                }
+        )
+    }
+
+    private fun convertDpToPixels(dp: Float, context: Context): Int {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics).toInt()
     }
 
     override fun onBackPressed() {
