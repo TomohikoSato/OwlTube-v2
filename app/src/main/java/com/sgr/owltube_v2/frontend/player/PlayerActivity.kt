@@ -1,11 +1,10 @@
 package com.sgr.owltube_v2.frontend.player
 
-import android.app.Activity
 import android.app.PictureInPictureParams
 import android.content.Context
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -80,7 +79,7 @@ class PlayerActivity : AppCompatActivity() {
     private fun launchExternalView() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             enterPictureInPictureMode(PictureInPictureParams.Builder()
-                    .setAspectRatio(Rational(4, 3))
+                    .setAspectRatio(Rational(16, 9)) // TODO: 本当はViewから計算する
                     .build())
         }
     }
@@ -103,30 +102,15 @@ class PlayerActivity : AppCompatActivity() {
         youtubePlayerView.exitFullScreen()
     }
 
-    class FullScreenManager(private val activity: Activity) {
-        fun enterFullScreen() {
-            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-            hideSystemUI(activity.window.decorView)
-        }
-
-        fun exitFullScreen() {
-            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-            showSystemUI(activity.window.decorView)
-        }
-
-        //TODO: ホーム画面から戻ってきた時の挙動を修正する
-        private fun hideSystemUI(decorView: View) {
-            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                    View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                    View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-                    View.SYSTEM_UI_FLAG_FULLSCREEN or
-                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-        }
-
-        // This snippet shows the system bars.
-        private fun showSystemUI(mDecorView: View) {
-            mDecorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+    override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
+        if (isInPictureInPictureMode) {
+            // Hide the controls in picture-in-picture mode.
+            //TODO: Group
+            findViewById<View>(R.id.related_videos).visibility = View.GONE
+        } else {
+            // Restore the playback UI based on the playback status.
+            findViewById<View>(R.id.related_videos).visibility = View.VISIBLE
         }
     }
 }
