@@ -46,7 +46,7 @@ class TopFragment : DaggerFragment() {
         binding.setViewModel(topItemViewModel)
 
         return binding.root.apply {
-            findViewById<RecyclerView>(R.id.recycler_view).adapter = TopItemRecyclerViewAdapter(topItemViewModel.videos, listener)
+            findViewById<RecyclerView>(R.id.recycler_view).adapter = TopAdapter(topItemViewModel.videos, listener)
             findViewById<SwipeRefreshLayout>(R.id.swipe_refresh).apply {
                 setColorSchemeResources(android.R.color.holo_red_dark,
                         android.R.color.holo_blue_dark, android.R.color.holo_green_dark,

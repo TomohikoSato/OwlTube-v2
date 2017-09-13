@@ -9,15 +9,14 @@ import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.common.recycleradapter.ObservableRecyclerAdapter
 import com.sgr.owltube_v2.frontend.top.TopFragment.OnTopFragmentListItemInteractionListener
 
-internal class TopItemRecyclerViewAdapter(
-        private val videos: ObservableList<Video>, private val listener: OnTopFragmentListItemInteractionListener)
-    : ObservableRecyclerAdapter<Video, TopItemRecyclerViewAdapter.ViewHolder>(videos) {
+internal class TopAdapter(private val videos: ObservableList<Video>, private val listener: OnTopFragmentListItemInteractionListener)
+    : ObservableRecyclerAdapter<Video, TopAdapter.ViewHolder>(videos) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(FragmentTopItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    override fun onBindViewHolder(holder: TopItemRecyclerViewAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TopAdapter.ViewHolder, position: Int) {
         holder.binding.apply {
             video = videos[position]
             root.setOnClickListener { listener.onClickItem(video) }
