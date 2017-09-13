@@ -60,14 +60,7 @@ class PlayerActivity : AppCompatActivity() {
 
     override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
-        if (isInPictureInPictureMode) {
-            // Hide the controls in picture-in-picture mode.
-            //TODO: Group
-            findViewById<View>(R.id.recycler_view).visibility = View.GONE
-        } else {
-            // Restore the playback UI based on the playback status.
-            findViewById<View>(R.id.recycler_view).visibility = View.VISIBLE
-        }
+        findViewById<View>(R.id.recycler_view).visibility = if (isInPictureInPictureMode) View.GONE else View.VISIBLE
     }
 
     private fun setUpYoutubePlayerView(video: Video) {
