@@ -4,8 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 
 /**
- * @param <T> the type of adapters data source i.e. List<Accessory>
- * </Accessory></T>
+ * @param <T> the type of adapters data source i.e. List<Accessory> </Accessory></T>
  */
 interface AdapterDelegate<T> {
 

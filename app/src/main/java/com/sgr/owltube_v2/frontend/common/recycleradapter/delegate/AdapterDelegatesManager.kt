@@ -4,12 +4,24 @@ import android.support.v4.util.SparseArrayCompat
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 
+/**
+ * This class is the element that ties [RecyclerView.Adapter] together with [AdapterDelegate]
+ * <p>
+ * So you have to add / register your [AdapterDelegate]s to this manager by calling [addDelegate]
+ * </p>
+ *
+ * <p>
+ * Next you have to add this AdapterDelegatesManager to the [RecyclerView.Adapter] by calling
+ * corresponding methods:
+ * <ul>
+ * <li> [getItemViewType]: Must be called from [RecyclerView.Adapter.getItemViewType]</li>
+ * <li> [onCreateViewHolder] Must be called from [RecyclerView.Adapter.onCreateViewHolder]</li>
+ * <li> [onBindViewHolder]: Must be called from [RecyclerView.Adapter.onBindViewHolder]</li>
+ * </ul>
+ * @param <T> The type of the datasource of the adapter
+ */
 class AdapterDelegatesManager<T> {
     val delegates: SparseArrayCompat<AdapterDelegate<T>> = SparseArrayCompat()
-
-    companion object {
-        const val FALLBACK_DELEGATE_VIEW_TYPE = Integer.MAX_VALUE - 1
-    }
 
     /**
      * Adds an [AdapterDelegate].
@@ -25,10 +37,6 @@ class AdapterDelegatesManager<T> {
         var viewType = delegates.size()
         while (delegates.get(viewType) != null) {
             viewType++
-            if (viewType == FALLBACK_DELEGATE_VIEW_TYPE) {
-                throw IllegalArgumentException(
-                        "Oops, we are very close to Integer.MAX_VALUE. It seems that there are no more free and unused view type integers left to add another AdapterDelegate.")
-            }
         }
 
         return addDelegate(viewType, delegate)
@@ -39,6 +47,7 @@ class AdapterDelegatesManager<T> {
      *
      * @param viewType The viewType id
      * @param delegate The delegate to add
+     * @return self
      */
     fun addDelegate(viewType: Int, delegate: AdapterDelegate<T>): AdapterDelegatesManager<T> {
         delegates.put(viewType, delegate);
@@ -51,12 +60,10 @@ class AdapterDelegatesManager<T> {
      *
      * @param items Adapter's data source
      * @param position the position in adapters data source
-     * @return the ViewType (integer). Returns {@link #FALLBACK_DELEGATE_VIEW_TYPE} in case that the
-     * fallback adapter delegate should be used
-     * @throws NullPointerException if no {@link AdapterDelegate} has been found that is
-     * responsible for the given data element in data set (No {@link AdapterDelegate} for the given
+     * @return the ViewType (integer).
+     * @throws NullPointerException if no [AdapterDelegate] has been found that is
+     * responsible for the given data element in data set (No [AdapterDelegate] for the given
      * ViewType)
-     * @throws NullPointerException if items is null
      */
     fun getItemViewType(items: T, position: Int): Int {
         //TODO: foreach
