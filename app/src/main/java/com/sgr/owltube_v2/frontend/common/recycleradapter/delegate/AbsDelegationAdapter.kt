@@ -18,11 +18,11 @@ abstract class AbsDelegationAdapter<T>(private val delegatesManager: AdapterDele
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        delegatesManager.onBindViewHolder(items, position, holder, null)
+        delegatesManager.onBindViewHolder(items, position, holder)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: List<*>?) {
-        delegatesManager.onBindViewHolder(items, position, holder, payloads)
+        delegatesManager.onBindViewHolder(items, position, holder)
     }
 
     override fun getItemViewType(position: Int): Int {
