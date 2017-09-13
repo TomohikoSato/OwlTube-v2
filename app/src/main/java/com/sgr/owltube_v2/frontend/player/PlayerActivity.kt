@@ -40,9 +40,39 @@ class PlayerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
-        val video = intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as Video
+        setUpYoutubePlayerView(intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as Video)
+    }
 
-        youtubePlayerView = findViewById<YouTubePlayerView>(R.id.youtube_player)
+    override fun onBackPressed() {
+        if (youtubePlayerView.isFullScreen) {
+            // フルスクリーンのままアプリに戻ると画面が崩れるので、フルスクリーンを解除するようにした
+            youtubePlayerView.exitFullScreen()
+            return
+        }
+
+        super.onBackPressed()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (youtubePlayerView.isFullScreen) youtubePlayerView.exitFullScreen()
+    }
+
+    override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
+        if (isInPictureInPictureMode) {
+            // Hide the controls in picture-in-picture mode.
+            //TODO: Group
+            findViewById<View>(R.id.recycler_view).visibility = View.GONE
+        } else {
+            // Restore the playback UI based on the playback status.
+            findViewById<View>(R.id.recycler_view).visibility = View.VISIBLE
+        }
+    }
+
+    private fun setUpYoutubePlayerView(video: Video) {
+        youtubePlayerView = findViewById<YouTubePlayerView>(R.id.youtube_player_view)
+
         youtubePlayerView.initialize(object : AbstractYouTubeListener() {
             override fun onReady() {
                 youtubePlayerView.loadVideo(video.id, 0F)
@@ -74,8 +104,6 @@ class PlayerActivity : AppCompatActivity() {
                     setOnClickListener { launchExternalView() }
                 }
         )
-
-
     }
 
     private fun launchExternalView() {
@@ -89,31 +117,5 @@ class PlayerActivity : AppCompatActivity() {
 
     private fun convertDpToPixels(dp: Float, context: Context): Int {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics).toInt()
-    }
-
-    override fun onBackPressed() {
-        if (youtubePlayerView.isFullScreen) {
-            youtubePlayerView.exitFullScreen()
-            return
-        }
-
-        super.onBackPressed()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        youtubePlayerView.exitFullScreen()
-    }
-
-    override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration) {
-        super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
-        if (isInPictureInPictureMode) {
-            // Hide the controls in picture-in-picture mode.
-            //TODO: Group
-            findViewById<View>(R.id.recycler_view).visibility = View.GONE
-        } else {
-            // Restore the playback UI based on the playback status.
-            findViewById<View>(R.id.recycler_view).visibility = View.VISIBLE
-        }
     }
 }
