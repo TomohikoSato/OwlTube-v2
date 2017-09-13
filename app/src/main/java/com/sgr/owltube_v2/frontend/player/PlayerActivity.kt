@@ -41,6 +41,8 @@ class PlayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
         setUpYoutubePlayerView(intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as Video)
+
+
     }
 
     override fun onBackPressed() {
