@@ -15,7 +15,7 @@ import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 class TopFragment : DaggerFragment() {
-    @Inject lateinit var topItemViewModel: TopItemViewModel
+    @Inject lateinit var topViewModel: TopViewModel
 
     private lateinit var listener: OnTopFragmentListItemInteractionListener
 
@@ -36,23 +36,23 @@ class TopFragment : DaggerFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        topItemViewModel.requestPopularVideos()
+        topViewModel.requestPopularVideos()
 
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding: FragmentTopBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_top, container, false)
-        binding.setViewModel(topItemViewModel)
+        binding.setViewModel(topViewModel)
 
         return binding.root.apply {
-            findViewById<RecyclerView>(R.id.recycler_view).adapter = TopAdapter(topItemViewModel.videos, listener)
+            findViewById<RecyclerView>(R.id.recycler_view).adapter = TopAdapter(topViewModel.videos, listener)
             findViewById<SwipeRefreshLayout>(R.id.swipe_refresh).apply {
                 setColorSchemeResources(android.R.color.holo_red_dark,
                         android.R.color.holo_blue_dark, android.R.color.holo_green_dark,
                         android.R.color.holo_orange_dark)
                 setOnRefreshListener {
-                    topItemViewModel.refreshPopularVideo()
+                    topViewModel.refreshPopularVideo()
                 }
             }
         }
