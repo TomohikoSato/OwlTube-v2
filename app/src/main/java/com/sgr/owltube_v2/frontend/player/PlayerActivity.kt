@@ -8,7 +8,6 @@ import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
 import android.util.Rational
 import android.util.TypedValue
 import android.view.View
@@ -21,9 +20,12 @@ import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerFullScreenListener
 import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.domain.Video
+import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
 
+class PlayerActivity : DaggerAppCompatActivity() {
+    @Inject lateinit var viewModel: PlayerViewModel
 
-class PlayerActivity : AppCompatActivity() {
     companion object {
         private const val KEY_INTENT_EXTRA_VIDEO: String = "key_intent_extra_video"
 
