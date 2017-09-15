@@ -71,53 +71,16 @@
             app:layout_constraintTop_toBottomOf="@+id/thumbnail"
             tools:text="タイトル" />
 
-        <com.google.android.flexbox.FlexboxLayout
+        <include
+            layout="@layout/include_video_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="0dp"
-            android:layout_marginStart="0dp"
             android:layout_marginTop="4dp"
-            app:flexDirection="row"
-            app:flexWrap="wrap"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/title"
-            app:layout_constraintTop_toBottomOf="@+id/title">
-
-            <TextView
-                android:id="@+id/channelTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@{video.channel.title}"
-                android:textSize="12sp"
-                tools:text="チャンネルタイトル" />
-
-            <TextView
-                android:id="@+id/viewCountKey"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:text="視聴回数"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/viewCountValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@{video.viewCount}"
-                android:textSize="12sp"
-                tools:text="40万回" />
-
-            <TextView
-                android:id="@+id/publishedAt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{video.publishedAt}"
-                android:textSize="12sp"
-                tools:text="3ヶ月前" />
-
-        </com.google.android.flexbox.FlexboxLayout>
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:video="@{video}" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>
