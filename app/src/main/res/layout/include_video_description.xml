@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="video"
+            type="com.sgr.owltube_v2.domain.Video" />
+    </data>
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/videoDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:flexDirection="row"
+        app:flexWrap="wrap">
+
+        <TextView
+            android:id="@+id/channelTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@{video.channel.title}"
+            android:textSize="12sp"
+            tools:text="チャンネルタイトル" />
+
+        <TextView
+            android:id="@+id/viewCountKey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:text="視聴回数"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/viewCountValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@{video.viewCount}"
+            android:textSize="12sp"
+            tools:text="40万回" />
+
+        <TextView
+            android:id="@+id/publishedAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{video.publishedAt}"
+            android:textSize="12sp"
+            tools:text="3ヶ月前" />
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+</layout>
