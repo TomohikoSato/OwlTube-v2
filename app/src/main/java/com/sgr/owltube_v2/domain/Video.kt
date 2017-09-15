@@ -1,19 +1,27 @@
 package com.sgr.owltube_v2.domain
 
-import com.sgr.owltube_v2.frontend.player.PlayerAdapterItem
 import org.threeten.bp.*
 import java.io.Serializable
 
-
-data class Video(val id: String,
-                      val title: String,
-                      val channel: Channel,
-                      private val _viewCount: String,
-                      val thumbnailUrl: String,
-                      private val _publishedAt: String,
-                      private val _duration: String) : Serializable, PlayerAdapterItem {
-
+interface Video : Serializable {
+    val id: String
+    val title: String
+    val channel: Channel
+    val viewCount: String
+    val thumbnailUrl: String
     val publishedAt: String
+    val duration: String
+}
+
+data class VideoImpl(override val id: String,
+                     override val title: String,
+                     override val channel: Channel,
+                     private val _viewCount: String,
+                     override val thumbnailUrl: String,
+                     private val _publishedAt: String,
+                     private val _duration: String) : Serializable, Video {
+
+    override val publishedAt: String
         get() {
             val period = Period.between(OffsetDateTime.parse(_publishedAt).toLocalDate(), LocalDate.now())
 
@@ -29,13 +37,13 @@ data class Video(val id: String,
             return String.format("%d秒前", duration.seconds)
         }
 
-    val viewCount: String
+    override val viewCount: String
         get() {
             val l = _viewCount.toLong()
             return if (l > 9999) String.format("%d万回", l / 10000) else String.format("%d回", l % 100 * 100)
         }
 
-    val duration: String
+    override val duration: String
         get() {
             val d = Duration.parse(_duration)
             return if (d.compareTo(Duration.ofHours(1)) >= 0)

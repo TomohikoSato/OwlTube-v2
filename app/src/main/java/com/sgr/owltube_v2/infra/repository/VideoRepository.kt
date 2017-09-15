@@ -1,7 +1,7 @@
 package com.sgr.owltube_v2.infra.repository
 
 import com.sgr.owltube_v2.domain.Channel
-import com.sgr.owltube_v2.domain.Video
+import com.sgr.owltube_v2.domain.VideoImpl
 import com.sgr.owltube_v2.domain.related.RelatedVideos
 import com.sgr.owltube_v2.domain.videos.popular.PopularVideos
 import com.sgr.owltube_v2.infra.webapi.YoutubeDataAPI
@@ -57,7 +57,7 @@ class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDat
         }
 */
         val videos = videosResponse.items.map { item ->
-            Video(item.id,
+            VideoImpl(item.id,
                     item.snippet.title,
                     Channel(item.snippet.channelId,
                             item.snippet.channelTitle, null),
@@ -78,7 +78,7 @@ class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDat
                 .map { pair ->
                     val pItem = pair.first
                     val cItem = pair.second
-                    Video(pItem.id,
+                    VideoImpl(pItem.id,
                             pItem.snippet.title,
                             Channel(pItem.snippet.channelId,
                                     cItem.snippet.title,

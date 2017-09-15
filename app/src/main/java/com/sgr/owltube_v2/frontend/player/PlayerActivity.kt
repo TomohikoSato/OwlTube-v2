@@ -21,6 +21,7 @@ import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerFullScreenListener
 import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.domain.Video
+import com.sgr.owltube_v2.domain.player.PlayingVideo
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -32,7 +33,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
 
         fun startActivity(context: Context, video: Video) {
             val intent = Intent(context, PlayerActivity::class.java).apply {
-                putExtra(KEY_INTENT_EXTRA_VIDEO, video)
+                putExtra(KEY_INTENT_EXTRA_VIDEO, PlayingVideo(video))
             }
             context.startActivity(intent)
         }
@@ -45,7 +46,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
         setContentView(R.layout.activity_player)
         setUpYoutubePlayerView(intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as Video)
         findViewById<RecyclerView>(R.id.recycler_view).adapter =
-                PlayerAdapter(listOf(intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as Video))
+                PlayerAdapter(listOf(intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as PlayingVideo))
     }
 
     override fun onBackPressed() {
