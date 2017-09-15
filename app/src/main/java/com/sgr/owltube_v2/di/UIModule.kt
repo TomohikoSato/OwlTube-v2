@@ -1,6 +1,7 @@
 package com.sgr.owltube_v2.di
 
 import com.sgr.owltube_v2.frontend.MainActivity
+import com.sgr.owltube_v2.frontend.player.PlayerActivity
 import com.sgr.owltube_v2.frontend.top.TopFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -13,4 +14,7 @@ internal abstract class UIModule {
 
     @ContributesAndroidInjector
     abstract fun provideTopFragmentInjector(): TopFragment
+
+    @ContributesAndroidInjector
+    abstract fun providePlayerActivityInjector(): PlayerActivity
 }

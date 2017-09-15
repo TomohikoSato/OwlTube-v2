@@ -7,7 +7,8 @@ import com.sgr.owltube_v2.domain.videos.related.RelatedVideos
 import com.sgr.owltube_v2.infra.webapi.YoutubeDataAPI
 import com.sgr.owltube_v2.infra.webapi.response.channels.ChannelsResponse
 import com.sgr.owltube_v2.infra.webapi.response.popular.PopularVideoResponse
-import com.sgr.owltube_v2.infra.webapi.response.search.SearchResponse
+import com.sgr.owltube_v2.infra.webapi.response.search.RelatedVideoResponse
+import com.sgr.owltube_v2.infra.webapi.response.videolist.VideosResponse
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import javax.inject.Inject
@@ -15,40 +16,64 @@ import javax.inject.Inject
 class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDataAPI) {
 
     fun fetchPopularVideos(forceUpdate: Boolean): Single<PopularVideos> {
-        val popularVideoResponse = youtubeDataAPI.popularVideos(getCacheControl(forceUpdate), null)
-        val channelResponse = popularVideoResponse.map { videos ->
+        val popularVideosResponse = youtubeDataAPI.popularVideos(getCacheControl(forceUpdate), null)
+        val channelsResponse = popularVideosResponse.map { videos ->
             videos.items.map { item -> item.snippet.channelId }
                     .joinTo(StringBuilder())
         }.flatMap { ids: StringBuilder -> youtubeDataAPI.channels(getCacheControl(forceUpdate), ids.toString()) }
 
         //TODO: popularVideos API が二回呼ばれるのをなんとかする
-        return Single.zip(popularVideoResponse, channelResponse, BiFunction { p, c -> createPopularVideo(p, c) })
+        return Single.zip(popularVideosResponse, channelsResponse, BiFunction { p, c -> createPopularVideos(p, c) })
     }
 
     fun fetchRelatedVideos(videoId: String): Single<RelatedVideos> {
-        youtubeDataAPI.relatedVideos(videoId)
-                .map { search -> createRelatedVideo(search) }
+        return Single.fromCallable {
+            val relatedVideoResponse = youtubeDataAPI.relatedVideos(videoId).blockingGet()
+            val videoIds = relatedVideoResponse.items
+                    .map { item -> item.id }
+                    .joinTo(StringBuilder())
+                    .toString()
+            val videosResponse = youtubeDataAPI.videos(videoIds).blockingGet()
+            createRelatedVideo(relatedVideoResponse, videosResponse)
+        }
     }
 
-    private fun createRelatedVideo(search: SearchResponse): RelatedVideos {
-        search.items.map { item ->
+    private fun createRelatedVideo(relatedVideoResponse: RelatedVideoResponse, videosResponse: VideosResponse): RelatedVideos {
+        //TODO: ZIPいらないかも
+/*
+        val videosResponse = relatedVideoResponse.items.zip(videosResponse.items).map { pair ->
+            {
+                val video = pair.second
+                Video(video.id,
+                        video.snippet.title,
+                        Channel(video.snippet.channelId,
+                                video.snippet.channelTitle, null),
+                        video.statistics.viewCount,
+                        video.snippet.thumbnails.high.url,
+                        video.snippet.publishedAt,
+                        video.contentDetails.duration
+                )
+            }
+        }
+*/
+        val videos = videosResponse.items.map { item ->
             Video(item.id,
                     item.snippet.title,
                     Channel(item.snippet.channelId,
-                            item.snippet.channelTitle,
-                            item.statistics.viewCount,
-                            item.snippet.thumbnails.high.url,
-                            item.snippet.publishedAt,
-                            item.contentDetails.duration
-                    )
+                            item.snippet.channelTitle, null),
+                    item.statistics.viewCount,
+                    item.snippet.thumbnails.high.url,
+                    item.snippet.publishedAt,
+                    item.contentDetails.duration
+            )
         }
 
-        TODO()
+        return RelatedVideos(videos)
     }
 
     private fun getCacheControl(forceUpdate: Boolean): String? = if (forceUpdate) "no-cache" else null
 
-    private fun createPopularVideo(popularVideoResponse: PopularVideoResponse, channelsResponse: ChannelsResponse): PopularVideos {
+    private fun createPopularVideos(popularVideoResponse: PopularVideoResponse, channelsResponse: ChannelsResponse): PopularVideos {
         val videos = popularVideoResponse.items.zip(channelsResponse.items)
                 .map { pair ->
                     val pItem = pair.first

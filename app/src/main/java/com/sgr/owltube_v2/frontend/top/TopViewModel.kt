@@ -26,7 +26,7 @@ class TopViewModel @Inject constructor(private val videoRepository: VideoReposit
                 .subscribe({ videos ->
                     isRefreshing.set(false)
                     this.videos.clear()
-                    this.videos.addAll(videos)
+                    this.videos.addAll(videos.videos)
                 }, { t -> Log.e("TopItemViewMoedel", t.toString()) })
 
     }

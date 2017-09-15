@@ -2,7 +2,7 @@
     <string name="app_name">OwlTube-v2</string>
 
     <string name="top">Top</string>
-    <string name="search">Search</string>
+    <string name="relatedVideo">Search</string>
     <string name="mypage">MyPage</string>
 
     <!-- TODO: Remove or change this placeholder text -->
