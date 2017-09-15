@@ -2,8 +2,8 @@ package com.sgr.owltube_v2.infra.repository
 
 import com.sgr.owltube_v2.domain.Channel
 import com.sgr.owltube_v2.domain.Video
+import com.sgr.owltube_v2.domain.related.RelatedVideos
 import com.sgr.owltube_v2.domain.videos.popular.PopularVideos
-import com.sgr.owltube_v2.domain.videos.related.RelatedVideos
 import com.sgr.owltube_v2.infra.webapi.YoutubeDataAPI
 import com.sgr.owltube_v2.infra.webapi.response.channels.ChannelsResponse
 import com.sgr.owltube_v2.infra.webapi.response.popular.PopularVideoResponse

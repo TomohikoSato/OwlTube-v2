@@ -1,16 +1,17 @@
 package com.sgr.owltube_v2.domain
 
+import com.sgr.owltube_v2.frontend.player.PlayerAdapterItem
 import org.threeten.bp.*
 import java.io.Serializable
 
 
 data class Video(val id: String,
-                 val title: String,
-                 val channel: Channel,
-                 private val _viewCount: String,
-                 val thumbnailUrl: String,
-                 private val _publishedAt: String,
-                 private val _duration: String) : Serializable {
+                      val title: String,
+                      val channel: Channel,
+                      private val _viewCount: String,
+                      val thumbnailUrl: String,
+                      private val _publishedAt: String,
+                      private val _duration: String) : Serializable, PlayerAdapterItem {
 
     val publishedAt: String
         get() {

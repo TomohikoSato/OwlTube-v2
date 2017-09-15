@@ -8,6 +8,7 @@ import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.RecyclerView
 import android.util.Rational
 import android.util.TypedValue
 import android.view.View
@@ -43,6 +44,8 @@ class PlayerActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
         setUpYoutubePlayerView(intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as Video)
+        findViewById<RecyclerView>(R.id.recycler_view).adapter =
+                PlayerAdapter(listOf(intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as Video))
     }
 
     override fun onBackPressed() {
