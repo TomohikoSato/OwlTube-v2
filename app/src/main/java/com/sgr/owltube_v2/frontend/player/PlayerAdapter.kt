@@ -3,14 +3,14 @@ package com.sgr.owltube_v2.frontend.player
 import android.databinding.ObservableList
 import com.sgr.owltube_v2.frontend.common.recycleradapter.delegate.AbsDelegationAdapter
 import com.sgr.owltube_v2.frontend.common.recycleradapter.delegate.AdapterDelegatesManager
-import com.sgr.owltube_v2.frontend.player.delegate.VideoDescriptionDelegate
+import com.sgr.owltube_v2.frontend.player.delegate.PlayingVideoItemDelegate
 
 class PlayerAdapter(val items: ObservableList<PlayerAdapterItem>, adapterDelegatesManager: AdapterDelegatesManager<ObservableList<PlayerAdapterItem>> = AdapterDelegatesManager())
     : AbsDelegationAdapter<ObservableList<PlayerAdapterItem>>(adapterDelegatesManager, items) {
 
     init {
         adapterDelegatesManager.apply {
-            addDelegate(VideoDescriptionDelegate())
+            addDelegate(PlayingVideoItemDelegate())
         }
     }
 
