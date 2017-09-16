@@ -14,6 +14,28 @@ class PlayerAdapter(val items: ObservableList<PlayerAdapterItem>, adapterDelegat
             addDelegate(PlayingVideoItemDelegate())
             addDelegate(RelatedVideoItemDelegate())
         }
+
+        items.addOnListChangedCallback(object : ObservableList.OnListChangedCallback<ObservableList<T>>() {
+            override fun onItemRangeRemoved(Ts: ObservableList<T>?, start: Int, count: Int) {
+                notifyItemRangeRemoved(start, count)
+            }
+
+            override fun onItemRangeChanged(Ts: ObservableList<T>?, start: Int, count: Int) {
+                notifyItemRangeChanged(start, count)
+            }
+
+            override fun onItemRangeInserted(Ts: ObservableList<T>?, start: Int, count: Int) {
+                notifyItemRangeInserted(start, count)
+            }
+
+            override fun onItemRangeMoved(Ts: ObservableList<T>?, start: Int, to: Int, count: Int) {
+                notifyItemMoved(start, to)
+            }
+
+            override fun onChanged(Ts: ObservableList<T>?) {
+                notifyDataSetChanged()
+            }
+        })
     }
 
     override fun getItemCount(): Int {
