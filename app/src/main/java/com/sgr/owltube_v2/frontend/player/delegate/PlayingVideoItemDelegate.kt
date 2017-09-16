@@ -16,14 +16,14 @@ class PlayingVideoItemDelegate : AdapterDelegate<ObservableList<PlayerAdapterIte
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
-        return VideoDescriptionViewHolder(ItemPlayerPlayingVideoBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return PlayerVideoItemViewHolder(ItemPlayerPlayingVideoBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(items: ObservableList<PlayerAdapterItem>, position: Int, holder: RecyclerView.ViewHolder) {
-        (holder as? VideoDescriptionViewHolder)?.binding?.apply {
+        (holder as? PlayerVideoItemViewHolder)?.binding?.apply {
             playingVideo = items.get(position) as PlayingVideo
         }
     }
 
-    class VideoDescriptionViewHolder(val binding: ItemPlayerPlayingVideoBinding) : RecyclerView.ViewHolder(binding.root)
+    class PlayerVideoItemViewHolder(val binding: ItemPlayerPlayingVideoBinding) : RecyclerView.ViewHolder(binding.root)
 }
