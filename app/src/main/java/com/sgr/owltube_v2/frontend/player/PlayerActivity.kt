@@ -47,6 +47,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
         val video = intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as PlayingVideo
         setUpYoutubePlayerView(video)
         viewModel.playerItem.add(video)
+        viewModel.requestRelatedVideos(video.id)
         findViewById<RecyclerView>(R.id.recycler_view).adapter =
                 PlayerAdapter(viewModel.playerItem
 
