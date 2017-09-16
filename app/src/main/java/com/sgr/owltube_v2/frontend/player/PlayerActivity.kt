@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.content.res.Configuration
+import android.databinding.ObservableArrayList
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -46,7 +47,9 @@ class PlayerActivity : DaggerAppCompatActivity() {
         setContentView(R.layout.activity_player)
         setUpYoutubePlayerView(intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as Video)
         findViewById<RecyclerView>(R.id.recycler_view).adapter =
-                PlayerAdapter(listOf(intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as PlayingVideo))
+                PlayerAdapter(ObservableArrayList<PlayerAdapterItem>().apply {
+                    add(intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as PlayingVideo)
+                })
     }
 
     override fun onBackPressed() {
