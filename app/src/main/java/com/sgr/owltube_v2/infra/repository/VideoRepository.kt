@@ -31,7 +31,7 @@ class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDat
         return Single.fromCallable {
             val relatedVideoResponse = youtubeDataAPI.relatedVideos(videoId).blockingGet()
             val videoIds = relatedVideoResponse.items
-                    .map { item -> item.id }
+                    .map { item -> item.id.videoId }
                     .joinTo(StringBuilder())
                     .toString()
             val videosResponse = youtubeDataAPI.videos(videoIds).blockingGet()
