@@ -1,6 +1,5 @@
 package com.sgr.owltube_v2.domain.related
 
-import com.sgr.owltube_v2.domain.Video
-import com.sgr.owltube_v2.frontend.player.PlayerAdapterItem
+import com.sgr.owltube_v2.domain.player.related.RelatedVideo
 
-data class RelatedVideos(val videos: List<Video>) : PlayerAdapterItem
+data class RelatedVideos(val videos: List<RelatedVideo>)

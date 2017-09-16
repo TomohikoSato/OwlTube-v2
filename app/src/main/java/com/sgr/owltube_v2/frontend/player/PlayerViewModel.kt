@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class PlayerViewModel @Inject constructor(private val videoRepository: VideoRepository) {
 
-    //val relatedVideos: ObservableField<RelatedVideos> = ObservableField<RelatedVideos>()
+//    val relatedVideos: ObservableField<RelatedVideos> = ObservableField<RelatedVideos>()
 //    val relatedVideos: ObservableField<RelatedVideos> = ObservableField<RelatedVideos>()
 
     val playerItem: ObservableList<PlayerAdapterItem> = ObservableArrayList<PlayerAdapterItem>()
@@ -16,6 +16,6 @@ class PlayerViewModel @Inject constructor(private val videoRepository: VideoRepo
     fun requestRelatedVideos(videoId: String) {
         videoRepository.fetchRelatedVideos(videoId)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { relatedVideos -> this.playerItem.add(relatedVideos) }
+                .subscribe { relatedVideos -> this.playerItem.addAll(relatedVideos.videos) }
     }
 }
