@@ -19,12 +19,4 @@ by VideoImpl(id,
         thumbnailUrl,
         _publishedAt,
         _duration), PlayerAdapterItem {
-
-    constructor(video: Video) : this(video.id,
-            video.title,
-            video.channel,
-            video._viewCount,
-            video.thumbnailUrl,
-            video._publishedAt,
-            video._duration)
 }
