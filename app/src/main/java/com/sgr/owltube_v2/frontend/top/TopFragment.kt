@@ -50,7 +50,8 @@ class TopFragment : DaggerFragment() {
             findViewById<RecyclerView>(R.id.recycler_view).adapter = TopAdapter(topViewModel.videos, listener)
             findViewById<SwipeRefreshLayout>(R.id.swipe_refresh).apply {
                 setColorSchemeResources(android.R.color.holo_red_dark,
-                        android.R.color.holo_blue_dark, android.R.color.holo_green_dark,
+                        android.R.color.holo_blue_dark,
+                        android.R.color.holo_green_dark,
                         android.R.color.holo_orange_dark)
                 setOnRefreshListener {
                     topViewModel.refreshPopularVideo()
