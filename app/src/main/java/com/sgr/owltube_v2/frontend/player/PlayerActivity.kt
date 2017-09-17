@@ -55,6 +55,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
 
     private fun setUp(video: PlayingVideo) {
         setUpYoutubePlayerView(video)
+        viewModel.playerItem.clear()
         viewModel.playerItem.add(video)
         viewModel.requestRelatedVideos(video.id)
         findViewById<RecyclerView>(R.id.recycler_view).adapter =
@@ -76,44 +77,59 @@ class PlayerActivity : DaggerAppCompatActivity() {
         if (youtubePlayerView.isFullScreen) youtubePlayerView.exitFullScreen()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        youtubePlayerView.release()
+    }
+
     override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
         findViewById<View>(R.id.recycler_view).visibility = if (isInPictureInPictureMode) View.GONE else View.VISIBLE
     }
 
+    private var youtubePlayerInitialized: Boolean = false
+
     private fun setUpYoutubePlayerView(video: Video) {
         youtubePlayerView = findViewById<YouTubePlayerView>(R.id.youtube_player_view)
 
-        youtubePlayerView.initialize(object : AbstractYouTubeListener() {
-            override fun onReady() {
-                youtubePlayerView.loadVideo(video.id, 0F)
-            }
-        }, false)
-
-        youtubePlayerView.addFullScreenListener(object : YouTubePlayerFullScreenListener {
-            val fullScreenManager = FullScreenManager(this@PlayerActivity)
-            override fun onYouTubePlayerEnterFullScreen() {
-                fullScreenManager.enterFullScreen()
-            }
-
-            override fun onYouTubePlayerExitFullScreen() {
-                fullScreenManager.exitFullScreen()
-            }
-        })
-
-        youtubePlayerView.findViewById<ViewGroup>(R.id.controls_root).addView(
-                ImageButton(this).apply {
-                    layoutParams = RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
-                        addRule(RelativeLayout.ALIGN_PARENT_END)
-                    }
-                    val paddingPx = convertDpToPixels(8F, this@PlayerActivity)
-                    setPadding(paddingPx, paddingPx, paddingPx, paddingPx)
-                    setImageResource(R.drawable.ic_to_external_black_24dp)
-                    setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white)))
-                    setBackgroundResource(R.drawable.app_background_item_selected)
-                    setOnClickListener { launchPinP() }
+        if (youtubePlayerInitialized) {
+            youtubePlayerView.loadVideo(video.id, 0F)
+        } else {
+            youtubePlayerInitialized = true
+            youtubePlayerView.initialize(object : AbstractYouTubeListener() {
+                override fun onReady() {
+                    youtubePlayerView.loadVideo(video.id, 0F)
                 }
-        )
+            }, false)
+
+            youtubePlayerView.addFullScreenListener(object : YouTubePlayerFullScreenListener {
+                val fullScreenManager = FullScreenManager(this@PlayerActivity)
+                override fun onYouTubePlayerEnterFullScreen() {
+                    fullScreenManager.enterFullScreen()
+                }
+
+                override fun onYouTubePlayerExitFullScreen() {
+                    fullScreenManager.exitFullScreen()
+                }
+            })
+
+            youtubePlayerView.findViewById<ViewGroup>(R.id.controls_root).addView(
+                    ImageButton(this).apply {
+                        layoutParams = RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
+                            addRule(RelativeLayout.ALIGN_PARENT_END)
+                        }
+                        val paddingPx = convertDpToPixels(8F, this@PlayerActivity)
+                        setPadding(paddingPx, paddingPx, paddingPx, paddingPx)
+                        setImageResource(R.drawable.ic_to_external_black_24dp)
+                        setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white)))
+                        setBackgroundResource(R.drawable.app_background_item_selected)
+                        setOnClickListener { launchPinP() }
+                    }
+            )
+
+        }
+
+
     }
 
     private fun launchPinP() {

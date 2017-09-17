@@ -10,7 +10,8 @@ import com.sgr.owltube_v2.domain.player.related.RelatedVideo
 import com.sgr.owltube_v2.frontend.common.recycleradapter.delegate.AdapterDelegate
 import com.sgr.owltube_v2.frontend.player.PlayerAdapterItem
 
-class RelatedVideoItemDelegate(private val onRelatedVideoItemClicked: (view: View, relatedVideo: RelatedVideo) -> Unit) : AdapterDelegate<ObservableList<PlayerAdapterItem>> {
+class RelatedVideoItemDelegate(private val onRelatedVideoItemClicked: (view: View, relatedVideo: RelatedVideo) -> Unit)
+    : AdapterDelegate<ObservableList<PlayerAdapterItem>> {
     override fun isForViewType(items: ObservableList<PlayerAdapterItem>, position: Int): Boolean {
         return items.get(position) is RelatedVideo
     }
