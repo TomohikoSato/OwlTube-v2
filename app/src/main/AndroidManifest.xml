@@ -25,6 +25,7 @@
         </activity>
         <activity
             android:name=".frontend.player.PlayerActivity"
+            android:launchMode="singleTop"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true"
