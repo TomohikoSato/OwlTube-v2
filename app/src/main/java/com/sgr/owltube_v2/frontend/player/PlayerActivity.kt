@@ -34,7 +34,6 @@ class PlayerActivity : DaggerAppCompatActivity() {
         fun startActivity(context: Context, video: Video) {
             val intent = Intent(context, PlayerActivity::class.java).apply {
                 putExtra(KEY_INTENT_EXTRA_VIDEO, PlayingVideo(video))
-
             }
             context.startActivity(intent)
         }
