@@ -30,9 +30,10 @@ class MainActivity : DaggerAppCompatActivity(), TopFragment.OnTopFragmentListIte
         navigation.apply {
             disableShiftingMode()
             setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-            setOnNavigationItemReselectedListener { onNavigationItemReSelectedListener }
+            setOnNavigationItemReselectedListener(onNavigationItemReselectedListener)
             selectedItemId = R.id.navigation_top
         }
+        switchFragment(topFragment)
     }
 
     override fun onClickItem(video: Video) {
@@ -57,7 +58,7 @@ class MainActivity : DaggerAppCompatActivity(), TopFragment.OnTopFragmentListIte
         false
     }
 
-    private val onNavigationItemReSelectedListener = BottomNavigationView.OnNavigationItemReselectedListener { item ->
+    private val onNavigationItemReselectedListener = BottomNavigationView.OnNavigationItemReselectedListener { item ->
         when (item.itemId) {
             R.id.navigation_top -> {
                 topFragment.scrollToTop()
@@ -68,7 +69,6 @@ class MainActivity : DaggerAppCompatActivity(), TopFragment.OnTopFragmentListIte
             R.id.navigation_mypage -> {
             }
         }
-        false
     }
 
 

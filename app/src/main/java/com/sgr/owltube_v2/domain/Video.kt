@@ -49,5 +49,4 @@ data class VideoImpl(override val id: String,
                      override val _viewCount: String,
                      override val thumbnailUrl: String,
                      override val _publishedAt: String,
-                     override val _duration: String) : Serializable, Video {
-}
+                     override val _duration: String) : Serializable, Video

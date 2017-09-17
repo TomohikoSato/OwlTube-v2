@@ -50,8 +50,8 @@ class AdapterDelegatesManager<T> {
      * @return self
      */
     fun addDelegate(viewType: Int, delegate: AdapterDelegate<T>): AdapterDelegatesManager<T> {
-        delegates.put(viewType, delegate);
-        return this;
+        delegates.put(viewType, delegate)
+        return this
     }
 
     /**

@@ -17,12 +17,12 @@ class FullScreenManager(private val activity: Activity) {
 
     //TODO: ホーム画面から戻ってきた時の挙動を修正する
     private fun hideSystemUI(decorView: View) {
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+        decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
                 View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
                 View.SYSTEM_UI_FLAG_FULLSCREEN or
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
     }
 
     // This snippet shows the system bars.

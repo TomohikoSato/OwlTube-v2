@@ -15,7 +15,7 @@ import android.util.Log
  */
 @SuppressLint("RestrictedApi")
 fun BottomNavigationView.disableShiftingMode() {
-    val TAG = BottomNavigationView::class.java.getSimpleName()
+    val TAG = BottomNavigationView::class.java.simpleName
     val menuView = getChildAt(0) as BottomNavigationMenuView
     try {
         val shiftingMode = menuView.javaClass.getDeclaredField("mShiftingMode")

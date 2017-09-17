@@ -121,7 +121,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
                         val paddingPx = convertDpToPixels(8F, this@PlayerActivity)
                         setPadding(paddingPx, paddingPx, paddingPx, paddingPx)
                         setImageResource(R.drawable.ic_to_external_black_24dp)
-                        setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white)))
+                        imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
                         setBackgroundResource(R.drawable.app_background_item_selected)
                         setOnClickListener { launchPinP() }
                     }

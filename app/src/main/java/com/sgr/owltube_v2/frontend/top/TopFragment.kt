@@ -3,6 +3,7 @@ package com.sgr.owltube_v2.frontend.top
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -43,7 +44,7 @@ class TopFragment : DaggerFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding: FragmentTopBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_top, container, false)
-        binding.setViewModel(topViewModel)
+        binding.viewModel = topViewModel
 
         return binding.root.apply {
             findViewById<RecyclerView>(R.id.recycler_view).adapter = TopAdapter(topViewModel.videos, listener)
@@ -62,5 +63,8 @@ class TopFragment : DaggerFragment() {
         fun onClickItem(video: Video)
     }
 
-    fun scrollToTop() = activity.findViewById<RecyclerView>(R.id.recycler_view).scrollToPosition(0)
+    fun scrollToTop() = activity?.apply {
+        findViewById<RecyclerView>(R.id.recycler_view).scrollToPosition(0)
+        findViewById<AppBarLayout>(R.id.app_bar).setExpanded(true, true)
+    }
 }

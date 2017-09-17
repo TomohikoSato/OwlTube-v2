@@ -18,5 +18,4 @@ by VideoImpl(id,
         _viewCount,
         thumbnailUrl,
         _publishedAt,
-        _duration), PlayerAdapterItem {
-}
+        _duration), PlayerAdapterItem
