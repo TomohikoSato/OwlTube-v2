@@ -30,6 +30,7 @@ class MainActivity : DaggerAppCompatActivity(), TopFragment.OnTopFragmentListIte
         navigation.apply {
             disableShiftingMode()
             setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+            setOnNavigationItemReselectedListener { onNavigationItemReSelectedListener }
             selectedItemId = R.id.navigation_top
         }
     }
@@ -55,6 +56,21 @@ class MainActivity : DaggerAppCompatActivity(), TopFragment.OnTopFragmentListIte
         }
         false
     }
+
+    private val onNavigationItemReSelectedListener = BottomNavigationView.OnNavigationItemReselectedListener { item ->
+        when (item.itemId) {
+            R.id.navigation_top -> {
+                topFragment.scrollToTop()
+            }
+            R.id.navigation_search -> {
+
+            }
+            R.id.navigation_mypage -> {
+            }
+        }
+        false
+    }
+
 
     private fun switchFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()

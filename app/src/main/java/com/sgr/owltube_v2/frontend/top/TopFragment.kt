@@ -61,4 +61,6 @@ class TopFragment : DaggerFragment() {
     interface OnTopFragmentListItemInteractionListener {
         fun onClickItem(video: Video)
     }
+
+    fun scrollToTop() = activity.findViewById<RecyclerView>(R.id.recycler_view).scrollToPosition(0)
 }
