@@ -8,7 +8,6 @@ import com.sgr.owltube_v2.domain.popular.PopularVideos
 import com.sgr.owltube_v2.infra.webapi.YoutubeDataAPI
 import com.sgr.owltube_v2.infra.webapi.response.channels.ChannelsResponse
 import com.sgr.owltube_v2.infra.webapi.response.popular.PopularVideoResponse
-import com.sgr.owltube_v2.infra.webapi.response.search.RelatedVideoResponse
 import com.sgr.owltube_v2.infra.webapi.response.videolist.VideosResponse
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
@@ -28,18 +27,18 @@ class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDat
     }
 
     fun fetchRelatedVideos(videoId: String): Single<RelatedVideos> {
-        return Single.fromCallable {
-            val relatedVideoResponse = youtubeDataAPI.relatedVideos(videoId).blockingGet()
-            val videoIds = relatedVideoResponse.items
-                    .map { item -> item.id.videoId }
-                    .joinTo(StringBuilder())
-                    .toString()
-            val videosResponse = youtubeDataAPI.videos(videoIds).blockingGet()
-            createRelatedVideo(relatedVideoResponse, videosResponse)
-        }
+        return youtubeDataAPI.relatedVideos(videoId)
+                .flatMap { response ->
+                    val videoIds = response.items.map { item -> item.id.videoId }
+                            .joinTo(StringBuilder())
+                            .toString()
+
+                    youtubeDataAPI.videos(videoIds)
+                }
+                .map { videos -> createRelatedVideo(videos) }
     }
 
-    private fun createRelatedVideo(relatedVideoResponse: RelatedVideoResponse, videosResponse: VideosResponse): RelatedVideos {
+    private fun createRelatedVideo(videosResponse: VideosResponse): RelatedVideos {
         //TODO: ZIPいらないかも
 /*
         val videosResponse = relatedVideoResponse.items.zip(videosResponse.items).map { pair ->
