@@ -52,6 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
+            android:maxLines="2"
             android:text="@{relatedVideo.title}"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -59,19 +60,49 @@
             app:layout_constraintTop_toTopOf="@+id/thumbnail"
             tools:text="タイトル" />
 
-        <!--
-                <include
-                    android:id="@+id/include"
-                    layout="@layout/include_video_description"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/title"
-                    app:layout_constraintTop_toBottomOf="@+id/title"
-                    app:video="@{relatedVideo}" />
-        -->
+        <TextView
+            android:id="@+id/channelTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text="@{relatedVideo.channel.title}"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/thumbnail"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            tools:text="チャンネルタイトル" />
+
+        <TextView
+            android:id="@+id/viewCountKey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="視聴回数"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/title"
+            app:layout_constraintTop_toBottomOf="@+id/channelTitle" />
+
+        <TextView
+            android:id="@+id/viewCountValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@{relatedVideo.viewCount}"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/viewCountKey"
+            app:layout_constraintTop_toTopOf="@+id/viewCountKey"
+            tools:text="40万回" />
+
+        <TextView
+            android:id="@+id/publishedAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{relatedVideo.publishedAt}"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/viewCountValue"
+            app:layout_constraintTop_toTopOf="@+id/viewCountKey"
+            tools:text="3ヶ月前" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>
