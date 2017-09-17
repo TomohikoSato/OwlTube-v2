@@ -39,23 +39,6 @@ class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDat
     }
 
     private fun createRelatedVideo(videosResponse: VideosResponse): RelatedVideos {
-        //TODO: ZIPいらないかも
-/*
-        val videosResponse = relatedVideoResponse.items.zip(videosResponse.items).map { pair ->
-            {
-                val video = pair.second
-                Video(video.id,
-                        video.snippet.title,
-                        Channel(video.snippet.channelId,
-                                video.snippet.channelTitle, null),
-                        video.statistics.viewCount,
-                        video.snippet.thumbnails.high.url,
-                        video.snippet.publishedAt,
-                        video.contentDetails.duration
-                )
-            }
-        }
-*/
         val videos = videosResponse.items.map { item ->
             RelatedVideo(item.id,
                     item.snippet.title,

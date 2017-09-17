@@ -22,6 +22,7 @@ import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.domain.player.PlayingVideo
+import com.sgr.owltube_v2.domain.player.related.RelatedVideo
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -44,17 +45,20 @@ class PlayerActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
-        val video = intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as PlayingVideo
+        setUp(intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as PlayingVideo)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setUp(intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as PlayingVideo)
+    }
+
+    private fun setUp(video: PlayingVideo) {
         setUpYoutubePlayerView(video)
         viewModel.playerItem.add(video)
         viewModel.requestRelatedVideos(video.id)
         findViewById<RecyclerView>(R.id.recycler_view).adapter =
-                PlayerAdapter(viewModel.playerItem
-
-                        /*ObservableArrayList<PlayerAdapterItem>().apply {
-                    add(intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as PlayingVideo)
-                    add(viewModel.relatedVideos)
-                }*/)
+                PlayerAdapter(viewModel.playerItem, { view: View, relatedVideo: RelatedVideo -> PlayerActivity.startActivity(this, relatedVideo) })
     }
 
     override fun onBackPressed() {
@@ -107,13 +111,12 @@ class PlayerActivity : DaggerAppCompatActivity() {
                     setImageResource(R.drawable.ic_to_external_black_24dp)
                     setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white)))
                     setBackgroundResource(R.drawable.app_background_item_selected)
-
-                    setOnClickListener { launchExternalView() }
+                    setOnClickListener { launchPinP() }
                 }
         )
     }
 
-    private fun launchExternalView() {
+    private fun launchPinP() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             enterPictureInPictureMode(PictureInPictureParams.Builder()
                     .setAspectRatio(Rational(youtubePlayerView.width, youtubePlayerView.height))

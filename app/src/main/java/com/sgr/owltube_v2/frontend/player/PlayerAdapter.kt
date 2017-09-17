@@ -1,18 +1,22 @@
 package com.sgr.owltube_v2.frontend.player
 
 import android.databinding.ObservableList
+import android.view.View
+import com.sgr.owltube_v2.domain.player.related.RelatedVideo
 import com.sgr.owltube_v2.frontend.common.recycleradapter.delegate.AbsDelegationAdapter
 import com.sgr.owltube_v2.frontend.common.recycleradapter.delegate.AdapterDelegatesManager
 import com.sgr.owltube_v2.frontend.player.delegate.PlayingVideoItemDelegate
 import com.sgr.owltube_v2.frontend.player.delegate.RelatedVideoItemDelegate
 
-class PlayerAdapter(val items: ObservableList<PlayerAdapterItem>, adapterDelegatesManager: AdapterDelegatesManager<ObservableList<PlayerAdapterItem>> = AdapterDelegatesManager())
+class PlayerAdapter(val items: ObservableList<PlayerAdapterItem>,
+                    onRelatedVideoItemClicked: (view: View, relatedVideo: RelatedVideo) -> Unit,
+                    adapterDelegatesManager: AdapterDelegatesManager<ObservableList<PlayerAdapterItem>> = AdapterDelegatesManager())
     : AbsDelegationAdapter<ObservableList<PlayerAdapterItem>>(adapterDelegatesManager, items) {
 
     init {
         adapterDelegatesManager.apply {
             addDelegate(PlayingVideoItemDelegate())
-            addDelegate(RelatedVideoItemDelegate())
+            addDelegate(RelatedVideoItemDelegate(onRelatedVideoItemClicked))
         }
 
         items.addOnListChangedCallback(object : ObservableList.OnListChangedCallback<ObservableList<PlayerAdapterItem>>() {
