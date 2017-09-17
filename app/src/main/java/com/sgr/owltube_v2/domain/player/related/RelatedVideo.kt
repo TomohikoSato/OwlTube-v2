@@ -8,23 +8,23 @@ import com.sgr.owltube_v2.frontend.player.PlayerAdapterItem
 data class RelatedVideo(override val id: String,
                         override val title: String,
                         override val channel: Channel,
-                        override val viewCount: String,
+                        override val _viewCount: String,
                         override val thumbnailUrl: String,
-                        override val publishedAt: String,
-                        override val duration: String) : Video
+                        override val _publishedAt: String,
+                        override val _duration: String) : Video
 by VideoImpl(id,
         title,
         channel,
-        viewCount,
+        _viewCount,
         thumbnailUrl,
-        publishedAt,
-        duration), PlayerAdapterItem {
+        _publishedAt,
+        _duration), PlayerAdapterItem {
 
     constructor(video: Video) : this(video.id,
             video.title,
             video.channel,
-            video.viewCount,
+            video._viewCount,
             video.thumbnailUrl,
-            video.publishedAt,
-            video.duration)
+            video._publishedAt,
+            video._duration)
 }

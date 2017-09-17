@@ -1,4 +1,4 @@
-package com.sgr.owltube_v2.domain.videos.popular
+package com.sgr.owltube_v2.domain.popular
 
 import com.sgr.owltube_v2.domain.Video
 
