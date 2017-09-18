@@ -20,7 +20,7 @@ class SearchActivity : AppCompatActivity() {
                     (getSystemService(Context.SEARCH_SERVICE) as SearchManager).getSearchableInfo(getComponentName()))
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
-                    SearchResultActivity.startActivity(this@SearchActivity)
+                    SearchResultActivity.startActivity(this@SearchActivity, query)
                     return true
                 }
 
