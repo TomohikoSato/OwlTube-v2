@@ -30,20 +30,8 @@
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true"
             tools:targetApi="n" />
-        <activity android:name=".frontend.search.SearchActivity">
-            <meta-data
-                android:name="android.app.default_searchable"
-                android:value=".SearchResultActivity" />
-        </activity>
-        <activity android:name=".frontend.search.SearchResultActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-
-        </activity>
+        <activity android:name=".frontend.search.SearchActivity" />
+        <activity android:name=".frontend.search.SearchResultActivity" />
     </application>
 
 </manifest>
