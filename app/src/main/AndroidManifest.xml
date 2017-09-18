@@ -25,11 +25,13 @@
         </activity>
         <activity
             android:name=".frontend.player.PlayerActivity"
-            android:launchMode="singleTop"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTop"
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true"
             tools:targetApi="n" />
+        <activity android:name=".frontend.search.SearchActivity"></activity>
+        <activity android:name="SearchActivity" />
     </application>
 
 </manifest>

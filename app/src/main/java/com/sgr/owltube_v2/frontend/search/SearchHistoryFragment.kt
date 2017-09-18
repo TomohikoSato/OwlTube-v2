@@ -26,7 +26,14 @@ class SearchHistoryFragment : Fragment() {
                               container: ViewGroup?,
                               @Nullable savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_search_history, container, false)?.apply {
-            findViewById<SearchView>(R.id.search_view).setOnClickListener { view -> listener.onClickedSearchView(view) }
+            findViewById<SearchView>(R.id.search_view).let {
+                it.setOnQueryTextFocusChangeListener { view, hasFocus ->
+                    if (hasFocus) {
+                        listener.onClickedSearchView(view)
+                        it.clearFocus()
+                    }
+                }
+            }
         }
     }
 

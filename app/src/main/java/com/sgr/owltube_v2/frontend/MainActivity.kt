@@ -9,6 +9,7 @@ import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.common.disableShiftingMode
 import com.sgr.owltube_v2.frontend.mypage.MyPageFragment
 import com.sgr.owltube_v2.frontend.player.PlayerActivity
+import com.sgr.owltube_v2.frontend.search.SearchActivity
 import com.sgr.owltube_v2.frontend.search.SearchHistoryFragment
 import com.sgr.owltube_v2.frontend.search.SearchHistoryFragment.SearchHistoryFragmentListener
 import com.sgr.owltube_v2.frontend.top.TopFragment
@@ -44,7 +45,7 @@ class MainActivity : DaggerAppCompatActivity(), TopFragmentListItemListener, Sea
     }
 
     override fun onClickedSearchView(view: View) {
-
+        SearchActivity.startActivity(this)
     }
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
