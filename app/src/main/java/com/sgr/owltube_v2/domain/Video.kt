@@ -1,10 +1,10 @@
 package com.sgr.owltube_v2.domain
 
-import com.sgr.owltube_v2.frontend.player.PlayerAdapterItem
+import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterItem
 import org.threeten.bp.*
 import java.io.Serializable
 
-interface Video : Serializable, PlayerAdapterItem {
+interface Video : Serializable, AdapterItem {
     val id: String
     val title: String
     val channel: Channel

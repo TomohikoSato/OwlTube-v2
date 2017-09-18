@@ -57,7 +57,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
         viewModel.playerItem.add(video)
         viewModel.requestRelatedVideos(video.id)
         findViewById<RecyclerView>(R.id.recycler_view).adapter =
-                PlayerAdapter(viewModel.playerItem, { view: View, video: Video -> PlayerActivity.startActivity(this, video) })
+                PlayerAdapter(viewModel.playerItem, { _: View, v: Video -> PlayerActivity.startActivity(this, v) })
     }
 
     override fun onBackPressed() {

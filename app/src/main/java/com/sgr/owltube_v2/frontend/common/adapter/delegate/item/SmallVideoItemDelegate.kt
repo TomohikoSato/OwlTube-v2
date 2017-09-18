@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import com.sgr.owltube_v2.databinding.ItemSmallVideoBinding
 import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterDelegate
+import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterItem
 
 class SmallVideoItemDelegate(private val onSmallVideoItemClicked: (view: View, video: Video) -> Unit)
-    : AdapterDelegate<ObservableList<PlayerAdapterItem>> {
-    override fun isForViewType(items: ObservableList<PlayerAdapterItem>, position: Int): Boolean {
+    : AdapterDelegate<ObservableList<AdapterItem>> {
+    override fun isForViewType(items: ObservableList<AdapterItem>, position: Int): Boolean {
         return position > 0
     }
 
@@ -19,7 +20,7 @@ class SmallVideoItemDelegate(private val onSmallVideoItemClicked: (view: View, v
         return SmallVideoViewHolder(ItemSmallVideoBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    override fun onBindViewHolder(items: ObservableList<PlayerAdapterItem>, position: Int, holder: RecyclerView.ViewHolder) {
+    override fun onBindViewHolder(items: ObservableList<AdapterItem>, position: Int, holder: RecyclerView.ViewHolder) {
         (holder as? SmallVideoViewHolder)?.binding?.apply {
             video = items.get(position) as Video
             root.setOnClickListener { view -> onSmallVideoItemClicked(view, video) }

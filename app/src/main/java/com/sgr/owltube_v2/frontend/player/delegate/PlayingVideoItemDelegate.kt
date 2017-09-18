@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import com.sgr.owltube_v2.databinding.ItemPlayerPlayingVideoBinding
 import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterDelegate
-import com.sgr.owltube_v2.frontend.player.PlayerAdapterItem
+import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterItem
 
-class PlayingVideoItemDelegate : AdapterDelegate<ObservableList<PlayerAdapterItem>> {
+class PlayingVideoItemDelegate : AdapterDelegate<ObservableList<AdapterItem>> {
 
-    override fun isForViewType(items: ObservableList<PlayerAdapterItem>, position: Int): Boolean {
+    override fun isForViewType(items: ObservableList<AdapterItem>, position: Int): Boolean {
         return position == 0
     }
 
@@ -19,7 +19,7 @@ class PlayingVideoItemDelegate : AdapterDelegate<ObservableList<PlayerAdapterIte
         return PlayerVideoItemViewHolder(ItemPlayerPlayingVideoBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    override fun onBindViewHolder(items: ObservableList<PlayerAdapterItem>, position: Int, holder: RecyclerView.ViewHolder) {
+    override fun onBindViewHolder(items: ObservableList<AdapterItem>, position: Int, holder: RecyclerView.ViewHolder) {
         (holder as? PlayerVideoItemViewHolder)?.binding?.apply {
             video = items.get(position) as Video
         }

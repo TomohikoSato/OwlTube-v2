@@ -5,13 +5,14 @@ import android.view.View
 import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AbsDelegationAdapter
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterDelegatesManager
+import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterItem
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.item.SmallVideoItemDelegate
 
 class SearchResultAdapter(
-        val items: ObservableList<PlayerAdapterItem>,
+        val items: ObservableList<AdapterItem>,
         onSearchResultVideoItemClicked: (view: View, video: Video) -> Unit,
-        adapterDelegatesManager: AdapterDelegatesManager<ObservableList<PlayerAdapterItem>> = AdapterDelegatesManager())
-    : AbsDelegationAdapter<ObservableList<PlayerAdapterItem>>(adapterDelegatesManager, items) {
+        adapterDelegatesManager: AdapterDelegatesManager<ObservableList<AdapterItem>> = AdapterDelegatesManager())
+    : AbsDelegationAdapter<ObservableList<AdapterItem>>(adapterDelegatesManager, items) {
 
     init {
         adapterDelegatesManager.apply {
@@ -20,24 +21,24 @@ class SearchResultAdapter(
 
         items.addOnListChangedCallback(
                 object : ObservableList.OnListChangedCallback<
-                        ObservableList<PlayerAdapterItem>>() {
-                    override fun onItemRangeRemoved(Ts: ObservableList<PlayerAdapterItem>?, start: Int, count: Int) {
+                        ObservableList<AdapterItem>>() {
+                    override fun onItemRangeRemoved(Ts: ObservableList<AdapterItem>?, start: Int, count: Int) {
                         notifyItemRangeRemoved(start, count)
                     }
 
-                    override fun onItemRangeChanged(Ts: ObservableList<PlayerAdapterItem>?, start: Int, count: Int) {
+                    override fun onItemRangeChanged(Ts: ObservableList<AdapterItem>?, start: Int, count: Int) {
                         notifyItemRangeChanged(start, count)
                     }
 
-                    override fun onItemRangeInserted(Ts: ObservableList<PlayerAdapterItem>?, start: Int, count: Int) {
+                    override fun onItemRangeInserted(Ts: ObservableList<AdapterItem>?, start: Int, count: Int) {
                         notifyItemRangeInserted(start, count)
                     }
 
-                    override fun onItemRangeMoved(Ts: ObservableList<PlayerAdapterItem>?, start: Int, to: Int, count: Int) {
+                    override fun onItemRangeMoved(Ts: ObservableList<AdapterItem>?, start: Int, to: Int, count: Int) {
                         notifyItemMoved(start, to)
                     }
 
-                    override fun onChanged(Ts: ObservableList<PlayerAdapterItem>?) {
+                    override fun onChanged(Ts: ObservableList<AdapterItem>?) {
                         notifyDataSetChanged()
                     }
                 })
