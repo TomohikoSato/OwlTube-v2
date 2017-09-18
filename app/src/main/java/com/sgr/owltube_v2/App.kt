@@ -29,6 +29,7 @@ class App : Application(), HasActivityInjector {
                 .appModule(AppModule(this))
                 .build()
                 .inject(this)
+
         AndroidThreeTen.init(this)
     }
 }
