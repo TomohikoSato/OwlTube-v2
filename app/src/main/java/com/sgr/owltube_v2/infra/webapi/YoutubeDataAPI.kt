@@ -4,6 +4,7 @@ import com.sgr.owltube_v2.BuildConfig
 import com.sgr.owltube_v2.infra.webapi.response.channels.ChannelsResponse
 import com.sgr.owltube_v2.infra.webapi.response.popular.PopularVideoResponse
 import com.sgr.owltube_v2.infra.webapi.response.search.RelatedVideoResponse
+import com.sgr.owltube_v2.infra.webapi.response.search.SearchResultResponse
 import com.sgr.owltube_v2.infra.webapi.response.videolist.VideosResponse
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -30,11 +31,10 @@ interface YoutubeDataAPI {
     @GET("search?part=snippet&maxResults=10&type=video&key=" + BuildConfig.YOUTUBE_DATA_API_KEY)
     fun relatedVideos(@Query("relatedToVideoId") videoId: String): Single<RelatedVideoResponse>
 
+    @GET("search?part=snippet&type=video&maxResults=50&key=" + BuildConfig.YOUTUBE_DATA_API_KEY)
+    fun search(@Query("q") q: String): Single<SearchResultResponse>
 
 /*
-    @GET("search?part=snippet&regionCode=JP&type=video&maxResults=" + MAX_RESULTS + "&key=" + BuildConfig.YOUTUBE_DATA_API_KEY)
-    fun search(@Query("q") q: String, @Query("pageToken") pageToken: String?): Single<RelatedVideoResponse>
-
     @GET("videos?part=statistics&key=" + BuildConfig.YOUTUBE_DATA_API_KEY)
     fun videoListStatistics(@Query("id") videoIds: String): Single<VideoList>
 

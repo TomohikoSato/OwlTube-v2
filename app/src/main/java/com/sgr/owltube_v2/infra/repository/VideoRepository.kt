@@ -1,6 +1,7 @@
 package com.sgr.owltube_v2.infra.repository
 
 import com.sgr.owltube_v2.domain.Channel
+import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.domain.VideoImpl
 import com.sgr.owltube_v2.domain.player.related.RelatedVideo
 import com.sgr.owltube_v2.domain.player.related.RelatedVideos
@@ -38,6 +39,18 @@ class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDat
                 .map { videos -> createRelatedVideo(videos) }
     }
 
+    fun search(query: String): Single<List<Video>> {
+        return youtubeDataAPI.search(query)
+                .flatMap { searchResultResponse ->
+                    val videoIds = searchResultResponse.items.map { item -> item.id.videoId }
+                            .joinTo(StringBuilder())
+                            .toString()
+
+                    youtubeDataAPI.videos(videoIds)
+                }
+                .map { videos -> createVideos(videos) }
+    }
+
     private fun createRelatedVideo(videosResponse: VideosResponse): RelatedVideos {
         val videos = videosResponse.items.map { item ->
             RelatedVideo(item.id,
@@ -52,6 +65,22 @@ class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDat
         }
 
         return RelatedVideos(videos)
+    }
+
+    private fun createVideos(videosResponse: VideosResponse): List<Video> {
+        val videos = videosResponse.items.map { item ->
+            VideoImpl(item.id,
+                    item.snippet.title,
+                    Channel(item.snippet.channelId,
+                            item.snippet.channelTitle, null),
+                    item.statistics.viewCount,
+                    item.snippet.thumbnails.high.url,
+                    item.snippet.publishedAt,
+                    item.contentDetails.duration
+            )
+        }
+
+        return videos
     }
 
     private fun getCacheControl(forceUpdate: Boolean): String? = if (forceUpdate) "no-cache" else null
