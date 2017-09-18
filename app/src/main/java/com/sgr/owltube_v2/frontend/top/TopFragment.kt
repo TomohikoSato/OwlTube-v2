@@ -4,7 +4,6 @@ import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -44,11 +43,10 @@ class TopFragment : DaggerFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding: FragmentTopBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_top, container, false)
-        binding.viewModel = topViewModel
-
-        return binding.root.apply {
-            findViewById<RecyclerView>(R.id.recycler_view).adapter = TopAdapter(topViewModel.videos, listener)
-            findViewById<SwipeRefreshLayout>(R.id.swipe_refresh).apply {
+        return binding.apply {
+            viewModel = topViewModel
+            recyclerView.adapter = TopAdapter(topViewModel.videos, listener)
+            swipeRefresh.apply {
                 setColorSchemeResources(android.R.color.holo_red_dark,
                         android.R.color.holo_blue_dark,
                         android.R.color.holo_green_dark,
@@ -57,7 +55,7 @@ class TopFragment : DaggerFragment() {
                     topViewModel.refreshPopularVideo()
                 }
             }
-        }
+        }.root
     }
 
     interface TopFragmentListItemListener {
