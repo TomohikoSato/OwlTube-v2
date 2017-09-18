@@ -17,7 +17,7 @@ class PlayerAdapter(val items: ObservableList<AdapterItem>,
     init {
         adapterDelegatesManager.apply {
             addDelegate(PlayingVideoItemDelegate())
-            addDelegate(SmallVideoItemDelegate(onSmallVideoClicked))
+            addDelegate(SmallVideoItemDelegate(onSmallVideoClicked, { _, position -> position > 0 }))
         }
 
         items.addOnListChangedCallback(object : ObservableList.OnListChangedCallback<ObservableList<AdapterItem>>() {

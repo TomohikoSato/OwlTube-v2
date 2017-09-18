@@ -10,10 +10,11 @@ import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterDelegate
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterItem
 
-class SmallVideoItemDelegate(private val onSmallVideoItemClicked: (view: View, video: Video) -> Unit)
+class SmallVideoItemDelegate(private val onSmallVideoItemClicked: (view: View, video: Video) -> Unit,
+                             private val viewTypeCondition: (items: ObservableList<AdapterItem>, position: Int) -> Boolean)
     : AdapterDelegate<ObservableList<AdapterItem>> {
     override fun isForViewType(items: ObservableList<AdapterItem>, position: Int): Boolean {
-        return position > 0
+        return viewTypeCondition(items, position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
