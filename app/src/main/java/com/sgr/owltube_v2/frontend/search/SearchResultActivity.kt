@@ -2,6 +2,7 @@ package com.sgr.owltube_v2.frontend.search
 
 import android.content.Context
 import android.content.Intent
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
@@ -20,8 +21,9 @@ class SearchResultActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivitySearchResultBinding.inflate(layoutInflater)
         val query = intent.getStringExtra(KEY_QUERY)
+        val binding = DataBindingUtil.setContentView<ActivitySearchResultBinding>(this, R.layout.activity_search_result)//ActivitySearchResultBinding.inflate(layoutInflater)
+
         binding.viewModel = searchResultViewModel
 
         binding.root.apply {
