@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.sgr.owltube_v2.databinding.ItemPlayerPlayingVideoBinding
-import com.sgr.owltube_v2.domain.player.PlayingVideo
+import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.common.recycleradapter.delegate.AdapterDelegate
 import com.sgr.owltube_v2.frontend.player.PlayerAdapterItem
 
@@ -21,7 +21,7 @@ class PlayingVideoItemDelegate : AdapterDelegate<ObservableList<PlayerAdapterIte
 
     override fun onBindViewHolder(items: ObservableList<PlayerAdapterItem>, position: Int, holder: RecyclerView.ViewHolder) {
         (holder as? PlayerVideoItemViewHolder)?.binding?.apply {
-            playingVideo = items.get(position) as PlayingVideo
+            video = items.get(position) as Video
         }
     }
 

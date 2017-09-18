@@ -21,7 +21,6 @@ import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerFullScreenListener
 import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.domain.Video
-import com.sgr.owltube_v2.domain.player.PlayingVideo
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -33,7 +32,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
 
         fun startActivity(context: Context, video: Video) {
             val intent = Intent(context, PlayerActivity::class.java).apply {
-                putExtra(KEY_INTENT_EXTRA_VIDEO, PlayingVideo(video))
+                putExtra(KEY_INTENT_EXTRA_VIDEO, video)
             }
             context.startActivity(intent)
         }
@@ -44,15 +43,15 @@ class PlayerActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
-        setUp(intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as PlayingVideo)
+        setUp(intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as Video)
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        setUp(intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as PlayingVideo)
+        setUp(intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as Video)
     }
 
-    private fun setUp(video: PlayingVideo) {
+    private fun setUp(video: Video) {
         setUpYoutubePlayerView(video)
         viewModel.playerItem.clear()
         viewModel.playerItem.add(video)
