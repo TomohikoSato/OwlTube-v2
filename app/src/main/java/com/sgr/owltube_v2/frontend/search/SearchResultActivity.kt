@@ -16,6 +16,9 @@ class SearchResultActivity : DaggerAppCompatActivity() {
         setContentView(R.layout.activity_search_result)
         val query = intent.getStringExtra(KEY_QUERY)
         searchResultViewModel.search(query)
+/*        findViewById<RecyclerView>(R.id.recycler_view).adapter =
+                SearchResultAdapter(searchResultViewModel.searchResultVideos,
+                        { view: View, relatedVideo: RelatedVideo -> PlayerActivity.startActivity(this, relatedVideo) })*/
     }
 
     companion object {

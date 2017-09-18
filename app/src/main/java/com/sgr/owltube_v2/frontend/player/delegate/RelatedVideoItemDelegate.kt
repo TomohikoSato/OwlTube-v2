@@ -13,7 +13,7 @@ import com.sgr.owltube_v2.frontend.player.PlayerAdapterItem
 class RelatedVideoItemDelegate(private val onRelatedVideoItemClicked: (view: View, relatedVideo: RelatedVideo) -> Unit)
     : AdapterDelegate<ObservableList<PlayerAdapterItem>> {
     override fun isForViewType(items: ObservableList<PlayerAdapterItem>, position: Int): Boolean {
-        return items.get(position) is RelatedVideo
+        return position > 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
@@ -28,9 +28,4 @@ class RelatedVideoItemDelegate(private val onRelatedVideoItemClicked: (view: Vie
     }
 
     class RelatedVideoViewHolder(val binding: ItemPlayerRelatedVideoBinding) : RecyclerView.ViewHolder(binding.root)
-
-    interface RelatedVideoItemListener {
-        fun onItemClicked(view: View)
-    }
-
 }

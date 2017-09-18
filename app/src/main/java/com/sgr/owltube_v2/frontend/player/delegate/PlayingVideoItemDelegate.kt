@@ -12,7 +12,7 @@ import com.sgr.owltube_v2.frontend.player.PlayerAdapterItem
 class PlayingVideoItemDelegate : AdapterDelegate<ObservableList<PlayerAdapterItem>> {
 
     override fun isForViewType(items: ObservableList<PlayerAdapterItem>, position: Int): Boolean {
-        return items.get(position) is PlayingVideo
+        return position == 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {

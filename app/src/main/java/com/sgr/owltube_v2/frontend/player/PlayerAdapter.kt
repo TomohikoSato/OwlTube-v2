@@ -49,5 +49,6 @@ class PlayerAdapter(val items: ObservableList<PlayerAdapterItem>,
 
 /**
  * [PlayerAdapter]で使用するItemを表すmarker interface.
+ * //TODO; 型を再考 AdapterItemとか
  */
 interface PlayerAdapterItem
