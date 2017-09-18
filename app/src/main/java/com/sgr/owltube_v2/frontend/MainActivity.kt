@@ -3,17 +3,20 @@ package com.sgr.owltube_v2.frontend
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
+import android.view.View
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.common.disableShiftingMode
 import com.sgr.owltube_v2.frontend.mypage.MyPageFragment
 import com.sgr.owltube_v2.frontend.player.PlayerActivity
 import com.sgr.owltube_v2.frontend.search.SearchFragment
+import com.sgr.owltube_v2.frontend.search.SearchFragment.SearchFragmentListener
 import com.sgr.owltube_v2.frontend.top.TopFragment
+import com.sgr.owltube_v2.frontend.top.TopFragment.TopFragmentListItemListener
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : DaggerAppCompatActivity(), TopFragment.OnTopFragmentListItemInteractionListener {
+class MainActivity : DaggerAppCompatActivity(), TopFragmentListItemListener, SearchFragmentListener {
     private val topFragment: TopFragment by lazy {
         TopFragment.newInstance()
     }
@@ -38,6 +41,10 @@ class MainActivity : DaggerAppCompatActivity(), TopFragment.OnTopFragmentListIte
 
     override fun onClickItem(video: Video) {
         PlayerActivity.startActivity(this, video)
+    }
+
+    override fun onClickedSearchView(view: View) {
+
     }
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->

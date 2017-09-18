@@ -18,7 +18,7 @@ import javax.inject.Inject
 class TopFragment : DaggerFragment() {
     @Inject lateinit var topViewModel: TopViewModel
 
-    private lateinit var listener: OnTopFragmentListItemInteractionListener
+    private lateinit var listener: TopFragmentListItemListener
 
     companion object {
         fun newInstance(): TopFragment {
@@ -28,10 +28,10 @@ class TopFragment : DaggerFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnTopFragmentListItemInteractionListener) {
+        if (context is TopFragmentListItemListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnTopFragmentListItemInteractionListener")
+            throw RuntimeException(context.toString() + " must implement TopFragmentListItemListener")
         }
     }
 
@@ -60,7 +60,7 @@ class TopFragment : DaggerFragment() {
         }
     }
 
-    interface OnTopFragmentListItemInteractionListener {
+    interface TopFragmentListItemListener {
         fun onClickItem(video: Video)
     }
 
