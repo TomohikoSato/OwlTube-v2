@@ -4,10 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.TextView
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.databinding.ActivitySearchResultBinding
 import com.sgr.owltube_v2.domain.Video
@@ -22,18 +19,14 @@ class SearchResultActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val query = intent.getStringExtra(KEY_QUERY)
-        val binding = DataBindingUtil.setContentView<ActivitySearchResultBinding>(this, R.layout.activity_search_result)//ActivitySearchResultBinding.inflate(layoutInflater)
+        val binding = DataBindingUtil.setContentView<ActivitySearchResultBinding>(this, R.layout.activity_search_result)
 
-        binding.viewModel = searchResultViewModel
-
-        binding.root.apply {
-            findViewById<TextView>(R.id.title).setText(query)
-
-            findViewById<RecyclerView>(R.id.recycler_view).adapter =
-                    SearchResultAdapter(searchResultViewModel.searchResultVideos,
-                            { _: View, video: Video -> PlayerActivity.startActivity(this@SearchResultActivity, video) })
-
-            findViewById<SwipeRefreshLayout>(R.id.swipe_refresh).apply {
+        binding.apply {
+            viewModel = searchResultViewModel
+            title.setText(query)
+            recyclerView.adapter = SearchResultAdapter(searchResultViewModel.searchResultVideos,
+                    { _: View, video: Video -> PlayerActivity.startActivity(this@SearchResultActivity, video) })
+            swipeRefresh.apply {
                 setColorSchemeResources(android.R.color.holo_red_dark,
                         android.R.color.holo_blue_dark,
                         android.R.color.holo_green_dark,
@@ -43,6 +36,7 @@ class SearchResultActivity : DaggerAppCompatActivity() {
                 }
             }
         }
+
         searchResultViewModel.search(query)
     }
 
