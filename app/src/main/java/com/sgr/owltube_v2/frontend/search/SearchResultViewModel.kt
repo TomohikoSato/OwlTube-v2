@@ -18,9 +18,9 @@ class SearchResultViewModel @Inject constructor(private val videoRepository: Vid
         videoRepository.search(query)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { videos ->
+                .subscribe({ videos ->
                     isRefreshing.set(false)
                     searchResultVideos.addAll(videos)
-                }
+                }, { t -> t.printStackTrace() })
     }
 }
