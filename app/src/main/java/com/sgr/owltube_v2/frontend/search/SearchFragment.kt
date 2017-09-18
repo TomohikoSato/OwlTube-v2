@@ -12,18 +12,20 @@ import com.sgr.owltube_v2.R
 class SearchFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
 
-    override fun onCreateView(inflater: LayoutInflater?,
-                              container: ViewGroup?,
-                              @Nullable savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_search, container, false)
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
             //throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+        }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater?,
+                              container: ViewGroup?,
+                              @Nullable savedInstanceState: Bundle?): View? {
+        return inflater?.inflate(R.layout.fragment_search, container, false)?.apply {
+
         }
     }
 
