@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.sgr.owltube_v2.databinding.FragmentTopItemBinding
 import com.sgr.owltube_v2.domain.Video
-import com.sgr.owltube_v2.frontend.common.recycleradapter.ObservableRecyclerAdapter
+import com.sgr.owltube_v2.frontend.common.adapter.ObservableRecyclerAdapter
 import com.sgr.owltube_v2.frontend.top.TopFragment.TopFragmentListItemListener
 
 internal class TopAdapter(private val videos: ObservableList<Video>, private val listener: TopFragmentListItemListener)

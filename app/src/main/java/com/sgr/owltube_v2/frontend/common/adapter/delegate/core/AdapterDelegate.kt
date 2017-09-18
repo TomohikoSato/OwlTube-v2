@@ -1,4 +1,4 @@
-package com.sgr.owltube_v2.frontend.common.recycleradapter.delegate
+package com.sgr.owltube_v2.frontend.common.adapter.delegate.core
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup

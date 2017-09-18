@@ -1,4 +1,4 @@
-package com.sgr.owltube_v2.frontend.player.delegate
+package com.sgr.owltube_v2.frontend.common.adapter.delegate.item
 
 import android.databinding.ObservableList
 import android.support.v7.widget.RecyclerView
@@ -7,8 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.sgr.owltube_v2.databinding.ItemSmallVideoBinding
 import com.sgr.owltube_v2.domain.Video
-import com.sgr.owltube_v2.frontend.common.recycleradapter.delegate.AdapterDelegate
-import com.sgr.owltube_v2.frontend.player.PlayerAdapterItem
+import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterDelegate
 
 class SmallVideoItemDelegate(private val onSmallVideoItemClicked: (view: View, video: Video) -> Unit)
     : AdapterDelegate<ObservableList<PlayerAdapterItem>> {

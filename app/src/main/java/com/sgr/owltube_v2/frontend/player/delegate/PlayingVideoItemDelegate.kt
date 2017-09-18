@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.sgr.owltube_v2.databinding.ItemPlayerPlayingVideoBinding
 import com.sgr.owltube_v2.domain.Video
-import com.sgr.owltube_v2.frontend.common.recycleradapter.delegate.AdapterDelegate
+import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterDelegate
 import com.sgr.owltube_v2.frontend.player.PlayerAdapterItem
 
 class PlayingVideoItemDelegate : AdapterDelegate<ObservableList<PlayerAdapterItem>> {

@@ -3,10 +3,10 @@ package com.sgr.owltube_v2.frontend.player
 import android.databinding.ObservableList
 import android.view.View
 import com.sgr.owltube_v2.domain.Video
-import com.sgr.owltube_v2.frontend.common.recycleradapter.delegate.AbsDelegationAdapter
-import com.sgr.owltube_v2.frontend.common.recycleradapter.delegate.AdapterDelegatesManager
+import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AbsDelegationAdapter
+import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterDelegatesManager
+import com.sgr.owltube_v2.frontend.common.adapter.delegate.item.SmallVideoItemDelegate
 import com.sgr.owltube_v2.frontend.player.delegate.PlayingVideoItemDelegate
-import com.sgr.owltube_v2.frontend.player.delegate.SmallVideoItemDelegate
 
 class PlayerAdapter(val items: ObservableList<PlayerAdapterItem>,
                     onSmallVideoClicked: (view: View, video: Video) -> Unit,
