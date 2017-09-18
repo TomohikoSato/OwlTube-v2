@@ -22,7 +22,6 @@ import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.domain.player.PlayingVideo
-import com.sgr.owltube_v2.domain.player.related.RelatedVideo
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -59,7 +58,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
         viewModel.playerItem.add(video)
         viewModel.requestRelatedVideos(video.id)
         findViewById<RecyclerView>(R.id.recycler_view).adapter =
-                PlayerAdapter(viewModel.playerItem, { view: View, relatedVideo: RelatedVideo -> PlayerActivity.startActivity(this, relatedVideo) })
+                PlayerAdapter(viewModel.playerItem, { view: View, video: Video -> PlayerActivity.startActivity(this, video) })
     }
 
     override fun onBackPressed() {

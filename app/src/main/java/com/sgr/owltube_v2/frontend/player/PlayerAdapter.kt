@@ -2,21 +2,21 @@ package com.sgr.owltube_v2.frontend.player
 
 import android.databinding.ObservableList
 import android.view.View
-import com.sgr.owltube_v2.domain.player.related.RelatedVideo
+import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.common.recycleradapter.delegate.AbsDelegationAdapter
 import com.sgr.owltube_v2.frontend.common.recycleradapter.delegate.AdapterDelegatesManager
 import com.sgr.owltube_v2.frontend.player.delegate.PlayingVideoItemDelegate
-import com.sgr.owltube_v2.frontend.player.delegate.RelatedVideoItemDelegate
+import com.sgr.owltube_v2.frontend.player.delegate.SmallVideoItemDelegate
 
 class PlayerAdapter(val items: ObservableList<PlayerAdapterItem>,
-                    onRelatedVideoItemClicked: (view: View, relatedVideo: RelatedVideo) -> Unit,
+                    onSmallVideoClicked: (view: View, video: Video) -> Unit,
                     adapterDelegatesManager: AdapterDelegatesManager<ObservableList<PlayerAdapterItem>> = AdapterDelegatesManager())
     : AbsDelegationAdapter<ObservableList<PlayerAdapterItem>>(adapterDelegatesManager, items) {
 
     init {
         adapterDelegatesManager.apply {
             addDelegate(PlayingVideoItemDelegate())
-            addDelegate(RelatedVideoItemDelegate(onRelatedVideoItemClicked))
+            addDelegate(SmallVideoItemDelegate(onSmallVideoClicked))
         }
 
         items.addOnListChangedCallback(object : ObservableList.OnListChangedCallback<ObservableList<PlayerAdapterItem>>() {
@@ -49,6 +49,5 @@ class PlayerAdapter(val items: ObservableList<PlayerAdapterItem>,
 
 /**
  * [PlayerAdapter]で使用するItemを表すmarker interface.
- * //TODO; 型を再考 AdapterItemとか
  */
 interface PlayerAdapterItem

@@ -2,21 +2,21 @@ package com.sgr.owltube_v2.frontend.search
 
 import android.databinding.ObservableList
 import android.view.View
-import com.sgr.owltube_v2.domain.player.related.RelatedVideo
+import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.common.recycleradapter.delegate.AbsDelegationAdapter
 import com.sgr.owltube_v2.frontend.common.recycleradapter.delegate.AdapterDelegatesManager
 import com.sgr.owltube_v2.frontend.player.PlayerAdapterItem
-import com.sgr.owltube_v2.frontend.player.delegate.RelatedVideoItemDelegate
+import com.sgr.owltube_v2.frontend.player.delegate.SmallVideoItemDelegate
 
 class SearchResultAdapter(
         val items: ObservableList<PlayerAdapterItem>,
-        onSearchResultVideoItemClicked: (view: View, relatedVideo: RelatedVideo) -> Unit,
+        onSearchResultVideoItemClicked: (view: View, video: Video) -> Unit,
         adapterDelegatesManager: AdapterDelegatesManager<ObservableList<PlayerAdapterItem>> = AdapterDelegatesManager())
     : AbsDelegationAdapter<ObservableList<PlayerAdapterItem>>(adapterDelegatesManager, items) {
 
     init {
         adapterDelegatesManager.apply {
-            addDelegate(RelatedVideoItemDelegate(onSearchResultVideoItemClicked))
+            addDelegate(SmallVideoItemDelegate(onSearchResultVideoItemClicked))
         }
 
         items.addOnListChangedCallback(
