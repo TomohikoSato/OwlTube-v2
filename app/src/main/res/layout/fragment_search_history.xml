@@ -4,7 +4,7 @@
     android:id="@+id/overview_coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sgr.owltube_v2.frontend.search.SearchFragment">
+    tools:context="com.sgr.owltube_v2.frontend.search.SearchHistoryFragment">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
-        tools:context=".frontend.search.SearchFragment" />
+        tools:context=".frontend.search.SearchHistoryFragment" />
 
 </android.support.design.widget.CoordinatorLayout>
 

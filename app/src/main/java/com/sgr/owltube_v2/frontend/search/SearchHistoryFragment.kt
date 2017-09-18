@@ -10,31 +10,31 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import com.sgr.owltube_v2.R
 
-class SearchFragment : Fragment() {
-    private lateinit var listener: SearchFragmentListener
+class SearchHistoryFragment : Fragment() {
+    private lateinit var listener: SearchHistoryFragmentListener
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is SearchFragmentListener) {
+        if (context is SearchHistoryFragmentListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement SearchFragmentListener")
+            throw RuntimeException(context.toString() + " must implement SearchHistoryFragmentListener")
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater?,
                               container: ViewGroup?,
                               @Nullable savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_search, container, false)?.apply {
+        return inflater?.inflate(R.layout.fragment_search_history, container, false)?.apply {
             findViewById<SearchView>(R.id.search_view).setOnClickListener { view -> listener.onClickedSearchView(view) }
         }
     }
 
-    interface SearchFragmentListener {
+    interface SearchHistoryFragmentListener {
         fun onClickedSearchView(view: View)
     }
 
     companion object {
-        fun newInstance() = SearchFragment()
+        fun newInstance() = SearchHistoryFragment()
     }
 }

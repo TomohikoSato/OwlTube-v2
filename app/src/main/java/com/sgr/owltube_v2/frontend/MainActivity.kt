@@ -9,19 +9,19 @@ import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.common.disableShiftingMode
 import com.sgr.owltube_v2.frontend.mypage.MyPageFragment
 import com.sgr.owltube_v2.frontend.player.PlayerActivity
-import com.sgr.owltube_v2.frontend.search.SearchFragment
-import com.sgr.owltube_v2.frontend.search.SearchFragment.SearchFragmentListener
+import com.sgr.owltube_v2.frontend.search.SearchHistoryFragment
+import com.sgr.owltube_v2.frontend.search.SearchHistoryFragment.SearchHistoryFragmentListener
 import com.sgr.owltube_v2.frontend.top.TopFragment
 import com.sgr.owltube_v2.frontend.top.TopFragment.TopFragmentListItemListener
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : DaggerAppCompatActivity(), TopFragmentListItemListener, SearchFragmentListener {
+class MainActivity : DaggerAppCompatActivity(), TopFragmentListItemListener, SearchHistoryFragmentListener {
     private val topFragment: TopFragment by lazy {
         TopFragment.newInstance()
     }
-    private val searchFragment: SearchFragment by lazy {
-        SearchFragment.newInstance()
+    private val searchHistoryFragment: SearchHistoryFragment by lazy {
+        SearchHistoryFragment.newInstance()
     }
     private val myPageFragment: MyPageFragment by lazy {
         MyPageFragment.newInstance()
@@ -54,7 +54,7 @@ class MainActivity : DaggerAppCompatActivity(), TopFragmentListItemListener, Sea
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_search -> {
-                switchFragment(searchFragment)
+                switchFragment(searchHistoryFragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_mypage -> {
