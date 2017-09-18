@@ -30,8 +30,9 @@
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true"
             tools:targetApi="n" />
-        <activity android:name=".frontend.search.SearchActivity"></activity>
-        <activity android:name="SearchActivity" />
+        <activity android:name=".frontend.search.SearchActivity" />
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".frontend.search.SearchResultActivity"></activity>
     </application>
 
 </manifest>
