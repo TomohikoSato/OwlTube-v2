@@ -1,8 +1,8 @@
 package com.sgr.owltube_v2.infra.repository
 
 import com.sgr.owltube_v2.domain.Channel
+import com.sgr.owltube_v2.domain.Thumbnail
 import com.sgr.owltube_v2.domain.Video
-import com.sgr.owltube_v2.domain.VideoImpl
 import com.sgr.owltube_v2.domain.player.related.RelatedVideos
 import com.sgr.owltube_v2.domain.popular.PopularVideos
 import com.sgr.owltube_v2.infra.webapi.YoutubeDataAPI
@@ -52,12 +52,12 @@ class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDat
 
     private fun createRelatedVideo(videosResponse: VideosResponse): RelatedVideos {
         val videos = videosResponse.items.map { item ->
-            VideoImpl(item.id,
+            Video(item.id,
                     item.snippet.title,
                     Channel(item.snippet.channelId,
                             item.snippet.channelTitle, null),
                     item.statistics.viewCount,
-                    item.snippet.thumbnails.high.url,
+                    Thumbnail(item.snippet.thumbnails.high.url, item.snippet.thumbnails.medium.url),
                     item.snippet.publishedAt,
                     item.contentDetails.duration
             )
@@ -68,12 +68,12 @@ class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDat
 
     private fun createVideos(videosResponse: VideosResponse): List<Video> {
         val videos = videosResponse.items.map { item ->
-            VideoImpl(item.id,
+            Video(item.id,
                     item.snippet.title,
                     Channel(item.snippet.channelId,
                             item.snippet.channelTitle, null),
                     item.statistics.viewCount,
-                    item.snippet.thumbnails.high.url,
+                    Thumbnail(item.snippet.thumbnails.high.url, item.snippet.thumbnails.medium.url),
                     item.snippet.publishedAt,
                     item.contentDetails.duration
             )
@@ -89,13 +89,13 @@ class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDat
                 .map { pair ->
                     val pItem = pair.first
                     val cItem = pair.second
-                    VideoImpl(pItem.id,
+                    Video(pItem.id,
                             pItem.snippet.title,
                             Channel(pItem.snippet.channelId,
                                     cItem.snippet.title,
                                     cItem.snippet.thumbnails.default.url),
                             pItem.statistics.viewCount,
-                            pItem.snippet.thumbnails.high.url,
+                            Thumbnail(pItem.snippet.thumbnails.high.url, pItem.snippet.thumbnails.medium.url),
                             pItem.snippet.publishedAt,
                             pItem.contentDetails.duration
                     )

@@ -23,13 +23,12 @@
 
         <ImageView
             android:id="@+id/thumbnail"
-            android:layout_width="108dp"
+            android:layout_width="120dp"
             android:layout_height="72dp"
             android:background="@android:color/holo_orange_light"
             android:contentDescription="thumbnail"
             android:scaleType="centerCrop"
-            app:imageUrl="@{video.thumbnailUrl}"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:imageUrl="@{video.thumbnailUrl.medium}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/ic_launcher_foreground" />
@@ -59,11 +58,11 @@
             android:layout_marginStart="8dp"
             android:maxLines="2"
             android:text="@{video.title}"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/thumbnail"
             app:layout_constraintTop_toTopOf="@+id/thumbnail"
-            tools:text="タイトル" />
+            tools:text="タイトルあああああああああああああああああああああああああ" />
 
         <TextView
             android:id="@+id/channelTitle"

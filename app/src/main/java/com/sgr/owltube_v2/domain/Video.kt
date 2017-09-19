@@ -4,15 +4,13 @@ import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterItem
 import org.threeten.bp.*
 import java.io.Serializable
 
-interface Video : Serializable, AdapterItem {
-    val id: String
-    val title: String
-    val channel: Channel
-    val _viewCount: String
-    val thumbnailUrl: String
-    val _publishedAt: String
-    val _duration: String
-
+data class Video(val id: String,
+                 val title: String,
+                 val channel: Channel,
+                 private val _viewCount: String,
+                 val thumbnailUrl: Thumbnail,
+                 private val _publishedAt: String,
+                 private val _duration: String) : Serializable, AdapterItem {
     val publishedAt: String
         get() {
             val period = Period.between(OffsetDateTime.parse(_publishedAt).toLocalDate(), LocalDate.now())
@@ -43,11 +41,3 @@ interface Video : Serializable, AdapterItem {
                 String.format("%02d:%02d", d.toMinutes() % 60, d.seconds % 60)
         }
 }
-
-data class VideoImpl(override val id: String,
-                     override val title: String,
-                     override val channel: Channel,
-                     override val _viewCount: String,
-                     override val thumbnailUrl: String,
-                     override val _publishedAt: String,
-                     override val _duration: String) : Serializable, Video
