@@ -67,6 +67,11 @@ class PlayerActivity : DaggerAppCompatActivity() {
             return
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !isInPictureInPictureMode) {
+            launchPinP()
+            return
+        }
+
         super.onBackPressed()
     }
 
@@ -124,10 +129,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
                         setOnClickListener { launchPinP() }
                     }
             )
-
         }
-
-
     }
 
     private fun launchPinP() {
