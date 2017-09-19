@@ -4,11 +4,17 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryDark">@color/grey300</item>
+        <item name="colorPrimaryDark">@color/grey500</item>
         <item name="colorAccent">@color/primary</item>
     </style>
 
     <style name="ToolBar" parent="AppTheme">
         <item name="android:textColorPrimary">@color/primary</item>
+    </style>
+
+    <style name="SearchPlaceHolder">
+        <item name="colorControlNormal">@color/grey300</item>
+        <item name="colorControlActivated">@color/grey300</item>
+        <item name="colorControlHighlight">@color/grey300</item>
     </style>
 </resources>

@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
+import android.widget.TextView
 import com.sgr.owltube_v2.R
 
 class SearchHistoryFragment : Fragment() {
@@ -26,19 +26,12 @@ class SearchHistoryFragment : Fragment() {
                               container: ViewGroup?,
                               @Nullable savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_search_history, container, false)?.apply {
-            findViewById<SearchView>(R.id.search_view).let {
-                it.setOnQueryTextFocusChangeListener { view, hasFocus ->
-                    if (hasFocus) {
-                        listener.onClickedSearchView(view)
-                        it.clearFocus()
-                    }
-                }
-            }
+            findViewById<TextView>(R.id.search_placeholder).setOnClickListener { view -> listener.onClickedSearchPlaceHolder(view) }
         }
     }
 
     interface SearchHistoryFragmentListener {
-        fun onClickedSearchView(view: View)
+        fun onClickedSearchPlaceHolder(view: View)
     }
 
     companion object {

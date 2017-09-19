@@ -44,7 +44,7 @@ class MainActivity : DaggerAppCompatActivity(), TopFragmentListItemListener, Sea
         PlayerActivity.startActivity(this, video)
     }
 
-    override fun onClickedSearchView(view: View) {
+    override fun onClickedSearchPlaceHolder(view: View) {
         SearchActivity.startActivity(this)
     }
 
