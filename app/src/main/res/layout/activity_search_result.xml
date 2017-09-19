@@ -51,7 +51,8 @@
                         android:layout_marginStart="15dp"
                         android:layout_toEndOf="@+id/up"
                         android:textColor="@color/primary"
-                        android:textSize="20sp" />
+                        tools:text="ひかきん"
+                        android:textSize="16sp" />
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
 

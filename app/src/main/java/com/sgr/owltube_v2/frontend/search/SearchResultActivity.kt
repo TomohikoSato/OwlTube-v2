@@ -23,6 +23,7 @@ class SearchResultActivity : DaggerAppCompatActivity() {
 
         binding.apply {
             viewModel = searchResultViewModel
+            up.setOnClickListener { finish() }
             title.setText(query)
             recyclerView.adapter = SearchResultAdapter(searchResultViewModel.searchResultVideos,
                     { _: View, video: Video -> PlayerActivity.startActivity(this@SearchResultActivity, video) })
