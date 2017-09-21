@@ -32,6 +32,10 @@
             tools:targetApi="n" />
         <activity android:name=".frontend.search.SearchActivity" />
         <activity android:name=".frontend.search.SearchResultActivity" />
+
+        <provider
+            android:name=".infra.content_provider.SearchHistoryProvider"
+            android:authorities="com.example.MySuggestionProvider" />
     </application>
 
 </manifest>
