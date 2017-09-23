@@ -22,9 +22,13 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:background="?android:attr/selectableItemBackground"
-        android:onClick="@{() -> viewModel.onSearchHistoryClicked(itemPosition)}">
+        android:onClick="@{() -> viewModel.onSearchHistoryClicked(itemPosition)}"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <TextView
             android:id="@+id/keyword"
@@ -32,7 +36,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:text="@{searchHistory.keyword}"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -45,7 +48,6 @@
             android:id="@+id/fillQueryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:contentDescription="fillQuery"

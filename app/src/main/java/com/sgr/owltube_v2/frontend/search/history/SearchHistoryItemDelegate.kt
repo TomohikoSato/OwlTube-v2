@@ -11,7 +11,7 @@ import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterItem
 
 class SearchHistoryItemDelegate(val searchHistoryViewModel: SearchHistoryViewModel) : AdapterDelegate<ObservableList<AdapterItem>> {
     override fun isForViewType(items: ObservableList<AdapterItem>, position: Int): Boolean {
-        return true
+        return items.get(position) is SearchHistory
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
