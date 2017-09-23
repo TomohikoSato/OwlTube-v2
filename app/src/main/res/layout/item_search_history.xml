@@ -6,28 +6,55 @@
     <data>
 
         <variable
+            name="itemPosition"
+            type="Integer" />
+
+        <variable
             name="searchHistory"
             type="com.sgr.owltube_v2.domain.search.SearchHistory" />
+
+        <variable
+            name="viewModel"
+            type="com.sgr.owltube_v2.frontend.search.history.SearchHistoryViewModel" />
     </data>
 
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:onClick="@{() -> viewModel.onSearchHistoryClicked(itemPosition)}">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/keyword"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
+            android:text="@{searchHistory.keyword}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fillQueryButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{searchHistory.keyword}"
             tools:text="RadioHead" />
+
+        <ImageButton
+            android:id="@+id/fillQueryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="fillQuery"
+            android:onClick="@{() -> viewModel.onFillQueryButtonClicked(itemPosition)}"
+            android:scaleX="-1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/keyword"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_call_made_black_24dp" />
     </android.support.constraint.ConstraintLayout>
 </layout>

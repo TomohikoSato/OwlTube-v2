@@ -7,12 +7,13 @@ import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterItem
 
 class SearchHistoryAdapter(
         val items: ObservableList<AdapterItem>,
+        val searchHistoryViewModel: SearchHistoryViewModel,
         adapterDelegatesManager: AdapterDelegatesManager<ObservableList<AdapterItem>> = AdapterDelegatesManager())
     : AbsDelegationAdapter<ObservableList<AdapterItem>>(adapterDelegatesManager, items) {
 
     init {
         adapterDelegatesManager.apply {
-            addDelegate(SearchHistoryItemDelegate())
+            addDelegate(SearchHistoryItemDelegate(searchHistoryViewModel))
         }
 
         items.addOnListChangedCallback(

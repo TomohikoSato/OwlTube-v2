@@ -27,12 +27,16 @@ class SearchActivity : AppCompatActivity() {
 
                 override fun onQueryTextChange(p0: String): Boolean = false
             })
+            setQuery(intent.getStringExtra(KEY_KEYWORD), false)
         }
+
     }
 
     companion object {
-        fun startActivity(context: Context) {
-            context.startActivity(Intent(context, SearchActivity::class.java))
+        private const val KEY_KEYWORD: String = "KEY_KEYWORD"
+
+        fun startActivity(context: Context, keyword: String = "") {
+            context.startActivity(Intent(context, SearchActivity::class.java).apply { putExtra(KEY_KEYWORD, keyword) })
         }
     }
 }
