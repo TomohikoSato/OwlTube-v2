@@ -3,14 +3,16 @@ package com.sgr.owltube_v2.infra.repository
 import com.sgr.owltube_v2.domain.Channel
 import com.sgr.owltube_v2.domain.Thumbnail
 import com.sgr.owltube_v2.domain.Video
+import com.sgr.owltube_v2.domain.search.Suggest
 import com.sgr.owltube_v2.infra.webapi.YoutubeDataAPI
 import com.sgr.owltube_v2.infra.webapi.response.videolist.VideosResponse
 import io.reactivex.Single
 import javax.inject.Inject
 
 class SearchRepository @Inject constructor(private val youtubeDataAPI: YoutubeDataAPI) {
-    // TODO: suggest
-    // TODO: search history
+    fun suggest(query: String): Single<List<Suggest>> {
+        TODO()
+    }
 
     fun search(query: String): Single<List<Video>> {
         return youtubeDataAPI.search(query)
