@@ -1,22 +1,18 @@
-package com.sgr.owltube_v2.frontend.search
+package com.sgr.owltube_v2.frontend.search.history
 
 import android.databinding.ObservableList
-import android.view.View
-import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AbsDelegationAdapter
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterDelegatesManager
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterItem
-import com.sgr.owltube_v2.frontend.common.adapter.delegate.item.SmallVideoItemDelegate
 
-class SearchResultAdapter(
+class SearchHistoryAdapter(
         val items: ObservableList<AdapterItem>,
-        onSearchResultVideoItemClicked: (view: View, video: Video) -> Unit,
         adapterDelegatesManager: AdapterDelegatesManager<ObservableList<AdapterItem>> = AdapterDelegatesManager())
     : AbsDelegationAdapter<ObservableList<AdapterItem>>(adapterDelegatesManager, items) {
 
     init {
         adapterDelegatesManager.apply {
-            addDelegate(SmallVideoItemDelegate(onSearchResultVideoItemClicked, { _, _ -> true }))
+            addDelegate(SearchHistoryItemDelegate())
         }
 
         items.addOnListChangedCallback(
@@ -45,4 +41,3 @@ class SearchResultAdapter(
 
     override fun getItemCount(): Int = items.size
 }
-

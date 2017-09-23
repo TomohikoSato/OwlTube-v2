@@ -1,6 +1,8 @@
 package com.sgr.owltube_v2.di
 
+import android.arch.persistence.room.Room
 import android.content.Context
+import com.sgr.owltube_v2.infra.dao.db.AppDatabase
 import com.sgr.owltube_v2.infra.webapi.YoutubeDataAPI
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
@@ -15,6 +17,7 @@ import okhttp3.logging.HttpLoggingInterceptor.Level.HEADERS
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Singleton
 
 @Module
 class AppModule(private val context: Context) {
@@ -57,6 +60,12 @@ class AppModule(private val context: Context) {
     @Provides
     fun provideYoutubeDataApi(retrofit: Retrofit): YoutubeDataAPI {
         return retrofit.create(YoutubeDataAPI::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAppDatabase(context: Context): AppDatabase {
+        return Room.databaseBuilder(context, AppDatabase::class.java, "app-database").build()
     }
 
 }

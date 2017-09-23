@@ -12,7 +12,6 @@ class SearchRepository @Inject constructor(private val youtubeDataAPI: YoutubeDa
     // TODO: suggest
     // TODO: search history
 
-
     fun search(query: String): Single<List<Video>> {
         return youtubeDataAPI.search(query)
                 .flatMap { searchResultResponse ->

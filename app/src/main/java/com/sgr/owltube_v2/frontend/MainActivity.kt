@@ -9,9 +9,9 @@ import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.common.disableShiftingMode
 import com.sgr.owltube_v2.frontend.mypage.MyPageFragment
 import com.sgr.owltube_v2.frontend.player.PlayerActivity
-import com.sgr.owltube_v2.frontend.search.SearchActivity
-import com.sgr.owltube_v2.frontend.search.SearchHistoryFragment
-import com.sgr.owltube_v2.frontend.search.SearchHistoryFragment.SearchHistoryFragmentListener
+import com.sgr.owltube_v2.frontend.search.history.SearchHistoryFragment
+import com.sgr.owltube_v2.frontend.search.history.SearchHistoryFragment.SearchHistoryFragmentListener
+import com.sgr.owltube_v2.frontend.search.search.SearchActivity
 import com.sgr.owltube_v2.frontend.top.TopFragment
 import com.sgr.owltube_v2.frontend.top.TopFragment.TopFragmentListItemListener
 import dagger.android.support.DaggerAppCompatActivity

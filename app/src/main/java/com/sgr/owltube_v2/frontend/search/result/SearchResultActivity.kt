@@ -1,4 +1,4 @@
-package com.sgr.owltube_v2.frontend.search
+package com.sgr.owltube_v2.frontend.search.result
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,7 @@ import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.databinding.ActivitySearchResultBinding
 import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.player.PlayerActivity
+import com.sgr.owltube_v2.frontend.search.search.SearchActivity
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -25,7 +26,7 @@ class SearchResultActivity : DaggerAppCompatActivity() {
             viewModel = searchResultViewModel
             up.setOnClickListener { finish() }
             searchPlaceholder.apply {
-                setText(query)
+                text = query
                 setOnClickListener { SearchActivity.startActivity(this@SearchResultActivity) }
             }
             recyclerView.adapter = SearchResultAdapter(searchResultViewModel.searchResultVideos,

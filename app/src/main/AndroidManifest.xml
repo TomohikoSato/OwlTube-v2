@@ -30,12 +30,9 @@
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true"
             tools:targetApi="n" />
-        <activity android:name=".frontend.search.SearchActivity" />
-        <activity android:name=".frontend.search.SearchResultActivity" />
+        <activity android:name=".frontend.search.search.SearchActivity" />
+        <activity android:name=".frontend.search.result.SearchResultActivity" />
 
-        <provider
-            android:name=".infra.content_provider.SearchHistoryProvider"
-            android:authorities="com.example.MySuggestionProvider" />
     </application>
 
 </manifest>

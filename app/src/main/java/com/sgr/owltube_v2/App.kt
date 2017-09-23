@@ -2,6 +2,7 @@ package com.sgr.owltube_v2
 
 import android.app.Activity
 import android.app.Application
+import com.facebook.stetho.Stetho
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.sgr.owltube_v2.di.AppModule
 import com.sgr.owltube_v2.di.DaggerAppComponent
@@ -21,9 +22,9 @@ class App : Application(), HasActivityInjector {
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.
             // You should not init your app in this process.
-            return;
+            return
         }
-        LeakCanary.install(this);
+        LeakCanary.install(this)
 
         DaggerAppComponent.builder()
                 .appModule(AppModule(this))
@@ -31,5 +32,7 @@ class App : Application(), HasActivityInjector {
                 .inject(this)
 
         AndroidThreeTen.init(this)
+
+        Stetho.initializeWithDefaults(this)
     }
 }

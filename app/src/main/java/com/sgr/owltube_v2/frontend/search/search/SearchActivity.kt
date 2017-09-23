@@ -1,4 +1,4 @@
-package com.sgr.owltube_v2.frontend.search
+package com.sgr.owltube_v2.frontend.search.search
 
 import android.app.SearchManager
 import android.content.Context
@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.ImageButton
 import android.widget.SearchView
 import com.sgr.owltube_v2.R
+import com.sgr.owltube_v2.frontend.search.result.SearchResultActivity
 
 class SearchActivity : AppCompatActivity() {
 
@@ -17,7 +18,7 @@ class SearchActivity : AppCompatActivity() {
         findViewById<ImageButton>(R.id.up).setOnClickListener { _ -> finish() }
         findViewById<SearchView>(R.id.search_view).apply {
             setSearchableInfo(
-                    (getSystemService(Context.SEARCH_SERVICE) as SearchManager).getSearchableInfo(getComponentName()))
+                    (getSystemService(Context.SEARCH_SERVICE) as SearchManager).getSearchableInfo(componentName))
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
                     SearchResultActivity.startActivity(this@SearchActivity, query)
