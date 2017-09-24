@@ -4,13 +4,16 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.widget.ImageButton
 import android.widget.SearchView
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.frontend.search.result.SearchResultActivity
+import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
 
-class SearchActivity : AppCompatActivity() {
+class SearchActivity : DaggerAppCompatActivity() {
+
+    @Inject lateinit var viewModel: SearchViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +28,10 @@ class SearchActivity : AppCompatActivity() {
                     return true
                 }
 
-                override fun onQueryTextChange(p0: String): Boolean = false
+                override fun onQueryTextChange(newText: String): Boolean {
+                    viewModel.fetchSuggestKeyword(newText)
+                    return true
+                }
             })
             setQuery(intent.getStringExtra(KEY_KEYWORD), false)
         }

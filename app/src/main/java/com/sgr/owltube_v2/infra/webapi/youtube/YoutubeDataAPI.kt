@@ -1,4 +1,4 @@
-package com.sgr.owltube_v2.infra.webapi
+package com.sgr.owltube_v2.infra.webapi.youtube
 
 import com.sgr.owltube_v2.BuildConfig
 import com.sgr.owltube_v2.infra.webapi.response.channels.ChannelsResponse

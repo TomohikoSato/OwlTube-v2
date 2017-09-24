@@ -5,10 +5,10 @@ import com.sgr.owltube_v2.domain.Thumbnail
 import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.domain.player.related.RelatedVideos
 import com.sgr.owltube_v2.domain.popular.PopularVideos
-import com.sgr.owltube_v2.infra.webapi.YoutubeDataAPI
 import com.sgr.owltube_v2.infra.webapi.response.channels.ChannelsResponse
 import com.sgr.owltube_v2.infra.webapi.response.popular.PopularVideoResponse
 import com.sgr.owltube_v2.infra.webapi.response.videolist.VideosResponse
+import com.sgr.owltube_v2.infra.webapi.youtube.YoutubeDataAPI
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import javax.inject.Inject
