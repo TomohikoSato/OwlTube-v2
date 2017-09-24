@@ -1,26 +1,28 @@
 package com.sgr.owltube_v2.infra.repository
 
-import android.util.Log
 import com.sgr.owltube_v2.domain.Channel
 import com.sgr.owltube_v2.domain.Thumbnail
 import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.domain.search.Suggest
 import com.sgr.owltube_v2.infra.webapi.google.GoogleAPI
+import com.sgr.owltube_v2.infra.webapi.google.response.SuggestKeywordResponse
 import com.sgr.owltube_v2.infra.webapi.response.videolist.VideosResponse
 import com.sgr.owltube_v2.infra.webapi.youtube.YoutubeDataAPI
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class SearchRepository @Inject constructor(private val youtubeDataAPI: YoutubeDataAPI, private val googleAPI: GoogleAPI) {
     fun suggest(query: String): Single<List<Suggest>> {
-        googleAPI.suggestKeywordForYoutube(query)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result -> Log.d("hoge", result.toString()) })
+        return googleAPI.suggestKeywordForYoutube(query)
+                .map { response -> createSuggests(response) }
+    }
 
-        return Single.fromCallable { listOf(Suggest("hoge")) }
+    private fun createSuggests(response: SuggestKeywordResponse): List<Suggest> {
+        return response.suggests?.let {
+            it.map { suggest ->
+                suggest.suggestion?.data?.let { Suggest(it) } ?: Suggest("")
+            }
+        } ?: listOf<Suggest>()
     }
 
     fun search(query: String): Single<List<Video>> {
