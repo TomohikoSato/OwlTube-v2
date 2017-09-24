@@ -1,10 +1,14 @@
 package com.sgr.owltube_v2.frontend.search.search
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.view.ViewCompat
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.AutoCompleteTextView
 import android.widget.ImageButton
 import android.widget.SearchView
@@ -51,6 +55,11 @@ class SearchActivity : DaggerAppCompatActivity() {
 
         fun startActivity(context: Context, keyword: String = "") {
             context.startActivity(Intent(context, SearchActivity::class.java).apply { putExtra(KEY_KEYWORD, keyword) })
+        }
+
+        fun startActivityWithSharedElementTransition(activity: Activity, sharedView: View, keyword: String = "") {
+            activity.startActivity(Intent(activity, SearchActivity::class.java).apply { putExtra(KEY_KEYWORD, keyword) },
+                    ActivityOptions.makeSceneTransitionAnimation(activity, sharedView, ViewCompat.getTransitionName(sharedView)).toBundle())
         }
     }
 }

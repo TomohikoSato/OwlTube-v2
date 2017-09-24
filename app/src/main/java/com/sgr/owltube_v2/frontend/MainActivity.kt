@@ -24,7 +24,7 @@ class MainActivity : DaggerAppCompatActivity(), TopFragmentListItemListener, Sea
     }
 
     override fun onFillQueryButtonClicked(keyword: String) {
-        SearchActivity.startActivity(this, keyword)
+        SearchActivity.startActivityWithSharedElementTransition(this, findViewById(R.id.search_placeholder), keyword)
     }
 
     private val topFragment: TopFragment by lazy {
@@ -54,7 +54,7 @@ class MainActivity : DaggerAppCompatActivity(), TopFragmentListItemListener, Sea
     }
 
     override fun onClickedSearchPlaceHolder(view: View) {
-        SearchActivity.startActivity(this)
+        SearchActivity.startActivityWithSharedElementTransition(this, findViewById(R.id.search_placeholder))
     }
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
