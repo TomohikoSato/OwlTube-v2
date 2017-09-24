@@ -15,4 +15,6 @@
     <color name="grey900">#212121</color>
 
     <color name="pale_white">#90FFFFFF</color>
+
+    <color name="transparent">#00FFFFFF</color>
 </resources>

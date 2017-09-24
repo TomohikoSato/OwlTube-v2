@@ -14,9 +14,9 @@
 
     <style name="SearchPlaceHolder" parent="Widget.AppCompat.EditText">
         <item name="android:textColorHint">@color/grey500</item>
-        <item name="android:backgroundTint">@color/grey500</item>
         <item name="android:colorControlNormal">@color/grey500</item>
         <item name="android:colorControlActivated">@color/grey500</item>
         <item name="android:colorControlHighlight">@color/grey500</item>
+        <item name="android:background">@drawable/search_placeholder_background</item>
     </style>
 </resources>
