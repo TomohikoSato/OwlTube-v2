@@ -12,9 +12,11 @@
         <item name="android:textColorPrimary">@color/primary</item>
     </style>
 
-    <style name="SearchPlaceHolder">
-        <item name="colorControlNormal">@color/grey300</item>
-        <item name="colorControlActivated">@color/grey300</item>
-        <item name="colorControlHighlight">@color/grey300</item>
+    <style name="SearchPlaceHolder" parent="Widget.AppCompat.EditText">
+        <item name="android:textColorHint">@color/grey500</item>
+        <item name="android:backgroundTint">@color/grey500</item>
+        <item name="android:colorControlNormal">@color/grey500</item>
+        <item name="android:colorControlActivated">@color/grey500</item>
+        <item name="android:colorControlHighlight">@color/grey500</item>
     </style>
 </resources>
