@@ -14,6 +14,7 @@ class SearchViewModel @Inject constructor(private val repository: SearchReposito
     val items: ObservableList<AdapterItem> = ObservableArrayList<AdapterItem>()
 
     fun fetchSuggestKeyword(query: String) {
+        items.clear()
         if (query.isEmpty()) return
         repository.suggest(query)
                 .observeOn(AndroidSchedulers.mainThread())
