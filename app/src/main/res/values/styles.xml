@@ -13,6 +13,7 @@
     </style>
 
     <style name="SearchPlaceHolder" parent="Widget.AppCompat.EditText">
+        <item name="android:textSize">14sp</item>
         <item name="android:textColorHint">@color/grey500</item>
         <item name="android:colorControlNormal">@color/grey500</item>
         <item name="android:colorControlActivated">@color/grey500</item>

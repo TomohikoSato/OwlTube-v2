@@ -49,6 +49,7 @@
                         android:layout_height="match_parent"
                         android:layout_margin="8dp"
                         android:layout_toEndOf="@id/up"
+                        tools:text="検索結果ほげほげ"
                         android:theme="@style/SearchPlaceHolder" />
 
                 </RelativeLayout>
