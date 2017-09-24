@@ -34,16 +34,11 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/up"
                 android:iconifiedByDefault="false"
-                android:transitionName="search"
-                android:queryHint="Youtubeから検索" />
+                android:queryHint="Youtubeから検索"
+                android:transitionName="search" />
 
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:text="hogehoge" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
