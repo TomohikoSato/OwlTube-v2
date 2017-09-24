@@ -37,7 +37,7 @@ class SearchActivity : DaggerAppCompatActivity() {
             setQuery(intent.getStringExtra(KEY_KEYWORD), false)
         }
         findViewById<RecyclerView>(R.id.recycler_view).apply {
-            adapter = SearchAdapter(viewModel.items)
+            adapter = SearchAdapter(viewModel.items, { suggest: String -> SearchResultActivity.startActivity(this@SearchActivity, suggest) })
         }
     }
 

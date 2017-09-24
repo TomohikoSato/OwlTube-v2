@@ -5,13 +5,14 @@ import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AbsDelegationAda
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterDelegatesManager
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterItem
 
-class SearchAdapter(val items: ObservableList<AdapterItem>,
+class SearchAdapter(private val items: ObservableList<AdapterItem>,
+                    private val onItemClicked: (keyword: String) -> Unit,
                     adapterDelegatesManager: AdapterDelegatesManager<ObservableList<AdapterItem>> = AdapterDelegatesManager())
     : AbsDelegationAdapter<ObservableList<AdapterItem>>(adapterDelegatesManager, items) {
 
     init {
         adapterDelegatesManager.apply {
-            addDelegate(SearchSuggestKeywordDelegate())
+            addDelegate(SearchSuggestKeywordDelegate(onItemClicked))
         }
 
         items.addOnListChangedCallback(object : ObservableList.OnListChangedCallback<ObservableList<AdapterItem>>() {
