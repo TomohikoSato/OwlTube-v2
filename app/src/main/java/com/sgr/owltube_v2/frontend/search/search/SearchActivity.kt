@@ -4,6 +4,7 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.widget.RecyclerView
 import android.widget.ImageButton
 import android.widget.SearchView
 import com.sgr.owltube_v2.R
@@ -35,7 +36,9 @@ class SearchActivity : DaggerAppCompatActivity() {
             })
             setQuery(intent.getStringExtra(KEY_KEYWORD), false)
         }
-
+        findViewById<RecyclerView>(R.id.recycler_view).apply {
+            adapter = SearchAdapter(viewModel.items)
+        }
     }
 
     companion object {
