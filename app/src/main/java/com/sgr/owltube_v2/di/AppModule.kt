@@ -4,7 +4,6 @@ import android.arch.persistence.room.Room
 import android.content.Context
 import com.sgr.owltube_v2.infra.dao.db.AppDatabase
 import com.sgr.owltube_v2.infra.webapi.google.GoogleAPI
-import com.sgr.owltube_v2.infra.webapi.google.response.moshi.SuggestKeywordResponseJsonAdapter
 import com.sgr.owltube_v2.infra.webapi.youtube.YoutubeDataAPI
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
@@ -31,19 +30,9 @@ class AppModule(private val context: Context) {
 
     @Reusable
     @Provides
-    @Named("normal")
     fun provideMoshi(): Moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
-
-    @Reusable
-    @Provides
-    @Named("suggestKeyword")
-    fun provideSuggestKeywordMoshi(): Moshi = Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .add(SuggestKeywordResponseJsonAdapter())
-            .build()
-
 
     @Reusable
     @Provides
@@ -62,7 +51,7 @@ class AppModule(private val context: Context) {
     @Reusable
     @Provides
     @Named("youtube")
-    fun provideYoutubeRetrofit(oktHttpClient: OkHttpClient, @Named("normal") moshi: Moshi): Retrofit
+    fun provideYoutubeRetrofit(oktHttpClient: OkHttpClient, moshi: Moshi): Retrofit
             = Retrofit.Builder()
             .client(oktHttpClient)
             .baseUrl("https://www.googleapis.com/youtube/v3/")
@@ -73,7 +62,7 @@ class AppModule(private val context: Context) {
     @Reusable
     @Provides
     @Named("google")
-    fun provideGoogleRetrofit(oktHttpClient: OkHttpClient, @Named("suggestKeyword") moshi: Moshi): Retrofit
+    fun provideGoogleRetrofit(oktHttpClient: OkHttpClient): Retrofit
             = Retrofit.Builder()
             .client(oktHttpClient)
             .baseUrl("http://suggestqueries.google.com/complete/")
