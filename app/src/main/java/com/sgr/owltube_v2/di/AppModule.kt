@@ -15,10 +15,11 @@ import io.reactivex.schedulers.Schedulers
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import okhttp3.logging.HttpLoggingInterceptor.Level.HEADERS
+import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -49,7 +50,7 @@ class AppModule(private val context: Context) {
     fun providesOkHttp(context: Context): OkHttpClient =
             OkHttpClient.Builder()
                     .cache(Cache(context.cacheDir, 10 * 1024 * 1024))
-                    .addNetworkInterceptor(HttpLoggingInterceptor().apply { level = HEADERS })
+                    .addNetworkInterceptor(HttpLoggingInterceptor().apply { level = BODY })
                     .addNetworkInterceptor { chain ->
                         val response = chain.proceed(chain.request())
                         response.newBuilder()
@@ -76,10 +77,7 @@ class AppModule(private val context: Context) {
             = Retrofit.Builder()
             .client(oktHttpClient)
             .baseUrl("http://suggestqueries.google.com/complete/")
-            .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder()
-                    .add(SuggestKeywordResponseJsonAdapter())
-                    .add(KotlinJsonAdapterFactory())
-                    .build()))
+            .addConverterFactory(SimpleXmlConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
             .build()
 

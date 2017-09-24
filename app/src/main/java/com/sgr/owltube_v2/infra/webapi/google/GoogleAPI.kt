@@ -13,6 +13,6 @@ interface GoogleAPI {
      * clientがfirefoxな理由：firefox向けのレスポンスが簡潔で扱いやすかったから
      * ds=yt でyoutube向けのsuggestにしている
      */
-    @GET("search?client=firefox&ds=yt")
-    fun suggestKeywordForYoutube(@Query("q") q: String): Single<Array<SuggestKeywordResponse>>
+    @GET("search?client=toolbar&ds=yt")
+    fun suggestKeywordForYoutube(@Query("q") q: String): Single<SuggestKeywordResponse>
 }
