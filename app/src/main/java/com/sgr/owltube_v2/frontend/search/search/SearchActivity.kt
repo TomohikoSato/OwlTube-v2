@@ -53,13 +53,15 @@ class SearchActivity : DaggerAppCompatActivity() {
     companion object {
         private const val KEY_KEYWORD: String = "KEY_KEYWORD"
 
-        fun startActivity(context: Context, keyword: String = "") {
-            context.startActivity(Intent(context, SearchActivity::class.java).apply { putExtra(KEY_KEYWORD, keyword) })
-        }
+        /*
+                fun startActivity(context: Context, keyword: String = "") {
+                    context.startActivity(Intent(context, SearchActivity::class.java).apply { putExtra(KEY_KEYWORD, keyword) })
+                }
 
-        fun startActivityWithSharedElementTransition(activity: Activity, sharedView: View, keyword: String = "") {
+        */
+        fun startActivityWithTransition(activity: Activity, sharedElement: View, keyword: String = "") {
             activity.startActivity(Intent(activity, SearchActivity::class.java).apply { putExtra(KEY_KEYWORD, keyword) },
-                    ActivityOptions.makeSceneTransitionAnimation(activity, sharedView, ViewCompat.getTransitionName(sharedView)).toBundle())
+                    ActivityOptions.makeSceneTransitionAnimation(activity, sharedElement, ViewCompat.getTransitionName(sharedElement)).toBundle())
         }
     }
 }
