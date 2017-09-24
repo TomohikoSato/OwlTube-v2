@@ -22,7 +22,7 @@ class SearchSuggestKeywordDelegate(private val onItemClicked: (keyword: String) 
     override fun onBindViewHolder(items: ObservableList<AdapterItem>, position: Int, holder: RecyclerView.ViewHolder) {
         (holder as? SearchSuggestKeywordViewHolder)?.binding?.run {
             suggest = items.get(position) as Suggest
-            container.setOnClickListener { view -> onItemClicked((items.get(position) as Suggest).value) }
+            container.setOnClickListener { _ -> onItemClicked((items.get(position) as Suggest).value) }
         }
     }
 }

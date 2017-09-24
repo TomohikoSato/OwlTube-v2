@@ -5,12 +5,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
+import android.widget.AutoCompleteTextView
 import android.widget.ImageButton
 import android.widget.SearchView
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.frontend.search.result.SearchResultActivity
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
+
 
 class SearchActivity : DaggerAppCompatActivity() {
 
@@ -35,7 +37,10 @@ class SearchActivity : DaggerAppCompatActivity() {
                 }
             })
             setQuery(intent.getStringExtra(KEY_KEYWORD), false)
+            findViewById<AutoCompleteTextView>(context.getResources().getIdentifier("android:id/search_src_text", null, null))
+                    .textSize = 14f
         }
+
         findViewById<RecyclerView>(R.id.recycler_view).apply {
             adapter = SearchAdapter(viewModel.items, { suggest: String -> SearchResultActivity.startActivity(this@SearchActivity, suggest) })
         }
