@@ -1,5 +1,6 @@
 package com.sgr.owltube_v2.infra.webapi.google.response
 
+import org.simpleframework.xml.Attribute
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.ElementList
 import org.simpleframework.xml.Root
@@ -7,20 +8,23 @@ import org.simpleframework.xml.Root
 @Root(name = "toplevel", strict = false)
 class SuggestKeywordResponse() {
 
-    @ElementList(inline = true)
-    var suggests: List<Suggest>? = null
+    @set:ElementList(inline = true, name = "CompleteSuggestion")
+    @get:ElementList(inline = true, name = "CompleteSuggestion")
+    var suggests: List<CompleteSuggestion>? = null
 
 }
 
-//data class SuggestKeywordResponse(val response: Map<Keyword, List<Suggest>>)
-
-data class Keyword(val keyword: String)
-
 @Root(name = "CompleteSuggestion", strict = false)
-class Suggest() {
+class CompleteSuggestion() {
 
-    @set:Element(name = "suggestion")
+    @set:Element
     @get:Element
-    var suggest: String? = null
+    var suggestion: Suggestion? = null
+}
 
+@Root(name = "Suggestion", strict = false)
+class Suggestion {
+    @set:Attribute(name = "data")
+    @get:Attribute(name = "data")
+    var data: String? = null
 }
