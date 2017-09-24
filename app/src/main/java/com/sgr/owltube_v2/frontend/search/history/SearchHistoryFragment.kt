@@ -32,11 +32,17 @@ class SearchHistoryFragment : DaggerFragment() {
     override fun onCreateView(inflater: LayoutInflater?,
                               container: ViewGroup?,
                               @Nullable savedInstanceState: Bundle?): View? {
-        viewModel.fetchSearchHistories()
+
         return inflater?.inflate(R.layout.fragment_search_history, container, false)?.apply {
             findViewById<TextView>(R.id.search_placeholder).setOnClickListener { view -> listener.onClickedSearchPlaceHolder(view) }
             findViewById<RecyclerView>(R.id.recycler_view).adapter = SearchHistoryAdapter(viewModel.searchHistories, viewModel)
         }
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.fetchSearchHistories()
     }
 
     interface SearchHistoryFragmentListener {

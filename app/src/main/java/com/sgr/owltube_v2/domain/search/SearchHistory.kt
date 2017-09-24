@@ -9,6 +9,4 @@ import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterItem
 data class SearchHistory(
         @PrimaryKey
         @ColumnInfo(name = "keyword") val keyword: String
-
-        // UpdatedAt
 ) : AdapterItem

@@ -10,7 +10,7 @@ import io.reactivex.Single
 @Dao
 interface SearchHistoryDao {
 
-    @Query("SELECT * FROM SearchHistory")
+    @Query("SELECT * FROM SearchHistory ORDER BY rowid DESC")
     fun fetchSearchHistories(): Single<List<SearchHistory>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
