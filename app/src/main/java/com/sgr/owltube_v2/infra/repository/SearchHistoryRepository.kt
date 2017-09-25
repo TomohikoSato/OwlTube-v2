@@ -13,6 +13,11 @@ class SearchHistoryRepository @Inject constructor(val appDatabase: AppDatabase, 
         return appDatabase.searchHistoryDao().fetchSearchHistories()
     }
 
+    fun fetchSearchHistories(query: String): Single<List<SearchHistory>> {
+        return appDatabase.searchHistoryDao().fetchSearchHistories()
+                .map { searchHistories -> searchHistories.filter { searchHistory -> searchHistory.keyword.contains(query) } }
+    }
+
     fun addSearchHistory(searchHistory: SearchHistory): Completable {
         return Completable.fromAction {
             appDatabase.searchHistoryDao().addSearchHistory(searchHistory)

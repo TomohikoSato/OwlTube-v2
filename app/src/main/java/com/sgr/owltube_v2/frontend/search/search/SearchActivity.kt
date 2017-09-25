@@ -21,12 +21,13 @@ import javax.inject.Inject
 class SearchActivity : DaggerAppCompatActivity() {
 
     @Inject lateinit var viewModel: SearchViewModel
+    lateinit var searchView: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
         findViewById<ImageButton>(R.id.up).setOnClickListener { _ -> finish() }
-        findViewById<SearchView>(R.id.search_view).apply {
+        searchView = findViewById<SearchView>(R.id.search_view).apply {
             setSearchableInfo(
                     (getSystemService(Context.SEARCH_SERVICE) as SearchManager).getSearchableInfo(componentName))
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -46,7 +47,9 @@ class SearchActivity : DaggerAppCompatActivity() {
         }
 
         findViewById<RecyclerView>(R.id.recycler_view).apply {
-            adapter = SearchAdapter(viewModel.items, { suggest: String -> SearchResultActivity.startActivity(this@SearchActivity, suggest) })
+            adapter = SearchAdapter(viewModel.items,
+                    { keyword: String -> SearchResultActivity.startActivity(this@SearchActivity, keyword) },
+                    { keyword: String -> searchView.setQuery(keyword, false) })
         }
     }
 
