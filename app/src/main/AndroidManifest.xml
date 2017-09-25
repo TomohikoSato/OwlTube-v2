@@ -34,7 +34,8 @@
             android:name=".frontend.search.search.SearchActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".frontend.search.result.SearchResultActivity" />
-        <activity android:name=".frontend.setting.SettingActivity"></activity>
+        <activity android:name=".frontend.setting.SettingActivity" />
+        <activity android:name=".frontend.setting.OSSActivity"></activity>
     </application>
 
 </manifest>

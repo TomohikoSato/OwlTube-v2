@@ -10,4 +10,6 @@
 
     <string name="search_history">search history</string>
     <string name="recently_watched">recently watched</string>
+    <string name="setting">setting</string>
+    <string name="open_source_license">open source license</string>
 </resources>
