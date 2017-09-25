@@ -1,12 +1,13 @@
 package com.sgr.owltube_v2.common.ext
 
-import org.junit.Assert
 import org.junit.Test
+import kotlin.test.assertEquals
 
 class StringExtKtTest {
 
     @Test
-    fun firstTest() {
-        Assert.assertTrue(1 == 1)
+    fun stringNormalizeTest() {
+        System.out.println("hogehgoehghoehgoegheo")
+        assertEquals("あ", "あ")
     }
 }

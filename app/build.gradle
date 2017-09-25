@@ -21,6 +21,8 @@ android {
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
         def API_KEY = properties.getProperty("youtube_data_api_key")
         buildConfigField("String", "YOUTUBE_DATA_API_KEY", "\"${API_KEY}\"")
+
+        multiDexEnabled true
     }
     buildTypes {
         release {
