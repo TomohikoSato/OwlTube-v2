@@ -7,6 +7,7 @@ import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AbsDelegationAda
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterDelegatesManager
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterItem
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.item.SmallVideoItemDelegate
+import com.sgr.owltube_v2.frontend.mypage.delegate.RecentlyWatchedHeaderDelegate
 
 class MyPageAdapter(private val items: ObservableList<AdapterItem>,
                     private val onItemClicked: (view: View, video: Video) -> Unit,
@@ -15,6 +16,9 @@ class MyPageAdapter(private val items: ObservableList<AdapterItem>,
 
     init {
         adapterDelegatesManager.apply {
+            addDelegate(RecentlyWatchedHeaderDelegate().also {
+                items.add(0, HeaderItem())
+            })
             addDelegate(SmallVideoItemDelegate(onItemClicked, { _: ObservableList<AdapterItem>, _: Int -> true }))
         }
 
@@ -42,6 +46,7 @@ class MyPageAdapter(private val items: ObservableList<AdapterItem>,
                 })
     }
 
+    class HeaderItem : AdapterItem
 
     override fun getItemCount(): Int = items.size
 }

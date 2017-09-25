@@ -7,4 +7,7 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_on_youtube">Youtubeから検索</string>
+
+    <string name="search_history">search history</string>
+    <string name="recently_watched">recently watched</string>
 </resources>
