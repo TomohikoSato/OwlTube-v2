@@ -13,6 +13,7 @@ class MyPageViewModel @Inject constructor(private val videoRepository: VideoRepo
 
     fun fetchRecentlyWatchedVideos() {
         items.clear()
+        items.add(0, MyPageAdapter.HeaderItem())
         videoRepository.fetchRecentlyWatchedVideos()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

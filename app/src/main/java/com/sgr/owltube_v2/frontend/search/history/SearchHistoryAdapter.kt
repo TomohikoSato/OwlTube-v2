@@ -13,13 +13,6 @@ class SearchHistoryAdapter(
     : AbsDelegationAdapter<ObservableList<AdapterItem>>(adapterDelegatesManager, items) {
 
     init {
-        adapterDelegatesManager.apply {
-            addDelegate(SearchHistoryHeaderDelegate().also {
-                items.add(SearchHistoryHeaderItem())
-            })
-            addDelegate(SearchHistoryItemDelegate(onItemClicked, onFillQueryButtonClicked))
-        }
-
         items.addOnListChangedCallback(
                 object : ObservableList.OnListChangedCallback<ObservableList<AdapterItem>>() {
                     override fun onItemRangeRemoved(Ts: ObservableList<AdapterItem>, start: Int, count: Int) {
@@ -42,6 +35,10 @@ class SearchHistoryAdapter(
                         notifyDataSetChanged()
                     }
                 })
+        adapterDelegatesManager.apply {
+            addDelegate(SearchHistoryHeaderDelegate())
+            addDelegate(SearchHistoryItemDelegate(onItemClicked, onFillQueryButtonClicked))
+        }
     }
 
     class SearchHistoryHeaderItem : AdapterItem

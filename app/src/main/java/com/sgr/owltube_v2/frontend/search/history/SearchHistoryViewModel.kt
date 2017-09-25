@@ -17,6 +17,7 @@ class SearchHistoryViewModel @Inject constructor(
 
     fun fetchSearchHistories() {
         searchHistories.clear()
+        searchHistories.add(0, SearchHistoryAdapter.SearchHistoryHeaderItem())
         searchHistoryRepository
                 .fetchSearchHistories()
                 .subscribeOn(Schedulers.io())

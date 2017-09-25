@@ -15,13 +15,6 @@ class MyPageAdapter(private val items: ObservableList<AdapterItem>,
     : AbsDelegationAdapter<ObservableList<AdapterItem>>(adapterDelegatesManager, items) {
 
     init {
-        adapterDelegatesManager.apply {
-            addDelegate(RecentlyWatchedHeaderDelegate().also {
-                items.add(0, HeaderItem())
-            })
-            addDelegate(SmallVideoItemDelegate(onItemClicked, { _: ObservableList<AdapterItem>, _: Int -> true }))
-        }
-
         items.addOnListChangedCallback(
                 object : ObservableList.OnListChangedCallback<ObservableList<AdapterItem>>() {
                     override fun onItemRangeRemoved(Ts: ObservableList<AdapterItem>, start: Int, count: Int) {
@@ -44,6 +37,10 @@ class MyPageAdapter(private val items: ObservableList<AdapterItem>,
                         notifyDataSetChanged()
                     }
                 })
+        adapterDelegatesManager.apply {
+            addDelegate(RecentlyWatchedHeaderDelegate())
+            addDelegate(SmallVideoItemDelegate(onItemClicked, { _: ObservableList<AdapterItem>, _: Int -> true }))
+        }
     }
 
     class HeaderItem : AdapterItem
