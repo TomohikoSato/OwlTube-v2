@@ -54,6 +54,7 @@
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".frontend.search.history.SearchHistoryFragment" />
+        tools:context=".frontend.search.history.SearchHistoryFragment"
+        tools:listitem="@layout/item_small_video" />
 
 </android.support.design.widget.CoordinatorLayout>

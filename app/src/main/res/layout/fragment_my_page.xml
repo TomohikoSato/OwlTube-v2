@@ -44,6 +44,17 @@
                     android:textColor="@color/primary"
                     android:textSize="20sp" />
 
+                <ImageButton
+                    android:id="@+id/setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="setting"
+                    app:srcCompat="@drawable/ic_settings_black_24dp" />
+
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
 
@@ -55,7 +66,8 @@
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".frontend.mypage.MyPageFragment" />
+        tools:context=".frontend.mypage.MyPageFragment"
+        tools:listitem="@layout/item_small_video" />
 
 </android.support.design.widget.CoordinatorLayout>
 
