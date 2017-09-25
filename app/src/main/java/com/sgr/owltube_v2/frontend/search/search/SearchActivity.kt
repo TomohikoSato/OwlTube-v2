@@ -42,7 +42,7 @@ class SearchActivity : DaggerAppCompatActivity() {
                 }
             })
             setQuery(intent.getStringExtra(KEY_KEYWORD), false)
-            findViewById<AutoCompleteTextView>(context.getResources().getIdentifier("android:id/search_src_text", null, null))
+            findViewById<AutoCompleteTextView>(context.resources.getIdentifier("android:id/search_src_text", null, null))
                     .textSize = 14f
         }
 

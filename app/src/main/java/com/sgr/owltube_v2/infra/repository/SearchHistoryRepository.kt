@@ -5,6 +5,7 @@ import com.sgr.owltube_v2.domain.search.SearchHistory
 import com.sgr.owltube_v2.infra.dao.db.AppDatabase
 import io.reactivex.Completable
 import io.reactivex.Single
+import java.text.Normalizer
 import javax.inject.Inject
 
 class SearchHistoryRepository @Inject constructor(val appDatabase: AppDatabase, val context: Context) {
@@ -14,8 +15,25 @@ class SearchHistoryRepository @Inject constructor(val appDatabase: AppDatabase, 
     }
 
     fun fetchSearchHistories(query: String): Single<List<SearchHistory>> {
-        return appDatabase.searchHistoryDao().fetchSearchHistories()
-                .map { searchHistories -> searchHistories.filter { searchHistory -> searchHistory.keyword.contains(query) } }
+        return appDatabase.searchHistoryDao()
+                .fetchSearchHistories()
+                .map { searchHistories ->
+                    searchHistories
+                            .filter { searchHistory ->
+                                searchHistory.keyword.contains(query)
+                            }
+                }
+    }
+
+    private fun normailze(keyword: String): String {
+        val zenkakukana = Normalizer.normalize(keyword, Normalizer.Form.NFKC)
+
+        val sb = StringBuilder(zenkakukana.length)
+        for (z in zenkakukana) {
+            //val c = (z.plus('あ') + -'ア').toChar()
+//            sb.append(c)
+        }
+        return sb.toString()
     }
 
     fun addSearchHistory(searchHistory: SearchHistory): Completable {
