@@ -57,4 +57,3 @@
         tools:context=".frontend.search.history.SearchHistoryFragment" />
 
 </android.support.design.widget.CoordinatorLayout>
-

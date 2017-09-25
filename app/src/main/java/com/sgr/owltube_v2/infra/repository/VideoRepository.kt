@@ -5,6 +5,7 @@ import com.sgr.owltube_v2.domain.Thumbnail
 import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.domain.player.related.RelatedVideos
 import com.sgr.owltube_v2.domain.popular.PopularVideos
+import com.sgr.owltube_v2.infra.dao.RecentlyWatchedDao
 import com.sgr.owltube_v2.infra.webapi.response.channels.ChannelsResponse
 import com.sgr.owltube_v2.infra.webapi.response.popular.PopularVideoResponse
 import com.sgr.owltube_v2.infra.webapi.response.videolist.VideosResponse
@@ -13,7 +14,7 @@ import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import javax.inject.Inject
 
-class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDataAPI) {
+class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDataAPI, private val recentlyWatchedDao: RecentlyWatchedDao) {
 
     fun fetchPopularVideos(forceUpdate: Boolean): Single<PopularVideos> {
         val popularVideosResponse = youtubeDataAPI.popularVideos(getCacheControl(forceUpdate), null)
@@ -37,6 +38,31 @@ class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDat
                 }
                 .map { videos -> createRelatedVideo(videos) }
     }
+
+    fun fetchRecentlyWatchedVideos(): Single<List<Video>> {
+        return recentlyWatchedDao.fetchRecentlyWatched()
+                .flatMap { recentlyWatchedVideos ->
+                    val videoIds = recentlyWatchedVideos.map { recentlyWatched -> recentlyWatched.videoId }
+                            .joinTo(StringBuilder())
+                            .toString()
+                    youtubeDataAPI.videos(videoIds)
+                }.map { videos -> createRecentlyWatchedVideo(videos) }
+    }
+
+    private fun createRecentlyWatchedVideo(videosResponse: VideosResponse): List<Video> {
+        return videosResponse.items.map { item ->
+            Video(item.id,
+                    item.snippet.title,
+                    Channel(item.snippet.channelId,
+                            item.snippet.channelTitle, null),
+                    item.statistics.viewCount,
+                    Thumbnail(item.snippet.thumbnails.high.url, item.snippet.thumbnails.medium.url),
+                    item.snippet.publishedAt,
+                    item.contentDetails.duration
+            )
+        }
+    }
+
 
     private fun createRelatedVideo(videosResponse: VideosResponse): RelatedVideos {
         val videos = videosResponse.items.map { item ->

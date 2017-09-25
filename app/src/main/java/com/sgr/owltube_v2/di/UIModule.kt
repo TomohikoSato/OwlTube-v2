@@ -1,6 +1,7 @@
 package com.sgr.owltube_v2.di
 
 import com.sgr.owltube_v2.frontend.MainActivity
+import com.sgr.owltube_v2.frontend.mypage.MyPageFragment
 import com.sgr.owltube_v2.frontend.player.PlayerActivity
 import com.sgr.owltube_v2.frontend.search.history.SearchHistoryFragment
 import com.sgr.owltube_v2.frontend.search.result.SearchResultActivity
@@ -29,4 +30,7 @@ internal abstract class UIModule {
 
     @ContributesAndroidInjector
     abstract fun provideSearchActivityInjector(): SearchActivity
+
+    @ContributesAndroidInjector
+    abstract fun myPageFragmentInjector(): MyPageFragment
 }

@@ -2,6 +2,7 @@ package com.sgr.owltube_v2.di
 
 import android.arch.persistence.room.Room
 import android.content.Context
+import com.sgr.owltube_v2.infra.dao.RecentlyWatchedDao
 import com.sgr.owltube_v2.infra.dao.db.AppDatabase
 import com.sgr.owltube_v2.infra.webapi.google.GoogleAPI
 import com.sgr.owltube_v2.infra.webapi.youtube.YoutubeDataAPI
@@ -85,7 +86,13 @@ class AppModule(private val context: Context) {
     @Singleton
     @Provides
     fun provideAppDatabase(context: Context): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, "app-database").build()
+        return Room.databaseBuilder(context, AppDatabase::class.java, "app-database")
+                .build()
     }
 
+    @Reusable
+    @Provides
+    fun provideRecentlyWatchedDao(db: AppDatabase): RecentlyWatchedDao {
+        return db.recentlyWatchedDao()
+    }
 }

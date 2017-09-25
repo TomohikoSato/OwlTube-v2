@@ -55,6 +55,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
         setUpYoutubePlayerView(video)
         viewModel.playerItem.clear()
         viewModel.playerItem.add(video)
+        viewModel.addRecentlyWatched(video)
         viewModel.requestRelatedVideos(video.id)
         findViewById<RecyclerView>(R.id.recycler_view).adapter =
                 PlayerAdapter(viewModel.playerItem, { _: View, v: Video -> PlayerActivity.startActivity(this, v) })
