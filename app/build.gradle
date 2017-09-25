@@ -32,6 +32,18 @@ android {
     }
 }
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.cookpad.android.licensetools:license-tools-plugin:0.23.0'
+    }
+}
+
+apply plugin: 'com.cookpad.android.licensetools'
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
