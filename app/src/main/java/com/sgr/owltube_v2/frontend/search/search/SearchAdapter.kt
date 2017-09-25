@@ -15,7 +15,7 @@ class SearchAdapter(private val items: ObservableList<AdapterItem>,
     init {
         adapterDelegatesManager.apply {
             addDelegate(SearchHistoryItemDelegate(onItemClicked, onFillQueryButtonClicked))
-            addDelegate(SearchSuggestKeywordDelegate(onItemClicked))
+            addDelegate(SearchSuggestKeywordDelegate(onItemClicked, onFillQueryButtonClicked))
         }
 
         items.addOnListChangedCallback(object : ObservableList.OnListChangedCallback<ObservableList<AdapterItem>>() {

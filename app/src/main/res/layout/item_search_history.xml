@@ -11,7 +11,6 @@
 
     </data>
 
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/item"
         android:layout_width="match_parent"
@@ -22,17 +21,28 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
+        <ImageView
+            android:id="@+id/from_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_history_black_24dp"
+            android:contentDescription="fromhistory" />
+
         <TextView
             android:id="@+id/keyword"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:text="@{searchHistory.keyword}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/fillQueryButton"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/from_history"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="RadioHead" />
 
@@ -49,5 +59,6 @@
             app:layout_constraintStart_toEndOf="@+id/keyword"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_call_made_black_24dp" />
+
     </android.support.constraint.ConstraintLayout>
 </layout>

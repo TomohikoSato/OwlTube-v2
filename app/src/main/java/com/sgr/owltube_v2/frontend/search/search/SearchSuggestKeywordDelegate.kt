@@ -10,10 +10,11 @@ import com.sgr.owltube_v2.domain.search.Suggest
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterDelegate
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterItem
 
-class SearchSuggestKeywordDelegate(private val onItemClicked: (keyword: String) -> Unit
-) : AdapterDelegate<ObservableList<AdapterItem>> {
+class SearchSuggestKeywordDelegate(private val onItemClicked: (keyword: String) -> Unit,
+                                   private var onFillQueryButtonClicked: ((keyword: String) -> Unit))
+    : AdapterDelegate<ObservableList<AdapterItem>> {
     override fun isForViewType(items: ObservableList<AdapterItem>, position: Int): Boolean {
-        return true
+        return items.get(position) is Suggest
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
@@ -24,6 +25,7 @@ class SearchSuggestKeywordDelegate(private val onItemClicked: (keyword: String) 
         (holder as? SearchSuggestKeywordViewHolder)?.binding?.run {
             suggest = items.get(position) as Suggest
             container.setOnClickListener { _ -> onItemClicked((items.get(position) as Suggest).value) }
+            fillQueryButton.setOnClickListener { _ -> onFillQueryButtonClicked((items.get(position) as Suggest).value) }
         }
     }
 }
