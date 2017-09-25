@@ -6,16 +6,9 @@
     <data>
 
         <variable
-            name="itemPosition"
-            type="Integer" />
-
-        <variable
             name="searchHistory"
             type="com.sgr.owltube_v2.domain.search.SearchHistory" />
 
-        <variable
-            name="viewModel"
-            type="com.sgr.owltube_v2.frontend.search.history.SearchHistoryViewModel" />
     </data>
 
 
@@ -24,7 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="?android:attr/selectableItemBackground"
-        android:onClick="@{() -> viewModel.onSearchHistoryClicked(itemPosition)}"
         android:paddingEnd="16dp"
         android:paddingStart="16dp"
         tools:layout_editor_absoluteX="0dp"
@@ -51,7 +43,6 @@
             android:layout_marginStart="8dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:contentDescription="fillQuery"
-            android:onClick="@{() -> viewModel.onFillQueryButtonClicked(itemPosition)}"
             android:scaleX="-1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

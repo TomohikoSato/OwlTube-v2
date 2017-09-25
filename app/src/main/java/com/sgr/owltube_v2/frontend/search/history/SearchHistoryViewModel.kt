@@ -13,9 +13,6 @@ import javax.inject.Inject
 class SearchHistoryViewModel @Inject constructor(
         private val searchHistoryRepository: SearchHistoryRepository) {
 
-    var onSearchHistoryClicked: ((keyword: String) -> Unit)? = null
-    var onFillQueryButtonClicked: ((keyword: String) -> Unit)? = null
-
     val searchHistories: ObservableList<AdapterItem> = ObservableArrayList<AdapterItem>()
 
     fun fetchSearchHistories() {
@@ -25,14 +22,6 @@ class SearchHistoryViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ searchHistories -> this.searchHistories.addAll(searchHistories) },
                         { t -> Log.e(TAG, t.message) })
-    }
-
-    fun onSearchHistoryClicked(position: Int) {
-        onSearchHistoryClicked?.invoke(getKeyword(position))
-    }
-
-    fun onFillQueryButtonClicked(position: Int) {
-        onFillQueryButtonClicked?.invoke(getKeyword(position))
     }
 
     private fun getKeyword(position: Int) = (searchHistories.get(position) as SearchHistory).keyword

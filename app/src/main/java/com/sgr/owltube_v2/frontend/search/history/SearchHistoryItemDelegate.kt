@@ -9,7 +9,9 @@ import com.sgr.owltube_v2.domain.search.SearchHistory
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterDelegate
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterItem
 
-class SearchHistoryItemDelegate(val searchHistoryViewModel: SearchHistoryViewModel) : AdapterDelegate<ObservableList<AdapterItem>> {
+class SearchHistoryItemDelegate(private val onItemClicked: (keyword: String) -> Unit,
+                                private var onFillQueryButtonClicked: ((keyword: String) -> Unit))
+    : AdapterDelegate<ObservableList<AdapterItem>> {
     override fun isForViewType(items: ObservableList<AdapterItem>, position: Int): Boolean {
         return items.get(position) is SearchHistory
     }
@@ -21,8 +23,8 @@ class SearchHistoryItemDelegate(val searchHistoryViewModel: SearchHistoryViewMod
     override fun onBindViewHolder(items: ObservableList<AdapterItem>, position: Int, holder: RecyclerView.ViewHolder) {
         (holder as? SearchHistoryItemViewHolder)?.binding?.run {
             searchHistory = items.get(position) as SearchHistory
-            itemPosition = position
-            viewModel = searchHistoryViewModel
+            item.setOnClickListener { _ -> onItemClicked((items.get(position) as SearchHistory).keyword) }
+            fillQueryButton.setOnClickListener { _ -> onFillQueryButtonClicked((items.get(position) as SearchHistory).keyword) }
         }
     }
 

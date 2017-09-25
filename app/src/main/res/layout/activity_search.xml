@@ -16,7 +16,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageButton
                 android:id="@+id/up"
@@ -31,10 +31,10 @@
             <SearchView
                 android:id="@+id/search_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_toEndOf="@id/up"
                 android:iconifiedByDefault="false"
-                android:queryHint="Youtubeから検索"
+                android:queryHint="@string/search_on_youtube"
                 android:transitionName="search" />
 
         </RelativeLayout>

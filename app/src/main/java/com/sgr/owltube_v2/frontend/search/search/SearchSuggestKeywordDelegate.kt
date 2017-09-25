@@ -10,7 +10,8 @@ import com.sgr.owltube_v2.domain.search.Suggest
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterDelegate
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterItem
 
-class SearchSuggestKeywordDelegate(private val onItemClicked: (keyword: String) -> Unit) : AdapterDelegate<ObservableList<AdapterItem>> {
+class SearchSuggestKeywordDelegate(private val onItemClicked: (keyword: String) -> Unit
+) : AdapterDelegate<ObservableList<AdapterItem>> {
     override fun isForViewType(items: ObservableList<AdapterItem>, position: Int): Boolean {
         return true
     }

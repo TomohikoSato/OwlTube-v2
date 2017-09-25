@@ -20,8 +20,6 @@ class SearchHistoryFragment : DaggerFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        viewModel.onSearchHistoryClicked = { keyword: String -> listener.onSearchHistoryClicked(keyword) }
-        viewModel.onFillQueryButtonClicked = { keyword: String -> listener.onFillQueryButtonClicked(keyword) }
         if (context is SearchHistoryFragmentListener) {
             listener = context
         } else {
@@ -35,7 +33,9 @@ class SearchHistoryFragment : DaggerFragment() {
 
         return inflater?.inflate(R.layout.fragment_search_history, container, false)?.apply {
             findViewById<TextView>(R.id.search_placeholder).setOnClickListener { view -> listener.onClickedSearchPlaceHolder(view) }
-            findViewById<RecyclerView>(R.id.recycler_view).adapter = SearchHistoryAdapter(viewModel.searchHistories, viewModel)
+            findViewById<RecyclerView>(R.id.recycler_view).adapter = SearchHistoryAdapter(viewModel.searchHistories,
+                    { keyword: String -> listener.onSearchHistoryClicked(keyword) },
+                    { keyword: String -> listener.onFillQueryButtonClicked(keyword) })
         }
     }
 
