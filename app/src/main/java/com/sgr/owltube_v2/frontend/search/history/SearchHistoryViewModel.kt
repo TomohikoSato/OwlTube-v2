@@ -16,6 +16,7 @@ class SearchHistoryViewModel @Inject constructor(
     val searchHistories: ObservableList<AdapterItem> = ObservableArrayList<AdapterItem>()
 
     fun fetchSearchHistories() {
+        searchHistories.clear()
         searchHistoryRepository
                 .fetchSearchHistories()
                 .subscribeOn(Schedulers.io())
