@@ -35,7 +35,11 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".frontend.search.result.SearchResultActivity" />
         <activity android:name=".frontend.setting.SettingActivity" />
-        <activity android:name=".frontend.setting.OSSActivity"></activity>
+        <activity android:name=".frontend.setting.OSSActivity" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="98a562a271043765a96870b27d17730fa916a279" />
     </application>
 
 </manifest>
