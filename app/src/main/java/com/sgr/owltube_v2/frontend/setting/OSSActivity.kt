@@ -13,7 +13,7 @@ class OSSActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_oss)
 
-        findViewById<WebView>(R.id.web_view).loadUrl("file:///android_asset/open_source_license.html")
+        findViewById<WebView>(R.id.web_view).loadUrl("file:///android_asset/licenses.html")
     }
 
     companion object {
