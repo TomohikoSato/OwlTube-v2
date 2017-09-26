@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
-import android.util.Log
+import com.sgr.owltube_v2.common.ext.Logger
 
 /**
  * In the case of BottomNavigationView has above 4 items,
@@ -15,7 +15,6 @@ import android.util.Log
  */
 @SuppressLint("RestrictedApi")
 fun BottomNavigationView.disableShiftingMode() {
-    val TAG = BottomNavigationView::class.java.simpleName
     val menuView = getChildAt(0) as BottomNavigationMenuView
     try {
         val shiftingMode = menuView.javaClass.getDeclaredField("mShiftingMode")
@@ -29,9 +28,8 @@ fun BottomNavigationView.disableShiftingMode() {
             item.setChecked(item.itemData.isChecked)
         }
     } catch (e: NoSuchFieldException) {
-        Log.e(TAG, "Unable to get shift mode field")
+        Logger.e("Unable to get shift mode field")
     } catch (e: IllegalAccessException) {
-        Log.e(TAG, "Unable to change value of shift mode")
+        Logger.e("Unable to change value of shift mode")
     }
-
 }

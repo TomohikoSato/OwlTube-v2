@@ -2,7 +2,7 @@ package com.sgr.owltube_v2.frontend.search.search
 
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableList
-import android.util.Log
+import com.sgr.owltube_v2.common.ext.Logger
 import com.sgr.owltube_v2.domain.search.SearchHistory
 import com.sgr.owltube_v2.domain.search.Suggest
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterItem
@@ -30,10 +30,6 @@ class SearchViewModel @Inject constructor(private val repository: SearchReposito
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe({ results: List<AdapterItem> -> items.addAll(results) }, { t -> Log.e(TAG, t.message) })
-    }
-
-    companion object {
-        val TAG: String = SearchViewModel::class.java.simpleName
+                .subscribe({ results: List<AdapterItem> -> items.addAll(results) }, Logger::e)
     }
 }

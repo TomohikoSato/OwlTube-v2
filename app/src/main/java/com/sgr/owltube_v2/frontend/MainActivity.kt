@@ -5,6 +5,7 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.view.View
 import com.sgr.owltube_v2.R
+import com.sgr.owltube_v2.common.ext.Logger
 import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.common.disableShiftingMode
 import com.sgr.owltube_v2.frontend.mypage.MyPageFragment
@@ -25,6 +26,11 @@ class MainActivity : DaggerAppCompatActivity(), TopFragmentListItemListener, Sea
 
     override fun onFillQueryButtonClicked(keyword: String) {
         SearchActivity.startActivityWithTransition(this, findViewById(R.id.search_placeholder), keyword)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Logger.d("testtest!!")
     }
 
     private val topFragment: TopFragment by lazy {
