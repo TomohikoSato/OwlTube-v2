@@ -36,12 +36,9 @@ class SearchHistoryAdapter(
                     }
                 })
         adapterDelegatesManager.apply {
-            addDelegate(SearchHistoryHeaderDelegate())
             addDelegate(SearchHistoryItemDelegate(onItemClicked, onFillQueryButtonClicked))
         }
     }
-
-    class SearchHistoryHeaderItem : AdapterItem
 
     override fun getItemCount(): Int = items.size
 }
