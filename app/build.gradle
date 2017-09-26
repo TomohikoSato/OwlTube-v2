@@ -40,15 +40,15 @@ buildscript {
 
     dependencies {
         classpath 'com.cookpad.android.licensetools:license-tools-plugin:0.23.0'
-        classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'io.fabric.tools:gradle:1.24.2'
     }
 }
-
-apply plugin: 'io.fabric'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
+
+apply plugin: 'io.fabric'
 
 apply plugin: 'com.cookpad.android.licensetools'
 
@@ -56,6 +56,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion"
+
+    implementation 'com.google.firebase:firebase-core:11.4.0'
 
     def supportVersion = "26.1.0"
     implementation "com.android.support:appcompat-v7:$supportVersion"
@@ -128,3 +130,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }
+
+/*
+line be at the bottom of your app/build.gradle file so that no dependency collisions are introduced.
+cf. https://developers.google.com/android/guides/google-services-plugin
+*/
+apply plugin: 'com.google.gms.google-services'
