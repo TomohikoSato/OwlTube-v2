@@ -13,7 +13,6 @@ import javax.inject.Inject
 
 class TopViewModel @Inject constructor(private val videoRepository: VideoRepository) {
     val videos: ObservableList<Video> = ObservableArrayList<Video>()
-
     val status: ObservableField<RequestStatus> = ObservableField<RequestStatus>(RequestStatus.INIT)
 
     fun requestPopularVideos() = requestPopularVideos(false)

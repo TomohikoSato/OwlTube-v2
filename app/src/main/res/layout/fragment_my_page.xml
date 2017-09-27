@@ -80,10 +80,16 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="@{viewModel.status.isSuccess ? View.VISIBLE : View.GONE}"
                 app:layoutManager="LinearLayoutManager"
                 tools:context=".frontend.mypage.MyPageFragment"
                 tools:listitem="@layout/item_small_video" />
         </android.support.v4.widget.SwipeRefreshLayout>
+
+        <include
+            android:id="@+id/error_view"
+            layout="@layout/view_network_error"
+            android:visibility="@{viewModel.status.isError ? View.VISIBLE : View.GONE}" />
 
     </android.support.design.widget.CoordinatorLayout>
 
