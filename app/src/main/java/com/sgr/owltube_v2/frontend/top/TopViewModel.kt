@@ -5,23 +5,13 @@ import android.databinding.ObservableField
 import android.databinding.ObservableList
 import com.sgr.owltube_v2.common.ext.Logger
 import com.sgr.owltube_v2.domain.Video
+import com.sgr.owltube_v2.frontend.common.RequestStatus
 import com.sgr.owltube_v2.infra.repository.VideoRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class TopViewModel @Inject constructor(private val videoRepository: VideoRepository) {
-    enum class RequestStatus {
-        INIT,
-        REQUESTING,
-        SUCCESS,
-        ERROR;
-
-        fun isRequesting(): Boolean = (this == REQUESTING)
-        fun isSuccess(): Boolean = (this == SUCCESS)
-        fun isError(): Boolean = (this == ERROR)
-    }
-
     val videos: ObservableList<Video> = ObservableArrayList<Video>()
 
     val status: ObservableField<RequestStatus> = ObservableField<RequestStatus>(RequestStatus.INIT)
