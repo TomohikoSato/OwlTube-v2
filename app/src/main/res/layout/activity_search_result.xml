@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.sgr.owltube_v2.frontend.search.result.SearchResultViewModel" />
@@ -49,8 +51,8 @@
                         android:layout_height="match_parent"
                         android:layout_margin="8dp"
                         android:layout_toEndOf="@id/up"
-                        tools:text="検索結果ほげほげ"
-                        android:theme="@style/SearchPlaceHolder" />
+                        android:theme="@style/SearchPlaceHolder"
+                        tools:text="検索結果ほげほげ" />
 
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
@@ -62,15 +64,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:refreshing="@{viewModel.isRefreshing}">
+            app:refreshing="@{viewModel.status.isRequesting}">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="@{viewModel.status.isError ? View.GONE : View.VISIBLE }"
                 app:layoutManager="LinearLayoutManager"
                 tools:context=".frontend.search.result.SearchResultActivity"
                 tools:listitem="@layout/item_small_video" />
+
+            <include
+                android:id="@+id/error_view"
+                layout="@layout/view_network_error"
+                android:visibility="@{viewModel.status.isError ? View.VISIBLE : View.GONE}" />
         </android.support.v4.widget.SwipeRefreshLayout>
 
     </android.support.design.widget.CoordinatorLayout>

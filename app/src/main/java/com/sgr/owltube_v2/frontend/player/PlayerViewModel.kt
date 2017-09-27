@@ -2,6 +2,7 @@ package com.sgr.owltube_v2.frontend.player
 
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableList
+import com.sgr.owltube_v2.common.ext.Logger
 import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterItem
 import com.sgr.owltube_v2.infra.dao.RecentlyWatched
@@ -21,7 +22,8 @@ class PlayerViewModel @Inject constructor(private val videoRepository: VideoRepo
         videoRepository.fetchRelatedVideos(videoId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { relatedVideos -> this.playerItem.addAll(relatedVideos.videos) }
+                .subscribe({ relatedVideos -> this.playerItem.addAll(relatedVideos.videos) },
+                        { t -> Logger.w(t) })
     }
 
     fun addRecentlyWatched(video: Video) {

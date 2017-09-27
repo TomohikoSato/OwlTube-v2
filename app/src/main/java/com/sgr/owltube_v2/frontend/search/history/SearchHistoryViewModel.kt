@@ -21,6 +21,6 @@ class SearchHistoryViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ searchHistories -> this.searchHistories.addAll(searchHistories) },
-                        Logger::e)
+                        Logger::w)
     }
 }

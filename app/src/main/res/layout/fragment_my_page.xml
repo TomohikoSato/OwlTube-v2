@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.sgr.owltube_v2.frontend.mypage.MyPageViewModel" />
@@ -74,13 +76,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:refreshing="@{viewModel.isRefreshing}">
+            app:refreshing="@{viewModel.status.isRequesting}">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="@{viewModel.status.isSuccess ? View.VISIBLE : View.GONE}"
+                android:visibility="@{viewModel.status.isError ? View.GONE : View.VISIBLE }"
                 app:layoutManager="LinearLayoutManager"
                 tools:context=".frontend.mypage.MyPageFragment"
                 tools:listitem="@layout/item_small_video" />

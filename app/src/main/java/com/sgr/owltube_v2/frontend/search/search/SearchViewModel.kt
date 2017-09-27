@@ -30,6 +30,6 @@ class SearchViewModel @Inject constructor(private val repository: SearchReposito
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe({ results: List<AdapterItem> -> items.addAll(results) }, Logger::e)
+                .subscribe({ results: List<AdapterItem> -> items.addAll(results) }, Logger::w)
     }
 }
