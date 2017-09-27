@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.sgr.owltube_v2.frontend.top.TopViewModel" />
@@ -62,15 +64,32 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:refreshing="@{viewModel.isRefreshing}">
+            app:refreshing="@{viewModel.status.isRequesting}">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="LinearLayoutManager"
-                tools:context=".frontend.top.TopFragment"
-                tools:listitem="@layout/fragment_top_item" />
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="@{viewModel.status.isSuccess ? View.VISIBLE : View.GONE}"
+                    app:layoutManager="LinearLayoutManager"
+                    app:layout_constraintBottom_toTopOf="@id/error_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.49"
+                    tools:context=".frontend.top.TopFragment"
+                    tools:listitem="@layout/fragment_top_item" />
+
+                <include
+                    layout="@layout/view_network_error"
+                    android:visibility="@{viewModel.status.isError ? View.VISIBLE : View.GONE}" />
+
+            </android.support.constraint.ConstraintLayout>
+
         </android.support.v4.widget.SwipeRefreshLayout>
 
     </android.support.design.widget.CoordinatorLayout>
