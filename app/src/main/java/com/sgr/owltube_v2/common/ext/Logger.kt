@@ -2,6 +2,7 @@ package com.sgr.owltube_v2.common.ext
 
 import android.os.Build
 import android.util.Log
+import com.crashlytics.android.Crashlytics
 import java.util.regex.Pattern
 
 object Logger {
@@ -10,19 +11,23 @@ object Logger {
     }
 
     fun w(message: String) {
-        Log.d(TagGenerater.getTag(), message)
+        Crashlytics.log("Higgs-Boson detected! Bailing out...");
+        Log.w(TagGenerater.getTag(), message)
     }
 
     fun w(t: Throwable) {
-        Log.d(TagGenerater.getTag(), t.message)
+        Crashlytics.logException(t)
+        Log.w(TagGenerater.getTag(), t.message)
     }
 
     fun e(message: String) {
-        Log.d(TagGenerater.getTag(), message)
+        Crashlytics.log("Higgs-Boson detected! Bailing out...");
+        Log.e(TagGenerater.getTag(), message)
     }
 
     fun e(t: Throwable) {
-        Log.d(TagGenerater.getTag(), t.message)
+        Crashlytics.logException(t)
+        Log.e(TagGenerater.getTag(), t.message)
     }
 
     private object TagGenerater {
