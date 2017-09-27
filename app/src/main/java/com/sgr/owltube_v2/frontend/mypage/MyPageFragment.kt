@@ -8,12 +8,13 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.domain.Video
+import com.sgr.owltube_v2.frontend.common.ScrollToTop
 import com.sgr.owltube_v2.frontend.player.PlayerActivity
 import com.sgr.owltube_v2.frontend.setting.SettingActivity
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class MyPageFragment : DaggerFragment() {
+class MyPageFragment : DaggerFragment(), ScrollToTop {
 
     @Inject lateinit var viewModel: MyPageViewModel
 

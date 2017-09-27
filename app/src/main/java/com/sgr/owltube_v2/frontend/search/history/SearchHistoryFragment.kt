@@ -9,11 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.sgr.owltube_v2.R
+import com.sgr.owltube_v2.frontend.common.ScrollToTop
 import dagger.android.support.DaggerFragment
 
 import javax.inject.Inject
 
-class SearchHistoryFragment : DaggerFragment() {
+class SearchHistoryFragment : DaggerFragment(), ScrollToTop {
     private lateinit var listener: SearchHistoryFragmentListener
 
     @Inject lateinit var viewModel: SearchHistoryViewModel

@@ -3,18 +3,17 @@ package com.sgr.owltube_v2.frontend.top
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.databinding.FragmentTopBinding
 import com.sgr.owltube_v2.domain.Video
+import com.sgr.owltube_v2.frontend.common.ScrollToTop
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class TopFragment : DaggerFragment() {
+class TopFragment : DaggerFragment(), ScrollToTop {
     @Inject lateinit var topViewModel: TopViewModel
 
     private lateinit var listener: TopFragmentListItemListener
@@ -60,10 +59,5 @@ class TopFragment : DaggerFragment() {
 
     interface TopFragmentListItemListener {
         fun onClickItem(video: Video)
-    }
-
-    fun scrollToTop() = activity?.apply {
-        findViewById<RecyclerView>(R.id.recycler_view).scrollToPosition(0)
-        findViewById<AppBarLayout>(R.id.app_bar).setExpanded(true, true)
     }
 }
