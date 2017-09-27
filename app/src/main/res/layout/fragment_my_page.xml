@@ -82,7 +82,7 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="@{viewModel.status.isError ? View.GONE : View.VISIBLE }"
+                android:visibility="@{viewModel.status.isSuccess ? View.VISIBLE : View.GONE}"
                 app:layoutManager="LinearLayoutManager"
                 tools:context=".frontend.mypage.MyPageFragment"
                 tools:listitem="@layout/item_small_video" />
