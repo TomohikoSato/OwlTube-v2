@@ -85,6 +85,7 @@
                     tools:listitem="@layout/fragment_top_item" />
 
                 <include
+                    android:id="@+id/error_view"
                     layout="@layout/view_network_error"
                     android:visibility="@{viewModel.status.isError ? View.VISIBLE : View.GONE}" />
 

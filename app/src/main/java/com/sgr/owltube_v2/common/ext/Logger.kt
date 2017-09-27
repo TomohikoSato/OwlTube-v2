@@ -11,7 +11,7 @@ object Logger {
     }
 
     fun w(message: String) {
-        Crashlytics.log("Higgs-Boson detected! Bailing out...");
+        Crashlytics.log("Higgs-Boson detected! Bailing out...")
         Log.w(TagGenerater.getTag(), message)
     }
 
@@ -21,7 +21,7 @@ object Logger {
     }
 
     fun e(message: String) {
-        Crashlytics.log("Higgs-Boson detected! Bailing out...");
+        Crashlytics.log("Higgs-Boson detected! Bailing out...")
         Log.e(TagGenerater.getTag(), message)
     }
 

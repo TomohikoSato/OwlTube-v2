@@ -51,6 +51,9 @@ class TopFragment : DaggerFragment(), ScrollToTop {
                     topViewModel.refreshPopularVideo()
                 }
             }
+            errorView.errorButton.setOnClickListener { v ->
+                topViewModel.refreshPopularVideo()
+            }
         }.root
     }
 

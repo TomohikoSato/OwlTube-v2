@@ -32,7 +32,7 @@ class MyPageFragment : DaggerFragment(), ScrollToTop {
             setting.setOnClickListener { _: View ->
                 SettingActivity.startActivity(this@MyPageFragment.context)
             }
-            swipeRefresh.setEnabled(false)
+            swipeRefresh.isEnabled = false
         }.root
     }
 
