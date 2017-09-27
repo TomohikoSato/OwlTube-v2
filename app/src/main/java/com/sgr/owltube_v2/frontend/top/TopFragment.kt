@@ -46,10 +46,7 @@ class TopFragment : DaggerFragment(), ScrollToTop {
             viewModel = topViewModel
             recyclerView.adapter = TopAdapter(topViewModel.videos, listener)
             swipeRefresh.apply {
-                setColorSchemeResources(android.R.color.holo_red_dark,
-                        android.R.color.holo_blue_dark,
-                        android.R.color.holo_green_dark,
-                        android.R.color.holo_orange_dark)
+                setColorSchemeResources(R.color.primary)
                 setOnRefreshListener {
                     topViewModel.refreshPopularVideo()
                 }

@@ -32,10 +32,7 @@ class SearchResultActivity : DaggerAppCompatActivity() {
             recyclerView.adapter = SearchResultAdapter(searchResultViewModel.searchResultVideos,
                     { _: View, video: Video -> PlayerActivity.startActivity(this@SearchResultActivity, video) })
             swipeRefresh.apply {
-                setColorSchemeResources(android.R.color.holo_red_dark,
-                        android.R.color.holo_blue_dark,
-                        android.R.color.holo_green_dark,
-                        android.R.color.holo_orange_dark)
+                setColorSchemeResources(R.color.primary)
                 setOnRefreshListener {
                     searchResultViewModel.search(query)
                 }
