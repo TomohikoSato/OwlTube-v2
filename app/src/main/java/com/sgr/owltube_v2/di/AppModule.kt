@@ -2,6 +2,7 @@ package com.sgr.owltube_v2.di
 
 import android.arch.persistence.room.Room
 import android.content.Context
+import com.sgr.owltube_v2.BuildConfig
 import com.sgr.owltube_v2.infra.dao.RecentlyWatchedDao
 import com.sgr.owltube_v2.infra.dao.db.AppDatabase
 import com.sgr.owltube_v2.infra.webapi.google.GoogleAPI
@@ -16,6 +17,7 @@ import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
+import okhttp3.logging.HttpLoggingInterceptor.Level.NONE
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -40,7 +42,9 @@ class AppModule(private val context: Context) {
     fun providesOkHttp(context: Context): OkHttpClient =
             OkHttpClient.Builder()
                     .cache(Cache(context.cacheDir, 10 * 1024 * 1024))
-                    .addNetworkInterceptor(HttpLoggingInterceptor().apply { level = BODY })
+                    .addNetworkInterceptor(HttpLoggingInterceptor().apply {
+                        level = if (BuildConfig.DEBUG) BODY else NONE
+                    })
                     .addNetworkInterceptor { chain ->
                         val response = chain.proceed(chain.request())
                         response.newBuilder()
