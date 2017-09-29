@@ -3,8 +3,8 @@ package com.sgr.owltube_v2
 import android.app.Activity
 import android.app.Application
 import com.crashlytics.android.Crashlytics
-import com.facebook.stetho.Stetho
 import com.jakewharton.threetenabp.AndroidThreeTen
+import com.sgr.owltube_v2.common.ext.StethoWrapper
 import com.sgr.owltube_v2.di.AppModule
 import com.sgr.owltube_v2.di.DaggerAppComponent
 import com.squareup.leakcanary.LeakCanary
@@ -38,6 +38,6 @@ class App : Application(), HasActivityInjector {
 
         AndroidThreeTen.init(this)
 
-        Stetho.initializeWithDefaults(this)
+        StethoWrapper.init(this)
     }
 }
