@@ -96,42 +96,42 @@ class PlayerActivity : DaggerAppCompatActivity() {
     private var youtubePlayerInitialized: Boolean = false
 
     private fun setUpYoutubePlayerView(video: Video) {
-        youtubePlayerView = findViewById<YouTubePlayerView>(R.id.youtube_player_view)
-
-        if (youtubePlayerInitialized) {
-            youtubePlayerView.loadVideo(video.id, 0F)
-        } else {
-            youtubePlayerInitialized = true
-            youtubePlayerView.initialize(object : AbstractYouTubeListener() {
-                override fun onReady() {
-                    youtubePlayerView.loadVideo(video.id, 0F)
-                }
-            }, false)
-
-            youtubePlayerView.addFullScreenListener(object : YouTubePlayerFullScreenListener {
-                val fullScreenManager = FullScreenManager(this@PlayerActivity)
-                override fun onYouTubePlayerEnterFullScreen() {
-                    fullScreenManager.enterFullScreen()
-                }
-
-                override fun onYouTubePlayerExitFullScreen() {
-                    fullScreenManager.exitFullScreen()
-                }
-            })
-
-            youtubePlayerView.findViewById<ViewGroup>(R.id.controls_root).addView(
-                    ImageButton(this).apply {
-                        layoutParams = RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
-                            addRule(RelativeLayout.ALIGN_PARENT_END)
-                        }
-                        val paddingPx = convertDpToPixels(8F, this@PlayerActivity)
-                        setPadding(paddingPx, paddingPx, paddingPx, paddingPx)
-                        setImageResource(R.drawable.ic_to_external_black_24dp)
-                        imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
-                        setBackgroundResource(R.drawable.app_background_item_selected)
-                        setOnClickListener { launchPinP() }
+        youtubePlayerView = findViewById<YouTubePlayerView>(R.id.youtube_player_view).apply {
+            if (youtubePlayerInitialized) {
+                loadVideo(video.id, 0F)
+            } else {
+                youtubePlayerInitialized = true
+                initialize(object : AbstractYouTubeListener() {
+                    override fun onReady() {
+                        loadVideo(video.id, 0F)
                     }
-            )
+                }, false)
+
+                addFullScreenListener(object : YouTubePlayerFullScreenListener {
+                    val fullScreenManager = FullScreenManager(this@PlayerActivity)
+                    override fun onYouTubePlayerEnterFullScreen() {
+                        fullScreenManager.enterFullScreen()
+                    }
+
+                    override fun onYouTubePlayerExitFullScreen() {
+                        fullScreenManager.exitFullScreen()
+                    }
+                })
+
+                findViewById<ViewGroup>(R.id.controls_root).addView(
+                        ImageButton(this@PlayerActivity).apply {
+                            layoutParams = RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
+                                addRule(RelativeLayout.ALIGN_PARENT_END)
+                            }
+                            val paddingPx = convertDpToPixels(8F, this@PlayerActivity)
+                            setPadding(paddingPx, paddingPx, paddingPx, paddingPx)
+                            setImageResource(R.drawable.ic_to_external_black_24dp)
+                            imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
+                            setBackgroundResource(R.drawable.app_background_item_selected)
+                            setOnClickListener { launchPinP() }
+                        }
+                )
+            }
         }
     }
 
