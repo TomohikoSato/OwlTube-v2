@@ -53,12 +53,14 @@ class PlayerActivity : DaggerAppCompatActivity() {
 
     private fun setUp(video: Video) {
         setUpYoutubePlayerView(video)
-        viewModel.playerItem.clear()
-        viewModel.playerItem.add(video)
-        viewModel.addRecentlyWatched(video)
-        viewModel.requestRelatedVideos(video.id)
+        viewModel.apply {
+            playerItem.clear()
+            playerItem.add(video)
+            addRecentlyWatched(video)
+            requestRelatedVideos(video.id)
+        }
         findViewById<RecyclerView>(R.id.recycler_view).adapter =
-                PlayerAdapter(viewModel.playerItem, { _: View, v: Video -> PlayerActivity.startActivity(this, v) })
+                PlayerAdapter(viewModel.playerItem, { _, v: Video -> PlayerActivity.startActivity(this, v) })
     }
 
     override fun onBackPressed() {
