@@ -24,12 +24,12 @@ fun BottomNavigationView.disableShiftingMode() {
         for (i in 0..menuView.childCount - 1) {
             val item = menuView.getChildAt(i) as BottomNavigationItemView
             item.setShiftingMode(false)
-            // Set once again checked value, so view will be updated
+            // Set once again checked level, so view will be updated
             item.setChecked(item.itemData.isChecked)
         }
     } catch (e: NoSuchFieldException) {
         Logger.e("Unable to get shift mode field")
     } catch (e: IllegalAccessException) {
-        Logger.e("Unable to change value of shift mode")
+        Logger.e("Unable to change level of shift mode")
     }
 }

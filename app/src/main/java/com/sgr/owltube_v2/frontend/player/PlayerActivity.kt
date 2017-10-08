@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.pierfrancescosoffritti.youtubeplayer.AbstractYouTubeListener
 import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerFullScreenListener
@@ -36,9 +37,36 @@ class PlayerActivity : DaggerAppCompatActivity() {
         }
     }
 
+    enum class RepeatState(val level: Int) {
+        OFF(0) {
+            override fun next(): RepeatState = ON
+        },
+        ON(1) {
+            override fun next(): RepeatState = ON_ONE
+        },
+        ON_ONE(2) {
+            override fun next(): RepeatState = OFF
+        };
+
+        companion object {
+            fun of(value: Int): RepeatState {
+                values().forEach {
+                    if (it.level == value) return it
+                }
+                throw IllegalArgumentException()
+            }
+        }
+
+        abstract fun next(): RepeatState
+    }
+
     @Inject lateinit var viewModel: PlayerViewModel
 
     lateinit var youtubePlayerView: YouTubePlayerView
+
+    private var youtubePlayerInitialized: Boolean = false
+
+    private var repeatState: PlayerActivity.RepeatState = RepeatState.OFF
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,20 +121,29 @@ class PlayerActivity : DaggerAppCompatActivity() {
         findViewById<View>(R.id.recycler_view).visibility = if (isInPictureInPictureMode) View.GONE else View.VISIBLE
     }
 
-    private var youtubePlayerInitialized: Boolean = false
-
     private fun setUpYoutubePlayerView(video: Video) {
         youtubePlayerView = findViewById<YouTubePlayerView>(R.id.youtube_player_view).apply {
             if (youtubePlayerInitialized) {
                 loadVideo(video.id, 0F)
                 return
             }
-
             youtubePlayerInitialized = true
             initialize(object : AbstractYouTubeListener() {
                 override fun onReady() {
                     loadVideo(video.id, 0F)
                 }
+
+                // https://github.com/PierfrancescoSoffritti/AndroidYouTubePlayer/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/YouTubePlayer.java
+                override fun onStateChange(state: Int) {
+                    super.onStateChange(state)
+                    when (state) {
+                        0 -> when (repeatState) { //0: ENDED
+                            RepeatState.ON_ONE -> seekTo(0)
+                            else -> Unit
+                        }
+                    }
+                }
+
             }, false)
 
             addFullScreenListener(object : YouTubePlayerFullScreenListener {
@@ -119,21 +156,26 @@ class PlayerActivity : DaggerAppCompatActivity() {
                     fullScreenManager.exitFullScreen()
                 }
             })
-
-            findViewById<ViewGroup>(R.id.controls_root).addView(
-                    ImageButton(this@PlayerActivity).apply {
-                        layoutParams = RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
-                            addRule(RelativeLayout.ALIGN_PARENT_END)
-                        }
-                        val paddingPx = convertDpToPixels(8F, this@PlayerActivity)
-                        setPadding(paddingPx, paddingPx, paddingPx, paddingPx)
-                        setImageResource(R.drawable.ic_to_external_black_24dp)
-                        imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
-                        setBackgroundResource(R.drawable.app_background_item_selected)
-                        setOnClickListener { launchPinP() }
-                    }
-            )
+            setCustomActionRight(getDrawable(R.drawable.ic_repeat_levellist), { v ->
+                val imageView = v as ImageView
+                repeatState = repeatState.next()
+                imageView.setImageLevel(repeatState.level)
+            })
         }
+
+        findViewById<ViewGroup>(R.id.controls_root).addView(
+                ImageButton(this@PlayerActivity).apply {
+                    layoutParams = RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
+                        addRule(RelativeLayout.ALIGN_PARENT_END)
+                    }
+                    val paddingPx = convertDpToPixels(8F, this@PlayerActivity)
+                    setPadding(paddingPx, paddingPx, paddingPx, paddingPx)
+                    setImageResource(R.drawable.ic_to_external_black_24dp)
+                    imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
+                    setBackgroundResource(R.drawable.app_background_item_selected)
+                    setOnClickListener { launchPinP() }
+                }
+        )
     }
 
     private fun launchPinP() {
