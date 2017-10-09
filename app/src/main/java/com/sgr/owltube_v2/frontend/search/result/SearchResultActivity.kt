@@ -4,10 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.view.View
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.databinding.ActivitySearchResultBinding
-import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.player.PlayerActivity
 import com.sgr.owltube_v2.frontend.search.search.SearchActivity
 import dagger.android.support.DaggerAppCompatActivity
@@ -30,7 +28,7 @@ class SearchResultActivity : DaggerAppCompatActivity() {
                 setOnClickListener { SearchActivity.startActivityWithTransition(this@SearchResultActivity, findViewById(R.id.search_placeholder), query) }
             }
             recyclerView.adapter = SearchResultAdapter(searchResultViewModel.searchResultVideos,
-                    { _: View, video: Video -> PlayerActivity.startActivity(this@SearchResultActivity, video) })
+                    { _, video -> PlayerActivity.startActivity(this@SearchResultActivity, video) })
             swipeRefresh.apply {
                 setColorSchemeResources(R.color.primary)
                 setOnRefreshListener {
@@ -45,10 +43,9 @@ class SearchResultActivity : DaggerAppCompatActivity() {
     companion object {
         const val KEY_QUERY = "KEY_QUERY"
 
-        fun startActivity(context: Context, query: String) {
-            context.startActivity(Intent(context, SearchResultActivity::class.java).run {
-                putExtra(KEY_QUERY, query)
-            })
-        }
+        fun startActivity(context: Context, query: String) =
+                context.startActivity(Intent(context, SearchResultActivity::class.java).run {
+                    putExtra(KEY_QUERY, query)
+                })
     }
 }

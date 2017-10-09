@@ -19,9 +19,7 @@ class TopFragment : DaggerFragment(), ScrollToTop {
     private lateinit var listener: TopFragmentListItemListener
 
     companion object {
-        fun newInstance(): TopFragment {
-            return TopFragment()
-        }
+        fun newInstance() = TopFragment()
     }
 
     override fun onAttach(context: Context) {
@@ -36,7 +34,6 @@ class TopFragment : DaggerFragment(), ScrollToTop {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         topViewModel.requestPopularVideos()
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
