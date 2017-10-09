@@ -19,22 +19,26 @@ import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : DaggerAppCompatActivity(), TopFragmentListItemListener, SearchHistoryFragmentListener {
-    override fun onSearchHistoryClicked(keyword: String) {
-        SearchResultActivity.startActivity(this, keyword)
+    private val topFragment: TopFragment by lazy { TopFragment.newInstance() }
+    private val searchHistoryFragment: SearchHistoryFragment by lazy { SearchHistoryFragment.newInstance() }
+    private val myPageFragment: MyPageFragment by lazy { MyPageFragment.newInstance() }
+
+    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.navigation_top -> switchFragment(topFragment)
+            R.id.navigation_search -> switchFragment(searchHistoryFragment)
+            R.id.navigation_mypage -> switchFragment(myPageFragment)
+            else -> return@OnNavigationItemSelectedListener false
+        }
+        true
     }
 
-    override fun onFillQueryButtonClicked(keyword: String) {
-        SearchActivity.startActivityWithTransition(this, findViewById(R.id.search_placeholder), keyword)
-    }
-
-    private val topFragment: TopFragment by lazy {
-        TopFragment.newInstance()
-    }
-    private val searchHistoryFragment: SearchHistoryFragment by lazy {
-        SearchHistoryFragment.newInstance()
-    }
-    private val myPageFragment: MyPageFragment by lazy {
-        MyPageFragment.newInstance()
+    private val onNavigationItemReselectedListener = BottomNavigationView.OnNavigationItemReselectedListener { item ->
+        when (item.itemId) {
+            R.id.navigation_top -> topFragment.scrollToTop(this)
+            R.id.navigation_search -> searchHistoryFragment.scrollToTop(this)
+            R.id.navigation_mypage -> myPageFragment.scrollToTop(this)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,50 +53,17 @@ class MainActivity : DaggerAppCompatActivity(), TopFragmentListItemListener, Sea
         switchFragment(topFragment)
     }
 
-    override fun onClickItem(video: Video) {
-        PlayerActivity.startActivity(this, video)
-    }
+    override fun onSearchHistoryClicked(keyword: String) = SearchResultActivity.startActivity(this, keyword)
 
-    override fun onClickedSearchPlaceHolder(view: View) {
-        SearchActivity.startActivityWithTransition(this, findViewById(R.id.search_placeholder))
-    }
+    override fun onFillQueryButtonClicked(keyword: String) =
+            SearchActivity.startActivityWithTransition(this, findViewById(R.id.search_placeholder), keyword)
 
-    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_top -> {
-                switchFragment(topFragment)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_search -> {
-                switchFragment(searchHistoryFragment)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_mypage -> {
-                switchFragment(myPageFragment)
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
-    }
+    override fun onClickItem(video: Video) = PlayerActivity.startActivity(this, video)
 
-    private val onNavigationItemReselectedListener = BottomNavigationView.OnNavigationItemReselectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_top -> {
-                topFragment.scrollToTop(this)
-            }
-            R.id.navigation_search -> {
-                searchHistoryFragment.scrollToTop(this)
-            }
-            R.id.navigation_mypage -> {
-                myPageFragment.scrollToTop(this)
-            }
-        }
-    }
+    override fun onClickedSearchPlaceHolder(view: View) =
+            SearchActivity.startActivityWithTransition(this, findViewById(R.id.search_placeholder))
 
-
-    private fun switchFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
-                .commit()
-    }
+    private fun switchFragment(fragment: Fragment) = supportFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment)
+            .commit()
 }
