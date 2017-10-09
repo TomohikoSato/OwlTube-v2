@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.View
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.domain.Video
+import com.sgr.owltube_v2.frontend.common.ScrollToTop
 import com.sgr.owltube_v2.frontend.common.disableShiftingMode
 import com.sgr.owltube_v2.frontend.mypage.MyPageFragment
 import com.sgr.owltube_v2.frontend.player.PlayerActivity
@@ -19,26 +20,18 @@ import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : DaggerAppCompatActivity(), TopFragmentListItemListener, SearchHistoryFragmentListener {
+
     private val topFragment: TopFragment by lazy { TopFragment.newInstance() }
     private val searchHistoryFragment: SearchHistoryFragment by lazy { SearchHistoryFragment.newInstance() }
     private val myPageFragment: MyPageFragment by lazy { MyPageFragment.newInstance() }
 
-    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_top -> switchFragment(topFragment)
-            R.id.navigation_search -> switchFragment(searchHistoryFragment)
-            R.id.navigation_mypage -> switchFragment(myPageFragment)
-            else -> return@OnNavigationItemSelectedListener false
-        }
+    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {
+        switchFragment(fromNavIdToFragment(it.itemId))
         true
     }
 
-    private val onNavigationItemReselectedListener = BottomNavigationView.OnNavigationItemReselectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_top -> topFragment.scrollToTop(this)
-            R.id.navigation_search -> searchHistoryFragment.scrollToTop(this)
-            R.id.navigation_mypage -> myPageFragment.scrollToTop(this)
-        }
+    private val onNavigationItemReselectedListener = BottomNavigationView.OnNavigationItemReselectedListener {
+        (fromNavIdToFragment(it.itemId) as ScrollToTop).scrollToTop(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,13 +44,16 @@ class MainActivity : DaggerAppCompatActivity(), TopFragmentListItemListener, Sea
             selectedItemId = R.id.navigation_top
         }
 
-        switchFragment(when (navigation.selectedItemId) {
-            R.id.navigation_top -> topFragment
-            R.id.navigation_search -> searchHistoryFragment
-            R.id.navigation_mypage -> myPageFragment
-            else -> throw IllegalArgumentException()
-        })
+        switchFragment(fromNavIdToFragment(navigation.selectedItemId))
     }
+
+    private fun fromNavIdToFragment(navId: Int): Fragment =
+            when (navigation.selectedItemId) {
+                R.id.navigation_top -> topFragment
+                R.id.navigation_search -> searchHistoryFragment
+                R.id.navigation_mypage -> myPageFragment
+                else -> throw IllegalArgumentException()
+            }
 
     override fun onSearchHistoryClicked(keyword: String) = SearchResultActivity.startActivity(this, keyword)
 
