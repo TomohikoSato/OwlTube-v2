@@ -48,7 +48,7 @@ class MainActivity : DaggerAppCompatActivity(), TopFragmentListItemListener, Sea
     }
 
     private fun fromNavIdToFragment(navId: Int): Fragment =
-            when (navigation.selectedItemId) {
+            when (navId) {
                 R.id.navigation_top -> topFragment
                 R.id.navigation_search -> searchHistoryFragment
                 R.id.navigation_mypage -> myPageFragment
