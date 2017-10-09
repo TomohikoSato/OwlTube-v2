@@ -39,12 +39,9 @@ class PlayerActivity : DaggerAppCompatActivity() {
 
     enum class RepeatState(val level: Int) {
         OFF(0) {
-            override fun next(): RepeatState = ON
-        },
-        ON(1) {
             override fun next(): RepeatState = ON_ONE
         },
-        ON_ONE(2) {
+        ON_ONE(1) {
             override fun next(): RepeatState = OFF
         };
 
