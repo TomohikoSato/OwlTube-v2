@@ -50,7 +50,13 @@ class MainActivity : DaggerAppCompatActivity(), TopFragmentListItemListener, Sea
             setOnNavigationItemReselectedListener(onNavigationItemReselectedListener)
             selectedItemId = R.id.navigation_top
         }
-        switchFragment(topFragment)
+
+        switchFragment(when (navigation.selectedItemId) {
+            R.id.navigation_top -> topFragment
+            R.id.navigation_search -> searchHistoryFragment
+            R.id.navigation_mypage -> myPageFragment
+            else -> throw IllegalArgumentException()
+        })
     }
 
     override fun onSearchHistoryClicked(keyword: String) = SearchResultActivity.startActivity(this, keyword)
