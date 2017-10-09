@@ -37,33 +37,13 @@ class PlayerActivity : DaggerAppCompatActivity() {
         }
     }
 
-    enum class RepeatState(val level: Int) {
-        OFF(0) {
-            override fun next(): RepeatState = ON_ONE
-        },
-        ON_ONE(1) {
-            override fun next(): RepeatState = OFF
-        };
-
-        companion object {
-            fun of(value: Int): RepeatState {
-                values().forEach {
-                    if (it.level == value) return it
-                }
-                throw IllegalArgumentException()
-            }
-        }
-
-        abstract fun next(): RepeatState
-    }
-
     @Inject lateinit var viewModel: PlayerViewModel
 
     lateinit var youtubePlayerView: YouTubePlayerView
 
     private var youtubePlayerInitialized: Boolean = false
 
-    private var repeatState: PlayerActivity.RepeatState = RepeatState.OFF
+    private var repeatState: RepeatState = RepeatState.OFF
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
