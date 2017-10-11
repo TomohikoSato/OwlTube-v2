@@ -37,9 +37,11 @@ class PlayerActivity : DaggerAppCompatActivity() {
         }
     }
 
-    @Inject lateinit var viewModel: PlayerViewModel
+    private val youtubePlayerView: YouTubePlayerView by lazy {
+        findViewById<YouTubePlayerView>(R.id.youtube_player_view)
+    }
 
-    lateinit var youtubePlayerView: YouTubePlayerView
+    @Inject lateinit var viewModel: PlayerViewModel
 
     private var youtubePlayerInitialized: Boolean = false
 
@@ -99,14 +101,14 @@ class PlayerActivity : DaggerAppCompatActivity() {
     }
 
     private fun setUpYoutubePlayerView(video: Video) {
-        youtubePlayerView = findViewById<YouTubePlayerView>(R.id.youtube_player_view).apply {
+        youtubePlayerView.apply {
             if (youtubePlayerInitialized) {
                 loadVideo(video.id, 0F)
                 return
             }
-            youtubePlayerInitialized = true
             initialize(object : AbstractYouTubeListener() {
                 override fun onReady() {
+                    youtubePlayerInitialized = true
                     loadVideo(video.id, 0F)
                 }
 
@@ -125,18 +127,12 @@ class PlayerActivity : DaggerAppCompatActivity() {
 
             addFullScreenListener(object : YouTubePlayerFullScreenListener {
                 val fullScreenManager = FullScreenManager(this@PlayerActivity)
-                override fun onYouTubePlayerEnterFullScreen() {
-                    fullScreenManager.enterFullScreen()
-                }
-
-                override fun onYouTubePlayerExitFullScreen() {
-                    fullScreenManager.exitFullScreen()
-                }
+                override fun onYouTubePlayerEnterFullScreen() = fullScreenManager.enterFullScreen()
+                override fun onYouTubePlayerExitFullScreen() = fullScreenManager.exitFullScreen()
             })
             setCustomActionRight(getDrawable(R.drawable.ic_repeat_levellist), { v ->
-                val imageView = v as ImageView
                 repeatState = repeatState.next()
-                imageView.setImageLevel(repeatState.level)
+                (v as ImageView).setImageLevel(repeatState.level)
             })
         }
 
