@@ -23,6 +23,7 @@ import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.domain.Video
 import dagger.android.support.DaggerAppCompatActivity
+import java.util.*
 import javax.inject.Inject
 
 class PlayerActivity : DaggerAppCompatActivity() {
@@ -47,6 +48,8 @@ class PlayerActivity : DaggerAppCompatActivity() {
     private var youtubePlayerInitialized: Boolean = false
 
     private var repeatState: RepeatState = RepeatState.OFF
+
+    private var videoIds: Stack<String> = Stack()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,6 +113,9 @@ class PlayerActivity : DaggerAppCompatActivity() {
         findViewById<View>(R.id.recycler_view).visibility = if (isInPictureInPictureMode) View.GONE else View.VISIBLE
     }
 
+    private fun playPreviousVideo() =
+            if (videoIds.empty()) Unit else youtubePlayerView.loadVideo(videoIds.pop(), 0F)
+
     private fun setUpYoutubePlayerView(video: Video) {
         youtubePlayerView.apply {
             if (youtubePlayerInitialized) {
@@ -128,7 +134,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
                     when (state) {
                         0 -> when (repeatState) { //0: ENDED
                             RepeatState.ON_ONE -> seekTo(0)
-                            else -> Unit
+                            else -> videoIds.push(video.id)
                         }
                     }
                 }
@@ -143,6 +149,9 @@ class PlayerActivity : DaggerAppCompatActivity() {
             setCustomActionRight(getDrawable(R.drawable.ic_repeat_levellist), { v ->
                 repeatState = repeatState.next()
                 (v as ImageView).setImageLevel(repeatState.level)
+            })
+            setCustomActionLeft(getDrawable(R.drawable.ic_skip_previous_black_24dp), { _ ->
+                playPreviousVideo()
             })
         }
 
