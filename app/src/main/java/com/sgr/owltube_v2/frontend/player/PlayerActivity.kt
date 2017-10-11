@@ -27,11 +27,12 @@ import javax.inject.Inject
 
 class PlayerActivity : DaggerAppCompatActivity() {
     companion object {
-        private const val KEY_INTENT_EXTRA_VIDEO: String = "key_intent_extra_video"
+        private const val INTENT_EXTRA_KEY_VIDEO: String = "key_intent_extra_video"
+        private const val STATE_KEY_REPEAT_STATE = "statekeyrepeatstate"
 
         fun startActivity(context: Context, video: Video) {
             val intent = Intent(context, PlayerActivity::class.java).apply {
-                putExtra(KEY_INTENT_EXTRA_VIDEO, video)
+                putExtra(INTENT_EXTRA_KEY_VIDEO, video)
             }
             context.startActivity(intent)
         }
@@ -50,12 +51,21 @@ class PlayerActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
-        setUp(intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as Video)
+        setUp(intent.getSerializableExtra(INTENT_EXTRA_KEY_VIDEO) as Video)
+
+        savedInstanceState?.let {
+            repeatState = RepeatState.of(it.getInt(STATE_KEY_REPEAT_STATE))
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putInt(STATE_KEY_REPEAT_STATE, repeatState.level)
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        setUp(intent.getSerializableExtra(KEY_INTENT_EXTRA_VIDEO) as Video)
+        setUp(intent.getSerializableExtra(INTENT_EXTRA_KEY_VIDEO) as Video)
     }
 
     private fun setUp(video: Video) {
