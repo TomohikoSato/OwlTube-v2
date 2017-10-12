@@ -50,7 +50,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
 
     private var repeatState: RepeatState = RepeatState.OFF
 
-    private var playedVideoIds: Stack<String> = Stack()
+    private var playedVideos: Stack<Video> = Stack()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,7 +85,10 @@ class PlayerActivity : DaggerAppCompatActivity() {
             requestRelatedVideos(video.id)
         }
         findViewById<RecyclerView>(R.id.recycler_view).adapter =
-                PlayerAdapter(viewModel.playerItem, { _, v: Video -> PlayerActivity.startActivity(this, v) })
+                PlayerAdapter(viewModel.playerItem, { _, nextVideo: Video ->
+                    playedVideos.push(video)
+                    PlayerActivity.startActivity(this, nextVideo)
+                })
     }
 
     override fun onBackPressed() {
@@ -120,7 +123,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
     }
 
     private fun playPreviousVideo() =
-            if (playedVideoIds.empty()) Unit else youtubePlayerView.loadVideo(playedVideoIds.pop(), 0F)
+            if (playedVideos.empty()) Unit else PlayerActivity.startActivity(this, playedVideos.pop())
 
     private fun setUpYoutubePlayerView(video: Video) {
         youtubePlayerView.apply {
@@ -131,7 +134,8 @@ class PlayerActivity : DaggerAppCompatActivity() {
             initialize(object : AbstractYouTubeListener() {
                 override fun onReady() {
                     youtubePlayerInitialized = true
-                    playedVideoIds.clear()
+                    Logger.d("onready")
+                    playedVideos.clear()
                     loadVideo(video.id, 0F)
                 }
 
@@ -141,7 +145,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
                     when (state) {
                         0 -> when (repeatState) { //0: ENDED
                             RepeatState.ON_ONE -> seekTo(0)
-                            else -> playedVideoIds.push(video.id)
+                            else -> playedVideos.push(video)
                         }
                     }
                 }
