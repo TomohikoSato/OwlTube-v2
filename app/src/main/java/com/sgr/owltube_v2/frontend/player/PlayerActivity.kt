@@ -21,6 +21,7 @@ import com.pierfrancescosoffritti.youtubeplayer.AbstractYouTubeListener
 import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerFullScreenListener
 import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView
 import com.sgr.owltube_v2.R
+import com.sgr.owltube_v2.common.ext.Logger
 import com.sgr.owltube_v2.domain.Video
 import dagger.android.support.DaggerAppCompatActivity
 import java.util.*
@@ -49,13 +50,13 @@ class PlayerActivity : DaggerAppCompatActivity() {
 
     private var repeatState: RepeatState = RepeatState.OFF
 
-    private var videoIds: Stack<String> = Stack()
+    private var playedVideoIds: Stack<String> = Stack()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Logger.d("onCreate")
         setContentView(R.layout.activity_player)
-        setUp(intent.getSerializableExtra(INTENT_EXTRA_KEY_VIDEO) as Video)
-
+        handleIntent(intent)
         savedInstanceState?.let {
             repeatState = RepeatState.of(it.getInt(STATE_KEY_REPEAT_STATE))
         }
@@ -68,10 +69,14 @@ class PlayerActivity : DaggerAppCompatActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        setUp(intent.getSerializableExtra(INTENT_EXTRA_KEY_VIDEO) as Video)
+        Logger.d("onNewIntent")
+        handleIntent(intent)
     }
 
-    private fun setUp(video: Video) {
+    private fun handleIntent(intent: Intent) {
+        val video = intent.getSerializableExtra(INTENT_EXTRA_KEY_VIDEO) as Video
+        intent.removeExtra(INTENT_EXTRA_KEY_VIDEO)
+
         setUpYoutubePlayerView(video)
         viewModel.apply {
             playerItem.clear()
@@ -105,6 +110,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        Logger.d("onDestroy")
         youtubePlayerView.release()
     }
 
@@ -114,7 +120,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
     }
 
     private fun playPreviousVideo() =
-            if (videoIds.empty()) Unit else youtubePlayerView.loadVideo(videoIds.pop(), 0F)
+            if (playedVideoIds.empty()) Unit else youtubePlayerView.loadVideo(playedVideoIds.pop(), 0F)
 
     private fun setUpYoutubePlayerView(video: Video) {
         youtubePlayerView.apply {
@@ -125,6 +131,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
             initialize(object : AbstractYouTubeListener() {
                 override fun onReady() {
                     youtubePlayerInitialized = true
+                    playedVideoIds.clear()
                     loadVideo(video.id, 0F)
                 }
 
@@ -134,7 +141,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
                     when (state) {
                         0 -> when (repeatState) { //0: ENDED
                             RepeatState.ON_ONE -> seekTo(0)
-                            else -> videoIds.push(video.id)
+                            else -> playedVideoIds.push(video.id)
                         }
                     }
                 }
