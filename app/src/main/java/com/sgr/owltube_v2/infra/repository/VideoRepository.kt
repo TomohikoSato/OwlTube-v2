@@ -43,7 +43,7 @@ class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDat
         return recentlyWatchedDao.fetchRecentlyWatched()
                 .flatMap { recentlyWatchedVideos ->
                     val videoIds = recentlyWatchedVideos.map { recentlyWatched -> recentlyWatched.videoId }
-                            .joinTo(StringBuilder())
+                            .joinTo(StringBuilder(), ",")
                             .toString()
                     youtubeDataAPI.videos(videoIds)
                 }.map { videos -> createRecentlyWatchedVideo(videos) }

@@ -24,7 +24,6 @@ import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.common.ext.Logger
 import com.sgr.owltube_v2.domain.Video
 import dagger.android.support.DaggerAppCompatActivity
-import java.util.*
 import javax.inject.Inject
 
 class PlayerActivity : DaggerAppCompatActivity() {
@@ -54,7 +53,38 @@ class PlayerActivity : DaggerAppCompatActivity() {
 
     private var repeatState: RepeatState = RepeatState.OFF
 
-    private var playedVideos: Stack<Video> = Stack()
+    private val playedVideos: PlayedVideos by lazy {
+        PlayedVideos().apply {
+            changedListener.subscribe { videos ->
+                if (videos.empty()) {
+                    previousVideoButton.apply {
+/*
+                        setImageLevel(PreviousVideoState.NONE.level)
+                        setImageDrawable(null)
+                        setBackground(null)
+*/
+                        setVisibility(View.GONE)
+                    }
+                } else {
+                    previousVideoButton.apply {
+                        setImageDrawable(getDrawable(R.drawable.ic_previous_levellist_24dp))
+/*
+                        setImageLevel(PreviousVideoState.HAS.level)
+                        val ta = obtainStyledAttributes(intArrayOf(android.R.attr.selectableItemBackground))
+                        val drawableFromTheme = ta.getDrawable(0 */
+/* index *//*
+);
+                        ta.recycle()
+                        setBackground(drawableFromTheme)
+*/
+                        setOnClickListener({ _ -> playPreviousVideo() })
+                        setVisibility(View.VISIBLE)
+                    }
+                }
+            }
+            clear()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -128,10 +158,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
     }
 
     private fun playPreviousVideo() =
-            if (playedVideos.empty()) Unit else {
-                PlayerActivity.startActivity(this, playedVideos.pop())
-                previousVideoButton.setImageLevel(if (playedVideos.empty()) PreviousVideoState.NONE.level else PreviousVideoState.HAS.level)
-            }
+            if (playedVideos.empty()) Unit else PlayerActivity.startActivity(this, playedVideos.pop())
 
     private fun setUpYoutubePlayerView(video: Video) {
         youtubePlayerView.apply {
@@ -144,7 +171,6 @@ class PlayerActivity : DaggerAppCompatActivity() {
                     youtubePlayerInitialized = true
                     Logger.d("onready")
                     playedVideos.clear()
-                    previousVideoButton.setImageLevel(PreviousVideoState.NONE.level)
                     loadVideo(video.id, 0F)
                 }
 
@@ -169,19 +195,6 @@ class PlayerActivity : DaggerAppCompatActivity() {
             setCustomActionRight(getDrawable(R.drawable.ic_repeat_levellist), { v ->
                 repeatState = repeatState.next()
                 (v as ImageView).setImageLevel(repeatState.level)
-            })
-            setCustomActionLeft(getDrawable(R.drawable.ic_previous_levellist_24dp), { v ->
-                (v as ImageView).apply {
-                    if (playedVideos.count() <= 1) {
-                        setBackground(null)
-                    } else {
-                        val ta = obtainStyledAttributes(intArrayOf(android.R.attr.selectableItemBackground))
-                        val drawableFromTheme = ta.getDrawable(0 /* index */);
-                        ta.recycle()
-                        setBackground(drawableFromTheme)
-                    }
-                }
-                playPreviousVideo()
             })
         }
 
