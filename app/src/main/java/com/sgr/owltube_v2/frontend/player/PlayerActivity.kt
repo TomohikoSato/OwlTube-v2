@@ -44,6 +44,10 @@ class PlayerActivity : DaggerAppCompatActivity() {
         findViewById<YouTubePlayerView>(R.id.youtube_player_view)
     }
 
+    private val previousVideoButton: ImageView by lazy {
+        findViewById<ImageView>(R.id.custom_action_left_button)
+    }
+
     @Inject lateinit var viewModel: PlayerViewModel
 
     private var youtubePlayerInitialized: Boolean = false
@@ -87,6 +91,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
         findViewById<RecyclerView>(R.id.recycler_view).adapter =
                 PlayerAdapter(viewModel.playerItem, { _, nextVideo: Video ->
                     playedVideos.push(video)
+                    previousVideoButton.setImageLevel(PreviousVideoState.HAS.level)
                     PlayerActivity.startActivity(this, nextVideo)
                 })
     }
@@ -123,7 +128,10 @@ class PlayerActivity : DaggerAppCompatActivity() {
     }
 
     private fun playPreviousVideo() =
-            if (playedVideos.empty()) Unit else PlayerActivity.startActivity(this, playedVideos.pop())
+            if (playedVideos.empty()) Unit else {
+                PlayerActivity.startActivity(this, playedVideos.pop())
+                previousVideoButton.setImageLevel(if (playedVideos.empty()) PreviousVideoState.NONE.level else PreviousVideoState.HAS.level)
+            }
 
     private fun setUpYoutubePlayerView(video: Video) {
         youtubePlayerView.apply {
@@ -136,6 +144,7 @@ class PlayerActivity : DaggerAppCompatActivity() {
                     youtubePlayerInitialized = true
                     Logger.d("onready")
                     playedVideos.clear()
+                    previousVideoButton.setImageLevel(PreviousVideoState.NONE.level)
                     loadVideo(video.id, 0F)
                 }
 
@@ -161,7 +170,17 @@ class PlayerActivity : DaggerAppCompatActivity() {
                 repeatState = repeatState.next()
                 (v as ImageView).setImageLevel(repeatState.level)
             })
-            setCustomActionLeft(getDrawable(R.drawable.ic_skip_previous_black_24dp), { _ ->
+            setCustomActionLeft(getDrawable(R.drawable.ic_previous_levellist_24dp), { v ->
+                (v as ImageView).apply {
+                    if (playedVideos.count() <= 1) {
+                        setBackground(null)
+                    } else {
+                        val ta = obtainStyledAttributes(intArrayOf(android.R.attr.selectableItemBackground))
+                        val drawableFromTheme = ta.getDrawable(0 /* index */);
+                        ta.recycle()
+                        setBackground(drawableFromTheme)
+                    }
+                }
                 playPreviousVideo()
             })
         }
