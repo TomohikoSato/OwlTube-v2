@@ -64,7 +64,8 @@ class PlayerActivity : DaggerAppCompatActivity() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe { videos ->
                         Logger.e("count: " + videos.count())
-                        previousVideoButton.visibility = if (videos.empty()) View.GONE else View.VISIBLE
+                        previousVideoButton.setImageDrawable(
+                                if (videos.empty()) null else getDrawable(R.drawable.ic_skip_previous_white_24dp))
                     }
             clear()
         }
