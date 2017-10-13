@@ -58,27 +58,14 @@ class PlayerActivity : DaggerAppCompatActivity() {
             changedListener.subscribe { videos ->
                 if (videos.empty()) {
                     previousVideoButton.apply {
-/*
-                        setImageLevel(PreviousVideoState.NONE.level)
-                        setImageDrawable(null)
-                        setBackground(null)
-*/
                         setVisibility(View.GONE)
                     }
                 } else {
                     previousVideoButton.apply {
-                        setImageDrawable(getDrawable(R.drawable.ic_previous_levellist_24dp))
-/*
-                        setImageLevel(PreviousVideoState.HAS.level)
-                        val ta = obtainStyledAttributes(intArrayOf(android.R.attr.selectableItemBackground))
-                        val drawableFromTheme = ta.getDrawable(0 */
-/* index *//*
-);
-                        ta.recycle()
-                        setBackground(drawableFromTheme)
-*/
-                        setOnClickListener({ _ -> playPreviousVideo() })
+                        setImageDrawable(getDrawable(R.drawable.ic_skip_previous_white_24dp))
+                        setOnClickListener{ _ -> playPreviousVideo() }
                         setVisibility(View.VISIBLE)
+
                     }
                 }
             }
