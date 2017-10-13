@@ -13,6 +13,10 @@
         <item name="android:windowSharedElementExitTransition">@android:transition/fade</item>
     </style>
 
+    <style name="PlayerActivityTheme" parent="AppTheme">
+        <item name="android:statusBarColor">@color/black</item>
+    </style>
+
     <style name="ToolBar" parent="AppTheme">
         <item name="android:textColorPrimary">@color/primary</item>
     </style>
