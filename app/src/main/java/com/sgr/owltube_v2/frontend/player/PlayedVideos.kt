@@ -1,8 +1,6 @@
 package com.sgr.owltube_v2.frontend.player
 
 import com.sgr.owltube_v2.domain.Video
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import java.util.*
 
@@ -22,8 +20,14 @@ class PlayedVideos {
         return poped
     }
 
+    fun peek(): Video = videos.peek()
+
     fun clear() {
         videos.clear()
+        changedListener.onNext(videos)
+    }
+
+    fun refresh() {
         changedListener.onNext(videos)
     }
 
