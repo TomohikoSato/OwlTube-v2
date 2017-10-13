@@ -1,35 +1,31 @@
 package com.sgr.owltube_v2.frontend.player
 
 import com.sgr.owltube_v2.domain.Video
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import java.util.*
 
 class PlayedVideos {
-    enum class Void {
-        INSTANCE
-    }
+    private val videos: Stack<Video> = Stack()
 
-    private var stack: Stack<Video> = Stack()
-
-    val changedListener: PublishSubject<Stack<Video>> = PublishSubject.create()
+    val changedListener: PublishSubject<Stack<Video>> = PublishSubject.create<Stack<Video>>()
 
     fun push(video: Video) {
-        stack.push(video)
-        changedListener.onNext(stack)
+        videos.push(video)
+        changedListener.onNext(videos)
     }
 
     fun pop(): Video {
-        val poped = stack.pop()
-        changedListener.onNext(stack)
+        val poped = videos.pop()
+        changedListener.onNext(videos)
         return poped
     }
 
-    fun empty(): Boolean = stack.empty()
-
     fun clear() {
-        stack.clear()
-        changedListener.onNext(stack)
+        videos.clear()
+        changedListener.onNext(videos)
     }
 
-    fun count(): Int = stack.count()
+    fun empty(): Boolean = videos.empty()
 }

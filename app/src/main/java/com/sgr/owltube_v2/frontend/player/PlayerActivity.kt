@@ -24,6 +24,8 @@ import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.common.ext.Logger
 import com.sgr.owltube_v2.domain.Video
 import dagger.android.support.DaggerAppCompatActivity
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class PlayerActivity : DaggerAppCompatActivity() {
@@ -44,7 +46,9 @@ class PlayerActivity : DaggerAppCompatActivity() {
     }
 
     private val previousVideoButton: ImageView by lazy {
-        findViewById<ImageView>(R.id.custom_action_left_button)
+        findViewById<ImageView>(R.id.custom_action_left_button).apply {
+            setOnClickListener { _ -> playPreviousVideo()}
+        }
     }
 
     @Inject lateinit var viewModel: PlayerViewModel
@@ -55,20 +59,13 @@ class PlayerActivity : DaggerAppCompatActivity() {
 
     private val playedVideos: PlayedVideos by lazy {
         PlayedVideos().apply {
-            changedListener.subscribe { videos ->
-                if (videos.empty()) {
-                    previousVideoButton.apply {
-                        setVisibility(View.GONE)
+            changedListener
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe { videos ->
+                        Logger.e("count: " + videos.count())
+                        previousVideoButton.visibility = if (videos.empty()) View.GONE else View.VISIBLE
                     }
-                } else {
-                    previousVideoButton.apply {
-                        setImageDrawable(getDrawable(R.drawable.ic_skip_previous_white_24dp))
-                        setOnClickListener{ _ -> playPreviousVideo() }
-                        setVisibility(View.VISIBLE)
-
-                    }
-                }
-            }
             clear()
         }
     }
