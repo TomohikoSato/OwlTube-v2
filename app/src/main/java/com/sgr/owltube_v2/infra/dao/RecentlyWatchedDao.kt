@@ -6,7 +6,7 @@ import io.reactivex.Single
 @Dao
 interface RecentlyWatchedDao {
 
-    @Query("SELECT * FROM RecentlyWatched ORDER BY rowid DESC")
+    @Query("SELECT * FROM RecentlyWatched ORDER BY rowid DESC LIMIT 50")
     fun fetchRecentlyWatched(): Single<List<RecentlyWatched>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
