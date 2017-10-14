@@ -61,7 +61,7 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion"
 
-    implementation 'com.google.firebase:firebase-core:11.4.0'
+    implementation 'com.google.firebase:firebase-core:11.4.2'
 
     def supportVersion = "26.1.0"
     implementation "com.android.support:appcompat-v7:$supportVersion"

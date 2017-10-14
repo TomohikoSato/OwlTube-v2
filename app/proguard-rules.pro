@@ -21,57 +21,81 @@
 #-renamesourcefileattribute SourceFile
 
 
-    def retrofitVersion = '2.3.0'
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
-    implementation("com.squareup.retrofit2:converter-simplexml:$retrofitVersion") {
-        exclude module: 'stax'
-        exclude module: 'stax-api'
-        exclude module: 'xpp3'
-    }
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+#Kotlin
+-dontwarn kotlin.reflect.jvm.internal.**
 
-    implementation "io.reactivex.rxjava2:rxjava:2.1.3"
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+# Retrofit
+## Platform calls Class.forName on types which do not exist on Android to determine platform.
+-dontnote retrofit2.Platform
+## Platform used when running on Java 8 VMs. Will not be used at runtime.
+-dontwarn retrofit2.Platform$Java8
+## Retain generic type information for use by reflection by converters and adapters.
+-keepattributes Signature
+## Retain declared checked exceptions for use by a Proxy instance.
+-keepattributes Exceptions
 
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+# okio
+-dontwarn okio.**
 
-    def daggerVersion = '2.11'
-    implementation "com.google.dagger:dagger-android:$daggerVersion"
-    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
-    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
-    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+# okhttp
+-dontwarn okhttp3.**
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
 
-    def moshiVersion = '1.5.0'
-    implementation "com.squareup.moshi:moshi:$moshiVersion"
-    implementation "com.squareup.moshi:moshi-kotlin:$moshiVersion"
 
-    kapt 'com.android.databinding:compiler:2.3.3'
+# moshi
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+-keepclasseswithmembers class * {
+    @com.squareup.moshi.* <methods>;
+}
+-keep @com.squareup.moshi.JsonQualifier interface *
 
-    implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
+-keepclassmembers class kotlin.Metadata {
+    public <methods>;
+}
 
-    implementation 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:0.7.7'
 
-    def leakCanaryVersion = '1.5.3'
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+#    kapt 'com.android.databinding:compiler:2.3.3'
+# http://sys1yagi.hatenablog.com/entry/2015/06/05/155155
 
-    def glideVersion = '4.1.1'
-    implementation "com.github.bumptech.glide:glide:$glideVersion"
-    implementation("com.github.bumptech.glide:recyclerview-integration:$glideVersion") {
-        // Excludes the support library because it's already included by Glide.
-        transitive = false
-    }
-    kapt "com.github.bumptech.glide:compiler:$glideVersion"
+# AndroidYoutubePlayer
+-keep public class com.pierfrancescosoffritti.youtubeplayer.** {
+   public *;
+}
 
-    def archComponentVersion = '1.0.0-beta1'
-    implementation "android.arch.persistence.room:runtime:$archComponentVersion"
-    kapt "android.arch.persistence.room:compiler:$archComponentVersion"
-    androidTestImplementation "android.arch.persistence.room:testing:$archComponentVersion"
-    implementation "android.arch.persistence.room:rxjava2:$archComponentVersion"
+-keepnames class com.pierfrancescosoffritti.youtubeplayer.*
 
-    debugImplementation 'com.facebook.stetho:stetho:1.5.0'
+# Glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
 
-    implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
-        transitive = true
-    }
+# ArchtectureComponent
+
+# Crashlytics
+-keepattributes *Annotation*
+-keepattributes SourceFile,LineNumberTable
+-keep public class * extends java.lang.Exception
+
+-keep class com.crashlytics.** { *; }
+-dontwarn com.crashlytics.**
+
+# Dagger
+-dontwarn com.google.errorprone.annotations.*
+
+# SimpleFramework
+
+# Keep public classes and methods.
+-dontwarn com.bea.xml.stream.**
+-dontwarn org.simpleframework.xml.stream.**
+-keep class org.simpleframework.xml.**{ *; }
+-keepclassmembers,allowobfuscation class * {
+    @org.simpleframework.xml.* <fields>;
+    @org.simpleframework.xml.* <init>(...);
+}
