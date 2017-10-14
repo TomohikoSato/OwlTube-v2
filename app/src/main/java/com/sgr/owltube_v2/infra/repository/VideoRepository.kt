@@ -10,11 +10,15 @@ import com.sgr.owltube_v2.infra.webapi.response.channels.ChannelsResponse
 import com.sgr.owltube_v2.infra.webapi.response.popular.PopularVideoResponse
 import com.sgr.owltube_v2.infra.webapi.response.videolist.VideosResponse
 import com.sgr.owltube_v2.infra.webapi.youtube.YoutubeDataAPI
+import io.reactivex.Completable
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDataAPI, private val recentlyWatchedDao: RecentlyWatchedDao) {
+class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDataAPI,
+                                          private val recentlyWatchedDao: RecentlyWatchedDao) {
 
     fun fetchPopularVideos(forceUpdate: Boolean): Single<PopularVideos> {
         val popularVideosResponse = youtubeDataAPI.popularVideos(getCacheControl(forceUpdate), null)
@@ -100,4 +104,9 @@ class VideoRepository @Inject constructor(private val youtubeDataAPI: YoutubeDat
                 }
         return PopularVideos(videos)
     }
+
+    fun clearAllRecentlyWatched(): Completable =
+            Completable.fromAction { recentlyWatchedDao.deleteAll() }
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
 }

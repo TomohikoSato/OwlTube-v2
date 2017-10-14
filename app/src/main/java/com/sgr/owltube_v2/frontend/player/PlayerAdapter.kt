@@ -9,7 +9,7 @@ import com.sgr.owltube_v2.frontend.common.adapter.delegate.core.AdapterItem
 import com.sgr.owltube_v2.frontend.common.adapter.delegate.item.SmallVideoItemDelegate
 import com.sgr.owltube_v2.frontend.player.delegate.PlayingVideoItemDelegate
 
-class PlayerAdapter(val items: ObservableList<AdapterItem>,
+class PlayerAdapter(private val items: ObservableList<AdapterItem>,
                     onSmallVideoClicked: (view: View, video: Video) -> Unit,
                     adapterDelegatesManager: AdapterDelegatesManager<ObservableList<AdapterItem>> = AdapterDelegatesManager())
     : AbsDelegationAdapter<ObservableList<AdapterItem>>(adapterDelegatesManager, items) {

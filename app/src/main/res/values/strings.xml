@@ -13,4 +13,5 @@
     <string name="open_source_license">open source license</string>
     <string name="error_network_text">fail to connect network</string>
     <string name="error_network_button_text">retry</string>
+    <string name="clear">clear all</string>
 </resources>

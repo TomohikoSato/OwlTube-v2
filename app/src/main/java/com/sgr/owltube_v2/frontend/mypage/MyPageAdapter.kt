@@ -10,7 +10,8 @@ import com.sgr.owltube_v2.frontend.common.adapter.delegate.item.SmallVideoItemDe
 import com.sgr.owltube_v2.frontend.mypage.delegate.RecentlyWatchedHeaderDelegate
 
 class MyPageAdapter(private val items: ObservableList<AdapterItem>,
-                    private val onItemClicked: (view: View, video: Video) -> Unit,
+                    onItemClicked: (view: View, video: Video) -> Unit,
+                    onClearAllRecnetlyWatchedButtonClicked: (view: View) -> Unit,
                     adapterDelegatesManager: AdapterDelegatesManager<ObservableList<AdapterItem>> = AdapterDelegatesManager())
     : AbsDelegationAdapter<ObservableList<AdapterItem>>(adapterDelegatesManager, items) {
 
@@ -38,7 +39,7 @@ class MyPageAdapter(private val items: ObservableList<AdapterItem>,
                     }
                 })
         adapterDelegatesManager.apply {
-            addDelegate(RecentlyWatchedHeaderDelegate())
+            addDelegate(RecentlyWatchedHeaderDelegate(onClearAllRecnetlyWatchedButtonClicked))
             addDelegate(SmallVideoItemDelegate(onItemClicked, { _: ObservableList<AdapterItem>, _: Int -> true }))
         }
     }

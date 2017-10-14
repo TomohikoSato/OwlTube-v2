@@ -11,6 +11,9 @@ interface RecentlyWatchedDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addRecentlyWatched(recentlyWatched: RecentlyWatched)
+
+    @Query("DELETE FROM RecentlyWatched")
+    fun deleteAll()
 }
 
 @Entity(tableName = "RecentlyWatched")

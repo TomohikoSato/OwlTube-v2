@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.sgr.owltube_v2.R
 import com.sgr.owltube_v2.databinding.FragmentMyPageBinding
-import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.frontend.common.ScrollToTop
 import com.sgr.owltube_v2.frontend.player.PlayerActivity
 import com.sgr.owltube_v2.frontend.setting.SettingActivity
@@ -26,9 +25,9 @@ class MyPageFragment : DaggerFragment(), ScrollToTop {
 
         return binding.apply {
             viewModel = myPageViewModel
-            recyclerView.adapter = MyPageAdapter(myPageViewModel.items, { _: View, video: Video ->
-                PlayerActivity.startActivity(this@MyPageFragment.context, video)
-            })
+            recyclerView.adapter = MyPageAdapter(myPageViewModel.items,
+                    { _, video -> PlayerActivity.startActivity(this@MyPageFragment.context, video) },
+                    { _ -> myPageViewModel.clearAllRecentlyWatched() })
             setting.setOnClickListener { _: View ->
                 SettingActivity.startActivity(this@MyPageFragment.context)
             }

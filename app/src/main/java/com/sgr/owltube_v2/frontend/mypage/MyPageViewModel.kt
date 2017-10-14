@@ -16,8 +16,7 @@ class MyPageViewModel @Inject constructor(private val videoRepository: VideoRepo
     val status: ObservableField<RequestStatus> = ObservableField<RequestStatus>(RequestStatus.INIT)
 
     fun fetchRecentlyWatchedVideos() {
-        items.clear()
-        items.add(0, MyPageAdapter.HeaderItem())
+        init()
         status.set(RequestStatus.REQUESTING)
         videoRepository.fetchRecentlyWatchedVideos()
                 .subscribeOn(Schedulers.io())
@@ -29,5 +28,13 @@ class MyPageViewModel @Inject constructor(private val videoRepository: VideoRepo
                     status.set(RequestStatus.ERROR)
                     Logger.w(t)
                 })
+    }
+
+    fun clearAllRecentlyWatched() =
+            videoRepository.clearAllRecentlyWatched().subscribe { init() }
+
+    private fun init() = items.apply {
+        clear()
+        add(0, MyPageAdapter.HeaderItem())
     }
 }
