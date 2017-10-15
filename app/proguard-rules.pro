@@ -20,6 +20,8 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+-keep class com.sgr.owltube_v2.infra.webapi.google.response.** { *; }
+-keep class com.sgr.owltube_v2.infra.webapi.youtube.response.** { *; }
 
 #Kotlin
 -dontwarn kotlin.reflect.jvm.internal.**
