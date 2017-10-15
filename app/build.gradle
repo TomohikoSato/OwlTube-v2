@@ -3,11 +3,22 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(rootProject.file("keystore.properties")))
+
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
     dataBinding {
         enabled = true
+    }
+    signingConfigs {
+        config {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
     }
     defaultConfig {
         applicationId "com.sgr.owltube_v2"
@@ -28,10 +39,10 @@ android {
         debug {
             applicationIdSuffix '.debug'
         }
-
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 }
