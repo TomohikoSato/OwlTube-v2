@@ -1,4 +1,4 @@
-package com.sgr.owltube_v2.infra.webapi.response.search
+package com.sgr.owltube_v2.infra.webapi.youtube.response.search
 
 data class RelatedVideoResponse(val kind: String,
                                 val etag: String,

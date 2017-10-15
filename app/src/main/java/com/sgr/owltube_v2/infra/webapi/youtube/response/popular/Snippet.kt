@@ -1,7 +1,4 @@
-package com.sgr.owltube_v2.infra.webapi.response.popular
-
-import com.sgr.owltube_v2.infra.webapi.response.channels.Localized
-import com.sgr.owltube_v2.infra.webapi.response.channels.Thumbnails
+package com.sgr.owltube_v2.infra.webapi.youtube.response.popular
 
 data class Snippet(val publishedAt: String,
                    val channelId: String,

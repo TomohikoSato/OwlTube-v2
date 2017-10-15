@@ -1,11 +1,11 @@
 package com.sgr.owltube_v2.infra.webapi.youtube
 
 import com.sgr.owltube_v2.BuildConfig
-import com.sgr.owltube_v2.infra.webapi.response.channels.ChannelsResponse
-import com.sgr.owltube_v2.infra.webapi.response.popular.PopularVideoResponse
-import com.sgr.owltube_v2.infra.webapi.response.search.RelatedVideoResponse
-import com.sgr.owltube_v2.infra.webapi.response.search.SearchResultResponse
-import com.sgr.owltube_v2.infra.webapi.response.videolist.VideosResponse
+import com.sgr.owltube_v2.infra.webapi.youtube.response.channels.ChannelsResponse
+import com.sgr.owltube_v2.infra.webapi.youtube.response.popular.PopularVideoResponse
+import com.sgr.owltube_v2.infra.webapi.youtube.response.search.RelatedVideoResponse
+import com.sgr.owltube_v2.infra.webapi.youtube.response.search.SearchResultResponse
+import com.sgr.owltube_v2.infra.webapi.youtube.response.videolist.VideosResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Header

@@ -1,4 +1,4 @@
-package com.sgr.owltube_v2.infra.webapi.response.videolist
+package com.sgr.owltube_v2.infra.webapi.youtube.response.videolist
 
 data class VideosResponse(val kind: String,
                           val etag: String,

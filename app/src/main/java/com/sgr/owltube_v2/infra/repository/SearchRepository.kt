@@ -6,8 +6,8 @@ import com.sgr.owltube_v2.domain.Video
 import com.sgr.owltube_v2.domain.search.Suggest
 import com.sgr.owltube_v2.infra.webapi.google.GoogleAPI
 import com.sgr.owltube_v2.infra.webapi.google.response.SuggestKeywordResponse
-import com.sgr.owltube_v2.infra.webapi.response.videolist.VideosResponse
 import com.sgr.owltube_v2.infra.webapi.youtube.YoutubeDataAPI
+import com.sgr.owltube_v2.infra.webapi.youtube.response.videolist.VideosResponse
 import io.reactivex.Single
 import javax.inject.Inject
 
