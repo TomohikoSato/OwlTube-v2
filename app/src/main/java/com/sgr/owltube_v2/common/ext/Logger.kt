@@ -40,8 +40,7 @@ object Logger {
             // because Robolectric runs them on the JVM but on Android the elements are different.
             val stackTrace = Throwable().stackTrace
             if (stackTrace.size <= CALL_STACK_INDEX) {
-                throw IllegalStateException(
-                        "Synthetic stacktrace didn't have enough elements: are you using proguard?")
+                return "app_tag"
             }
             return createStackElementTag(stackTrace[CALL_STACK_INDEX])
         }
