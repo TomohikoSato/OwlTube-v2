@@ -36,6 +36,11 @@
 ## Retain declared checked exceptions for use by a Proxy instance.
 -keepattributes Exceptions
 
+## for proguard-android-optmize
+-keepclassmembernames,allowobfuscation interface * {
+    @retrofit2.http.* <methods>;
+}
+
 # okio
 -dontwarn okio.**
 
