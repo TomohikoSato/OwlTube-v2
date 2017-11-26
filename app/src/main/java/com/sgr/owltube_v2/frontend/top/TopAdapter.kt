@@ -19,7 +19,7 @@ internal class TopAdapter(private val videos: ObservableList<Video>, private val
     override fun onBindViewHolder(holder: TopAdapter.ViewHolder, position: Int) {
         holder.binding.apply {
             video = videos[position]
-            root.setOnClickListener { listener.onClickItem(video) }
+            root.setOnClickListener { listener.onClickItem(videos[position]) }
             executePendingBindings()
         }
     }

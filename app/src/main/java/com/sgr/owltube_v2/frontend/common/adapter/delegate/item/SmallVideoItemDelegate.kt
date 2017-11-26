@@ -24,7 +24,7 @@ class SmallVideoItemDelegate(private val onSmallVideoItemClicked: (view: View, v
     override fun onBindViewHolder(items: ObservableList<AdapterItem>, position: Int, holder: RecyclerView.ViewHolder) {
         (holder as? SmallVideoViewHolder)?.binding?.apply {
             video = items.get(position) as Video
-            root.setOnClickListener { view -> onSmallVideoItemClicked(view, video) }
+            root.setOnClickListener { view -> onSmallVideoItemClicked(view, items.get(position) as Video) }
         }
     }
 

@@ -26,10 +26,10 @@ class MyPageFragment : DaggerFragment(), ScrollToTop {
         return binding.apply {
             viewModel = myPageViewModel
             recyclerView.adapter = MyPageAdapter(myPageViewModel.items,
-                    { _, video -> PlayerActivity.startActivity(this@MyPageFragment.context, video) },
+                    { _, video -> this@MyPageFragment.context?.let { PlayerActivity.startActivity(it, video) } },
                     { _ -> myPageViewModel.clearAllRecentlyWatched() })
             setting.setOnClickListener { _: View ->
-                SettingActivity.startActivity(this@MyPageFragment.context)
+                this@MyPageFragment.context?.let { SettingActivity.startActivity(it) }
             }
             swipeRefresh.isEnabled = false
         }.root
