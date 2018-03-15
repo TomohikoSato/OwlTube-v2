@@ -9,6 +9,7 @@ class ViewCountTest {
         assertEquals("1万回", ViewCount(10000).show())
         assertEquals("9900回", ViewCount(9999).show())
         assertEquals("100回", ViewCount(103).show())
-        assertEquals("100回", ViewCount(1).show())
+        assertEquals("0回", ViewCount(0).show())
+        assertEquals("0回", ViewCount(1).show())
     }
 }
