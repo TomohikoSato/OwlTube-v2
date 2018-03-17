@@ -1,15 +1,26 @@
 package com.sgr.owltube_v2.domain
 
-import junit.framework.Assert.assertEquals
+import junitparams.JUnitParamsRunner
+import junitparams.Parameters
+import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(JUnitParamsRunner::class)
 class ViewCountTest {
     @Test
-    fun show() {
-        assertEquals("1万回", ViewCount(10000).show())
-        assertEquals("9900回", ViewCount(9999).show())
-        assertEquals("100回", ViewCount(103).show())
-        assertEquals("0回", ViewCount(0).show())
-        assertEquals("0回", ViewCount(1).show())
+    @Parameters(method = "provideViewCount")
+    fun show(expected: String, viewCountValue: Int) {
+        assertEquals(expected, ViewCount(viewCountValue).show())
     }
+
+    fun provideViewCount(): Array<Array<out Any>> =
+            arrayOf(
+                    arrayOf("1万回", 10000),
+                    arrayOf("9,999回", 9999),
+                    arrayOf("103回", 103),
+                    arrayOf("100回", 100),
+                    arrayOf("1回", 1),
+                    arrayOf("0回", 0)
+            )
 }
