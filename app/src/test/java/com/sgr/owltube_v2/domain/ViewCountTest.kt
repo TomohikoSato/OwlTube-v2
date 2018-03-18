@@ -10,13 +10,9 @@ import org.junit.runner.RunWith
 
 @RunWith(JUnitParamsRunner::class)
 class ViewCountTest {
-
-    @get:Rule
-    var thrown = ExpectedException.none()
-
     @Test
     @Parameters(method = "provideViewCount")
-    fun show_valid(expected: String, viewCountValue: Int) {
+    fun show(expected: String, viewCountValue: Int) {
         assertEquals(expected, ViewCount(viewCountValue).show())
     }
 
@@ -36,17 +32,21 @@ class ViewCountTest {
                     arrayOf("0回", 0)
             )
 
+
+    @get:Rule
+    var thrown = ExpectedException.none()
+
     @Test
     @Parameters(method = "provideInvalidViewCount")
-    fun show_invalid(expectedException: Throwable, viewCountValue: Int) {
-        thrown.expect(expectedException::class.java)
-        ViewCount(viewCountValue).show()
+    fun value_invalid(value: Int) {
+        thrown.expect(IllegalArgumentException::class.java)
+        ViewCount(value)
     }
 
     fun provideInvalidViewCount(): Array<Array<out Any>> =
             arrayOf(
-                    arrayOf(IllegalStateException(), -1),
-                    arrayOf(IllegalStateException(), Int.MIN_VALUE)
+                    arrayOf(-1),
+                    arrayOf(Int.MIN_VALUE)
             )
 }
 

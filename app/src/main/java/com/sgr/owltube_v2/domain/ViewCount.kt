@@ -4,6 +4,10 @@ import java.text.NumberFormat
 
 /** 視聴回数 */
 data class ViewCount(private val value: Int) {
+    init {
+        require(value >= 0)
+    }
+
     /**
      * 億単位、万単位がある
      * 3桁目にカンマがある
@@ -12,8 +16,7 @@ data class ViewCount(private val value: Int) {
         in 10000 * 10000..Int.MAX_VALUE -> (value / (10000 * 10000)).putComma() + "億回"
         in 10000 until 10000 * 10000 -> (value / 10000).putComma() + "万回"
         in 0 until 10000 -> value.putComma() + "回"
-        in Int.MIN_VALUE until 0 -> error("invalid value: ${value}")
-        else -> error("unreachable")
+        else -> error("unreachable: $value")
     }
 
     /**
