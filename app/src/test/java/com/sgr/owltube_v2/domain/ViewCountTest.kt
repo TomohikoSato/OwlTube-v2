@@ -1,16 +1,26 @@
 package com.sgr.owltube_v2.domain
 
-import junitparams.JUnitParamsRunner
-import junitparams.Parameters
-import org.junit.Assert.assertEquals
-import org.junit.Rule
+import junit.framework.Assert
 import org.junit.Test
-import org.junit.rules.ExpectedException
-import org.junit.runner.RunWith
 
-@RunWith(JUnitParamsRunner::class)
 class ViewCountTest {
     @Test
+    fun show() {
+        Assert.assertEquals("21億回", ViewCount(Int.MAX_VALUE).show())
+        Assert.assertEquals("1億回", ViewCount(100000000).show())
+        Assert.assertEquals("9,999万回", ViewCount(99999999).show())
+        Assert.assertEquals("4,952万回", ViewCount(49521346).show())
+        Assert.assertEquals("36万回", ViewCount(362940).show())
+        Assert.assertEquals("1万回", ViewCount(10000).show())
+        Assert.assertEquals("9999", ViewCount(9999).show())
+        Assert.assertEquals("583回", ViewCount(583).show())
+        Assert.assertEquals("100回", ViewCount(100).show())
+        Assert.assertEquals("28回", ViewCount(28).show())
+        Assert.assertEquals("1回", ViewCount(1).show())
+        Assert.assertEquals("0回", ViewCount(1).show())
+    }
+
+/*    @Test
     @Parameters(method = "provideViewCount")
     fun show(expected: String, viewCountValue: Int) {
         assertEquals(expected, ViewCount(viewCountValue).show())
@@ -48,6 +58,7 @@ class ViewCountTest {
                     arrayOf(-1),
                     arrayOf(Int.MIN_VALUE)
             )
+            */
 }
 
 
